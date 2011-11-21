@@ -16,6 +16,9 @@ end
 
 gem 'jquery-rails'
 
+# JavaScript runtime environment (required by rspc install)
+gem 'therubyracer'
+
 # Twitter bootstrap from anjlab
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 
