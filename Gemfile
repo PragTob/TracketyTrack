@@ -34,6 +34,11 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+group :development do
+  # Annotate models with the current db schema
+  gem 'annotate'
+end
+
 group :test, :development do
   gem 'rspec-rails'
 end
