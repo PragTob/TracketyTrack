@@ -1,0 +1,31 @@
+<h1>Listing user_stories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Acceptance criteria</th>
+    <th>Priority</th>
+    <th>Estimation</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @user_stories.each do |user_story| %>
+  <tr>
+    <td><%= user_story.name %></td>
+    <td><%= user_story.description %></td>
+    <td><%= user_story.acceptance_criteria %></td>
+    <td><%= user_story.priority %></td>
+    <td><%= user_story.estimation %></td>
+    <td><%= link_to 'Show', user_story %></td>
+    <td><%= link_to 'Edit', edit_user_story_path(user_story) %></td>
+    <td><%= link_to 'Destroy', user_story, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User story', new_user_story_path %>

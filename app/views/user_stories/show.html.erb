@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @user_story.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @user_story.description %>
+</p>
+
+<p>
+  <b>Acceptance criteria:</b>
+  <%= @user_story.acceptance_criteria %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%= @user_story.priority %>
+</p>
+
+<p>
+  <b>Estimation:</b>
+  <%= @user_story.estimation %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_story_path(@user_story) %> |
+<%= link_to 'Back', user_stories_path %>
