@@ -2,13 +2,7 @@ require 'spec_helper'
 
 describe "user_stories/new.html.erb" do
   before(:each) do
-    assign(:user_story, stub_model(UserStory,
-      :name => "MyString",
-      :description => "MyText",
-      :acceptance_criteria => "MyText",
-      :priority => "",
-      :estimation => ""
-    ).as_new_record)
+    @user_story = Factory(:user_story)
   end
 
   it "renders new user_story form" do
@@ -24,3 +18,4 @@ describe "user_stories/new.html.erb" do
     end
   end
 end
+

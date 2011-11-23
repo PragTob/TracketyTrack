@@ -2,13 +2,7 @@ require 'spec_helper'
 
 describe "user_stories/edit.html.erb" do
   before(:each) do
-    @user_story = assign(:user_story, stub_model(UserStory,
-      :name => "MyString",
-      :description => "MyText",
-      :acceptance_criteria => "MyAcceptanceCriteria",
-      :priority => "1",
-      :estimation => "2"
-    ))
+    @user_story = Factory(:user_story)
   end
 
   it "renders the edit user_story form" do

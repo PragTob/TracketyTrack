@@ -20,41 +20,42 @@ require 'spec_helper'
 
 describe UserStoriesController do
 
+  before :each do
+    @user_story = Factory(:user_story)
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # UserStory. As you add validations to UserStory, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {name: "My User Story"}
   end
 
   describe "GET index" do
     it "assigns all user_stories as @user_stories" do
-      user_story = UserStory.create! valid_attributes
       get :index
-      assigns(:user_stories).should eq([user_story])
+      assigns(:user_stories).should eq([@user_story])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested user_story as @user_story" do
-      user_story = UserStory.create! valid_attributes
-      get :show, :id => user_story.id
-      assigns(:user_story).should eq(user_story)
+    it "assigns the requested @user_story as @@user_story" do
+      get :show, :id => @user_story.id
+      assigns(:user_story).should eq(@user_story)
     end
   end
 
   describe "GET new" do
-    it "assigns a new user_story as @user_story" do
+    it "assigns a new @user_story as @@user_story" do
       get :new
       assigns(:user_story).should be_a_new(UserStory)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested user_story as @user_story" do
-      user_story = UserStory.create! valid_attributes
-      get :edit, :id => user_story.id
-      assigns(:user_story).should eq(user_story)
+    it "assigns the requested @user_story as @@user_story" do
+      get :edit, :id => @user_story.id
+      assigns(:user_story).should eq(@user_story)
     end
   end
 
@@ -66,20 +67,20 @@ describe UserStoriesController do
         }.to change(UserStory, :count).by(1)
       end
 
-      it "assigns a newly created user_story as @user_story" do
+      it "assigns a newly created @user_story as @@user_story" do
         post :create, :user_story => valid_attributes
         assigns(:user_story).should be_a(UserStory)
         assigns(:user_story).should be_persisted
       end
 
-      it "redirects to the created user_story" do
+      it "redirects to the created @user_story" do
         post :create, :user_story => valid_attributes
         response.should redirect_to(UserStory.last)
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved user_story as @user_story" do
+      it "assigns a newly created but unsaved @user_story as @@user_story" do
         # Trigger the behavior that occurs when invalid params are submitted
         UserStory.any_instance.stub(:save).and_return(false)
         post :create, :user_story => {}
@@ -97,61 +98,55 @@ describe UserStoriesController do
 
   describe "PUT update" do
     describe "with valid params" do
-      it "updates the requested user_story" do
-        user_story = UserStory.create! valid_attributes
+      it "updates the requested @user_story" do
         # Assuming there are no other user_stories in the database, this
         # specifies that the UserStory created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         UserStory.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => user_story.id, :user_story => {'these' => 'params'}
+        put :update, :id => @user_story.id, :user_story => {'these' => 'params'}
       end
 
-      it "assigns the requested user_story as @user_story" do
-        user_story = UserStory.create! valid_attributes
-        put :update, :id => user_story.id, :user_story => valid_attributes
-        assigns(:user_story).should eq(user_story)
+      it "assigns the requested @user_story as @@user_story" do
+        put :update, :id => @user_story.id, :user_story => valid_attributes
+        assigns(:user_story).should eq(@user_story)
       end
 
-      it "redirects to the user_story" do
-        user_story = UserStory.create! valid_attributes
-        put :update, :id => user_story.id, :user_story => valid_attributes
-        response.should redirect_to(user_story)
+      it "redirects to the @user_story" do
+        put :update, :id => @user_story.id, :user_story => valid_attributes
+        response.should redirect_to(@user_story)
       end
     end
 
     describe "with invalid params" do
-      it "assigns the user_story as @user_story" do
-        user_story = UserStory.create! valid_attributes
+      it "assigns the @user_story as @@user_story" do
         # Trigger the behavior that occurs when invalid params are submitted
         UserStory.any_instance.stub(:save).and_return(false)
-        put :update, :id => user_story.id, :user_story => {}
-        assigns(:user_story).should eq(user_story)
+        put :update, :id => @user_story.id, :user_story => {}
+        assigns(:user_story).should eq(@user_story)
       end
 
       it "re-renders the 'edit' template" do
-        user_story = UserStory.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         UserStory.any_instance.stub(:save).and_return(false)
-        put :update, :id => user_story.id, :user_story => {}
+        put :update, :id => @user_story.id, :user_story => {}
         response.should render_template("edit")
       end
     end
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested user_story" do
-      user_story = UserStory.create! valid_attributes
+    it "destroys the requested @user_story" do
       expect {
-        delete :destroy, :id => user_story.id
+        delete :destroy, :id => @user_story.id
       }.to change(UserStory, :count).by(-1)
     end
 
     it "redirects to the user_stories list" do
-      user_story = UserStory.create! valid_attributes
-      delete :destroy, :id => user_story.id
+      delete :destroy, :id => @user_story.id
       response.should redirect_to(user_stories_url)
     end
   end
 
 end
+
