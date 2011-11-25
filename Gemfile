@@ -36,7 +36,7 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 
 group :development do
   # Annotate models with the current db schema
-  gem 'annotate'
+  gem 'annotate', '~> 2.4.1.beta1'
 end
 
 group :test, :development do

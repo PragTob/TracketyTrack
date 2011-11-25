@@ -32,7 +32,7 @@ GEM
     anjlab-bootstrap-rails (1.4.0.8)
       railties (~> 3.0)
       thor (~> 0.14)
-    annotate (2.4.0)
+    annotate (2.4.1.beta1)
     ansi (1.4.1)
     arel (2.2.1)
     builder (3.0.0)
@@ -156,7 +156,7 @@ PLATFORMS
 
 DEPENDENCIES
   anjlab-bootstrap-rails
-  annotate
+  annotate (~> 2.4.1.beta1)
   capybara
   coffee-rails (~> 3.1.1)
   factory_girl_rails
