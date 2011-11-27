@@ -8,3 +8,8 @@ Factory.define :user_story do |user_story|
   user_story.estimation           4
 end
 
+Factory.define :user do |user|
+  user.name         "User"
+  user.email        "user@example.com"
+  user.description  ""
+end
