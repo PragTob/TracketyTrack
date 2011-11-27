@@ -1,4 +1,6 @@
 TracketyTrack::Application.routes.draw do
+  resources :users
+
   resources :user_stories
 
   # The priority is based upon order of creation:
