@@ -26,5 +26,11 @@ FactoryGirl.define do
     role.name   "Special"
   end
 
+  factory :project do |project|
+    project.name            "TheProject"
+    project.description     "This is a very awesome project."
+    project.repository_url  "http://example.com"
+  end
+
 end
 
