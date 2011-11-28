@@ -24,5 +24,10 @@ describe Project do
     Project.new(@valid_attributes.merge(title: nil)).should_not be_valid
   end
 
+  it "exists only maximum one project at a time" do
+    @project.save
+    Project.create(@valid_attributes).should_not be_valid
+  end
+
 end
 

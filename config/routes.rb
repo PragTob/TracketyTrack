@@ -1,5 +1,5 @@
 TracketyTrack::Application.routes.draw do
-  get "page/index"
+  get "page/index", :as => "overview"
 
   resources :projects
 
