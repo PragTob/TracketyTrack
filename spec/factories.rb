@@ -11,6 +11,7 @@ FactoryGirl.define do
   factory :user do |user|
     user.name         "User"
     user.email        "user@example.com"
+    user.description  "This is the example user."
   end
 
   factory :other_user, class: "user" do |user|

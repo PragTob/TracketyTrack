@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe "users/new.html.erb" do
   before(:each) do
-    assign(:user, stub_model(User,
-      :name => "MyString",
-      :email => "MyString",
-      :description => "MyText"
-    ).as_new_record)
+    @user = Factory(:user)
   end
 
   it "renders new user form" do
