@@ -1,4 +1,6 @@
 TracketyTrack::Application.routes.draw do
+  get "page/index"
+
   resources :projects
 
   resources :users

@@ -12,7 +12,7 @@
 
 <% @projects.each do |project| %>
   <tr>
-    <td><%= project.titel %></td>
+    <td><%= project.title %></td>
     <td><%= project.description %></td>
     <td><%= project.repository_url %></td>
     <td><%= link_to 'Show', project %></td>
@@ -25,3 +25,4 @@
 <br />
 
 <%= link_to 'New Project', new_project_path %>
+

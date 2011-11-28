@@ -71,11 +71,6 @@ describe ProjectsController do
         assigns(:project).should be_a(Project)
         assigns(:project).should be_persisted
       end
-
-      it "redirects to the created project" do
-        post :create, :project => valid_attributes
-        response.should redirect_to(Project.last)
-      end
     end
 
     describe "with invalid params" do
