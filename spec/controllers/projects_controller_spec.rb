@@ -24,7 +24,7 @@ describe ProjectsController do
   # Project. As you add validations to Project, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    Factory.attributes_for(:project)
   end
 
   describe "GET index" do
@@ -155,3 +155,4 @@ describe ProjectsController do
   end
 
 end
+

@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20111128103514) do
 
   create_table "projects", :force => true do |t|
-    t.string   "titel"
+    t.string   "title"
     t.text     "description"
     t.string   "repository_url"
     t.datetime "created_at"

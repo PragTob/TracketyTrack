@@ -21,12 +21,8 @@ describe Project do
   end
 
   it "is invalid without a name" do
-    Project.new(valid_attributes.merge(title: nil)).should_not be_valid
+    Project.new(@valid_attributes.merge(title: nil)).should_not be_valid
   end
 
-  it "can have a user assigned" do
-    @project.user = @user
-    @project.user.should_not be_nil
-  end
 end
 

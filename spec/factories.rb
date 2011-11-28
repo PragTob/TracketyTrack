@@ -27,7 +27,7 @@ FactoryGirl.define do
   end
 
   factory :project do |project|
-    project.name            "TheProject"
+    project.title           "TheProject"
     project.description     "This is a very awesome project."
     project.repository_url  "http://example.com"
   end

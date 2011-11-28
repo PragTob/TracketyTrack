@@ -1,7 +1,7 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
-      t.string :titel
+      t.string :title
       t.text :description
       t.string :repository_url
 
@@ -9,3 +9,4 @@ class CreateProjects < ActiveRecord::Migration
     end
   end
 end
+
