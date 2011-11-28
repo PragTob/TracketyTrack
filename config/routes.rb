@@ -1,4 +1,6 @@
 TracketyTrack::Application.routes.draw do
+  match "project/register", :as => :register
+
   resources :users
 
   resources :user_stories
@@ -60,3 +62,4 @@ TracketyTrack::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+
