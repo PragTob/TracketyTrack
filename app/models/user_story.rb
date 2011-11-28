@@ -1,4 +1,7 @@
 class UserStory < ActiveRecord::Base
+  # just the name is needed, as sometimes one wants to add a new user story fast
+  # without description etc.
+  validates :name, presence: true
 end
 # == Schema Information
 #
