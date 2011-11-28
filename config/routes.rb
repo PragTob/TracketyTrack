@@ -1,4 +1,6 @@
 TracketyTrack::Application.routes.draw do
+  resources :projects
+
   match "project/register", :as => :register
 
   resources :users
