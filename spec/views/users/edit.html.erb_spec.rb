@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe "users/edit.html.erb" do
   before(:each) do
-    @user = assign(:user, stub_model(User,
-      :name => "MyString",
-      :email => "MyString",
-      :description => "MyText"
-    ))
+    @user = Factory(:user)
   end
 
   it "renders the edit user form" do
