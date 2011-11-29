@@ -41,7 +41,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'rcov'
+  gem 'simplecov'
 end
 
 group :test do
