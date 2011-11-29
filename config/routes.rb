@@ -1,5 +1,6 @@
 TracketyTrack::Application.routes.draw do
   get "page/index", :as => "overview"
+  root to: 'page#index'
 
   resources :projects
 
@@ -56,7 +57,6 @@ TracketyTrack::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
