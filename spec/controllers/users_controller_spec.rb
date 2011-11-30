@@ -28,7 +28,7 @@ describe UsersController do
   # User. As you add validations to User, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {name: "user", email: "user1@example.com"}
+    Factory.attributes_for(:other_user)
   end
 
   describe "GET index" do
@@ -149,3 +149,4 @@ describe UsersController do
   end
 
 end
+
