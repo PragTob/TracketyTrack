@@ -12,6 +12,7 @@ describe User do
   it{should respond_to :name}
   it{should respond_to :email}
   it{should respond_to :description}
+  it{should respond_to :user_stories}
 
   context "given valid attributes" do
     it { should be_valid }

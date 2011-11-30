@@ -1,11 +1,13 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :projects
+  has_many :user_stories
 
-  validates :name,  :presence => true
-  validates :email, :presence => true,
-                    :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i},
-                    :uniqueness => true, :on => :create
+  validates :name,  presence: true
+  validates :email, presence: true,
+                    format: {with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i},
+                    uniqueness: true,
+                    on: :create
 end
 # == Schema Information
 #
