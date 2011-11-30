@@ -41,6 +41,7 @@ class UserStoriesController < ApplicationController
   # POST /user_stories.json
   def create
     @user_story = UserStory.new(params[:user_story])
+    @user_story.status = "inactive"
 
     respond_to do |format|
       if @user_story.save
@@ -80,4 +81,21 @@ class UserStoriesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # POST /user_stories/1
+  def start
+    @user_story = UserStory.find(params[:id])
+    @user = User.find(params[:user_id])
+    @user_story.status = "active"
+    @user_story.user = @user
+    @user.user_stories << @user_story
+    @user_story.save
+    @user.save
+
+    respond_to do |format|
+      format.html { redirect_to @user_story }
+      format.json { head :ok }
+    end
+  end
 end
+

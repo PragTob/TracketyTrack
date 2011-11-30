@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20111130141329) do
     t.integer  "estimation"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

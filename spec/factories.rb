@@ -6,6 +6,7 @@ FactoryGirl.define do
     user_story.acceptance_criteria  "It needs to fulfill the task"
     user_story.priority             3
     user_story.estimation           4
+    user_story.status               "inactive"
   end
 
   factory :user do |user|

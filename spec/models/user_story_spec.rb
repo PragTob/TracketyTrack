@@ -13,14 +13,23 @@ describe UserStory do
   it { should respond_to :acceptance_criteria }
   it { should respond_to :priority }
   it { should respond_to :estimation }
+  it { should respond_to :status }
+  it { should respond_to :user }
   it { should be_valid }
+
+  context "when being saved" do
+    before{ @user_story.save }
+    it { should be_persisted }
+    after{ @user_story.destroy }
+  end
 
   it "is invalid without a name" do
     UserStory.new.should_not be_valid
   end
 
-  it "needs a name to be valid" do
-    UserStory.new(name: "Work! Work!").should be_valid
+  context "with a status unlike inactive, active, or completed" do
+    before{ @user_story.status = "foo" }
+    it {should_not be_valid}
   end
 
 end
