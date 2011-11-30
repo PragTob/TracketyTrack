@@ -36,6 +36,9 @@
         </div>
         <div class="row">
           <div class="span10">
+          <% flash.each do |key, value| %>
+            <div class="alert-message <%= key %>"><%= value %></div>
+          <% end %>
             <%= yield %>
           </div>
         </div>
