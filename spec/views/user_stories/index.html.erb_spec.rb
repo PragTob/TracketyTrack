@@ -37,10 +37,23 @@ describe "user_stories/index.html.erb" do
     rendered.should_not have_button("Re-Start")
   end
 
+  it "shows a 'Complete' button if a user story is active" do
+    @user_story.update_attributes(status: "active")
+    assign(:user_story, @user_story)
+    render
+    rendered.should have_button("Complete")
+  end
+
   it "shows only one 'Start' button per inactive/completed user story" do
     assign(:user_stories, [@user_story, @another_user_story])
     render
     assert_select "input", :type => "submit", :value => "Start", :count => 1
+  end
+
+  it "shows only one 'Complete' button per active user story" do
+    assign(:user_stories, [@user_story, @another_user_story])
+    render
+    assert_select "input", :type => "submit", :value => "Complete", :count => 1
   end
 
 end

@@ -170,5 +170,12 @@ describe UserStoriesController do
     end
   end
 
+  describe "POST complete" do
+    it "changes user story status to completed" do
+      post :complete, :id => @user_story.id
+      UserStory.find(@user_story.id).status.should == "completed"
+    end
+  end
+
 end
 

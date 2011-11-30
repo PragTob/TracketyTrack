@@ -97,5 +97,17 @@ class UserStoriesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # POST /user_stories/1
+  def complete
+    @user_story = UserStory.find(params[:id])
+    @user_story.status = "completed"
+    @user_story.save
+
+    respond_to do |format|
+      format.html { redirect_to @user_story }
+      format.json { head :ok }
+    end
+  end
 end
 
