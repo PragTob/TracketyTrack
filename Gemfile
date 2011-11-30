@@ -37,13 +37,13 @@ gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 group :development do
   # Annotate models with the current db schema
   gem 'annotate', '~> 2.4.1.beta1'
+  gem 'guard-rspec'
+  gem 'libnotify'
 end
 
 group :test, :development do
   gem 'rspec-rails'
   gem 'simplecov'
-  gem 'ZenTest'
-  gem 'autotest-rails'
 end
 
 group :test do
