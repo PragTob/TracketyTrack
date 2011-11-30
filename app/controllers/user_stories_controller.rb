@@ -41,6 +41,7 @@ class UserStoriesController < ApplicationController
   # POST /user_stories.json
   def create
     @user_story = UserStory.new(params[:user_story])
+    @user_story.status = "inactive"
 
     respond_to do |format|
       if @user_story.save
