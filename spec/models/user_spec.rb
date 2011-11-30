@@ -3,6 +3,10 @@ require 'spec_helper'
 # TODO: demonstrate better tests tomorrow
 describe User do
 
+  before :all do
+    @attr = Factory.attributes_for(:user)
+  end
+
   before(:each) do
     @user = Factory.build(:user)
   end
@@ -91,7 +95,7 @@ describe User do
                     password_confirmation: longie).should_not be_valid
     end
 
-    describe "with encrypted password" do
+    describe "an already saved user" do
 
       before :each do
         @saved_user = Factory(:user)
@@ -112,6 +116,25 @@ describe User do
 
       it "should set the encrypted password" do
         @saved_user.encrypted_password.should_not be_blank
+      end
+
+      describe "authenticate method" do
+
+        it "should return nil on email/password mismatch" do
+          wrong_password_user = User.authenticate(@attr[:email], "wrongpass")
+          wrong_password_user.should be_nil
+        end
+
+        it "should return nil for an email address with no user" do
+          nonexistent_user = User.authenticate("bar@foo.com", @attr[:password])
+          nonexistent_user.should be_nil
+        end
+
+        it "should return the user on email/password match" do
+          matching_user = User.authenticate(@attr[:email], @attr[:password])
+          matching_user.should == @saved_user
+        end
+
       end
 
     end
