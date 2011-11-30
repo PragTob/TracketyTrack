@@ -4,7 +4,7 @@ class ProjectValidator < ActiveModel::Validator
       record.errors.add(:base, "It is not possible to create more than one project")
     end
   end
- end
+end
 
 class Project < ActiveRecord::Base
   include ActiveModel::Validations

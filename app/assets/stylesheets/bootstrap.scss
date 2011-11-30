@@ -1,0 +1,34 @@
+// Create app/assets/stylesheets/bootstrap.scss
+// CSS Reset
+@import "reset.scss";
+
+// Core variables and mixins
+@import "variables.scss"; // Modify this for custom colors, font-sizes, etc
+
+$basefont: 14px;
+$baseline: 18px;
+
+@import "mixins.scss";
+
+// Grid system and page structure
+@import "scaffolding.scss";
+
+// Styled patterns and elements
+@import "type.scss";
+@import "forms.scss";
+@import "tables.scss";
+@import "patterns.scss";
+
+//Adjusting Bootstrap view
+form .clearfix .errorField input,
+form .clearfix .errorField textarea {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+
+form .clearfix .errorField > label,
+form .clearfix .errorField .help-block,
+form .clearfix .errorField .help-inline {
+  color: #b94a48;
+}
+

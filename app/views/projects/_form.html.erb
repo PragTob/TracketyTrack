@@ -1,7 +1,7 @@
 <%= form_for(@project) do |f| %>
   <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+    <div class="alert-message block-message error">
+      <h4><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h4>
 
       <ul>
       <% @project.errors.full_messages.each do |msg| %>
@@ -9,22 +9,30 @@
       <% end %>
       </ul>
     </div>
+  <br />
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+  <div class="clearfix">
+    <%= f.label :title %>
+    <div class="input">
+      <%= f.text_field :title, :class => 'span6' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="clearfix">
+    <%= f.label :description %>
+    <div class="input">
+      <%= f.text_area :description, :class => 'span8 description' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :repository_url %><br />
-    <%= f.text_field :repository_url %>
+  <div class="clearfix">
+    <%= f.label :repository_url %>
+    <div class="input">
+      <%= f.text_field :repository_url, :class => 'span6' %>
+    </div>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn primary' %>
   </div>
 <% end %>
 
