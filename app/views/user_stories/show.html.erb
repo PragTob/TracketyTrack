@@ -30,6 +30,8 @@
     <%= button_to "Start", {action: 'start', id: @user_story.id, user_id: 1}%>
   <% elsif @user_story.status == "completed" %>
     <%= button_to "Re-Start", {action: 'start', id: @user_story.id, user_id: 1}%>
+  <% elsif @user_story.status == "active" %>
+    <%= button_to "Complete", {action: 'complete', id: @user_story.id, user_id: 1}%>
   <%end%>
 </p>
 

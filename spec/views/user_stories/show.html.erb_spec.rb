@@ -39,5 +39,12 @@ describe "user_stories/show.html.erb" do
     rendered.should_not have_button("Re-Start")
   end
 
+  it "shows a 'Complete' button if the user story is active" do
+    @user_story.update_attributes(status: "active")
+    assign(:user_story, @user_story)
+    render
+    rendered.should have_button("Complete")
+  end
+
 end
 

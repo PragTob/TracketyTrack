@@ -1,6 +1,7 @@
 TracketyTrack::Application.routes.draw do
   get "page/index", :as => "overview"
   post "user_stories/start"
+  post "user_stories/complete"
   root to: 'page#index'
 
   resources :projects

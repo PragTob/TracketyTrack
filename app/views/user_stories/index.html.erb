@@ -22,6 +22,15 @@
     <td><%= link_to 'Show', user_story %></td>
     <td><%= link_to 'Edit', edit_user_story_path(user_story) %></td>
     <td><%= link_to 'Destroy', user_story, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+    <% if user_story.status == "inactive" %>
+      <%= button_to "Start", {action: 'start', id: user_story.id, user_id: 1}%>
+    <% elsif user_story.status == "completed" %>
+      <%= button_to "Re-Start", {action: 'start', id: user_story.id, user_id: 1}%>
+    <% elsif @user_story.status == "active" %>
+      <%= button_to "Complete", {action: 'complete', id: @user_story.id, user_id: 1}%>
+    <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
@@ -29,3 +38,4 @@
 <br />
 
 <%= link_to 'New User story', new_user_story_path %>
+
