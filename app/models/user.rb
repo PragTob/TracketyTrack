@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :projects
+  has_many :user_stories
 
   validates :name,  presence: true
   validates :email, presence: true,

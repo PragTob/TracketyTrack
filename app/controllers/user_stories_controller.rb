@@ -80,4 +80,21 @@ class UserStoriesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # POST /user_stories/1
+  def start
+    @user_story = UserStory.find(params[:id])
+    @user = User.find(params[:user_id])
+    @user_story.status = "active"
+    @user_story.user = @user
+    @user.user_stories << @user_story
+    @user_story.save
+    @user.save
+
+    respond_to do |format|
+      format.html { redirect_to @user_story }
+      format.json { head :ok }
+    end
+  end
 end
+

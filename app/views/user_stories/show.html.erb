@@ -25,6 +25,15 @@
   <%= @user_story.estimation %>
 </p>
 
+<p>
+  <% if @user_story.status == "inactive" %>
+    <%= button_to "Start", {action: 'start'}%>
+  <% elsif @user_story.status == "completed" %>
+    <%= button_to "Re-Start", {action: 'start'}%>
+  <%end%>
+</p>
+
 
 <%= link_to 'Edit', edit_user_story_path(@user_story) %> |
 <%= link_to 'Back', user_stories_path %>
+

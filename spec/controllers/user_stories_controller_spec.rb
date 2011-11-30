@@ -21,14 +21,18 @@ require 'spec_helper'
 describe UserStoriesController do
 
   before :each do
-    @user_story = Factory(:user_story)
+    @user_story = Factory(:user_story, :status => "inactive")
+  end
+
+  after :each do
+    @user_story.destroy
   end
 
   # This should return the minimal set of attributes required to create a valid
   # UserStory. As you add validations to UserStory, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {name: "My User Story"}
+    Factory.attributes_for(:user_story)
   end
 
   describe "GET index" do
@@ -103,8 +107,8 @@ describe UserStoriesController do
         # specifies that the UserStory created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        UserStory.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => @user_story.id, :user_story => {'these' => 'params'}
+        UserStory.any_instance.should_receive(:update_attributes).with({'name' => 'Test'})
+        put :update, :id => @user_story.id, :user_story => {'name' => 'Test'}
       end
 
       it "assigns the requested @user_story as @@user_story" do
@@ -145,6 +149,24 @@ describe UserStoriesController do
     it "redirects to the user_stories list" do
       delete :destroy, :id => @user_story.id
       response.should redirect_to(user_stories_url)
+    end
+  end
+
+  describe "POST start" do
+    before{ @user = Factory(:user) }
+    it "changes user story status to active" do
+      post :start, :id => @user_story.id, :user_id => @user.id
+      UserStory.find(@user_story.id).status.should == "active"
+    end
+
+    it "assigns user story to user" do
+      post :start, :id => @user_story.id, :user_id => @user.id
+      UserStory.find(@user_story.id).user.should == @user
+    end
+
+    it "redirect to user story's page" do
+      post :start, :id => @user_story.id, :user_id => @user.id
+      response.should redirect_to(@user_story)
     end
   end
 
