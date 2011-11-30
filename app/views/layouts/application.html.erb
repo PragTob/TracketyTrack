@@ -19,12 +19,11 @@
             <li><a href="#contact">Contact</a></li>
             <li><%= link_to 'Register', new_user_path %></li>
           </ul>
-          <form action="" class="pull-right">
-            <input class="input-small" type="text" placeholder="Username">
-
-            <input class="input-small" type="password" placeholder="Password">
-            <button class="btn" type="submit">Sign in</button>
-          </form>
+          <%= form_for(:session, url: sessions_path, class: "pull-right") do |f| %>
+              <%= f.text_field :email, class: "input-small", placeholder: "Email" %>
+              <%= f.password_field :password, class: "input-small", placeholder: "Username" %>
+              <%= f.submit "Sign in" %>
+          <% end %>
         </div>
       </div>
     </div>
