@@ -19,10 +19,12 @@
             <li><a href="#contact">Contact</a></li>
             <li><%= link_to 'Register', new_user_path %></li>
           </ul>
-          <%= form_for(:session, url: sessions_path, class: "pull-right") do |f| %>
-              <%= f.text_field :email, class: "input-small", placeholder: "Email" %>
-              <%= f.password_field :password, class: "input-small", placeholder: "Password" %>
-              <%= f.submit "Sign in" %>
+          <% if @outlogged || !signed_in? %>
+            <%= form_for(:session, url: sessions_path, class: "pull-right") do |f| %>
+                <%= f.text_field :email, class: "input-small", placeholder: "Email" %>
+                <%= f.password_field :password, class: "input-small", placeholder: "Password" %>
+                <%= f.submit "Sign in" %>
+            <% end %>
           <% end %>
         </div>
       </div>
