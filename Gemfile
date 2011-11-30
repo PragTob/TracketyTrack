@@ -42,6 +42,8 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'ZenTest'
+  gem 'autotest-rails'
 end
 
 group :test do
