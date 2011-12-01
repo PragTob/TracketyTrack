@@ -17,9 +17,13 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><%= link_to 'Register', new_user_path %></li>
+            <li><%= link_to 'Register', new_user_path unless signed_in? %></li>
           </ul>
-          <% if @outlogged || !signed_in? %>
+          <% if signed_in? %>
+            <%= form_for(:session, url: signout_path, class: "pull-right") do |f| %>
+                <%= f.submit "Logout" %>
+            <% end %>
+          <% else %>
             <%= form_for(:session, url: sessions_path, class: "pull-right") do |f| %>
                 <%= f.text_field :email, class: "input-small", placeholder: "Email" %>
                 <%= f.password_field :password, class: "input-small", placeholder: "Password" %>

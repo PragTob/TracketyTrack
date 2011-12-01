@@ -8,7 +8,6 @@ describe "user_stories/new.html.erb" do
   it "renders new user_story form" do
     render
 
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => user_stories_path, :method => "post" do
       assert_select "input#user_story_name", :name => "user_story[name]"
       assert_select "textarea#user_story_description", :name => "user_story[description]"
