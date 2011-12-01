@@ -6,10 +6,6 @@ describe UserStoriesController do
     @user_story = Factory(:user_story, :status => "inactive")
   end
 
-  after :each do
-    @user_story.destroy
-  end
-
   # This should return the minimal set of attributes required to create a valid
   # UserStory. As you add validations to UserStory, be sure to
   # update the return value of this method accordingly.
