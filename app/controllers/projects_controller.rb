@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_filter :authenticate, only: [:edit, :destroy, :update]
+
   # GET /projects
   # GET /projects.json
   def index
