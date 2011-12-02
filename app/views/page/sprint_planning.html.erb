@@ -1,2 +1,27 @@
 <%= render 'header' %>
+<div class="row">
+
+  <div id="box_current_sprint" class="span8 userstory_box">
+    <div class="userstory_box_header">
+      CURRENT SPRINT
+    </div>
+    <div class="user_stories_container">
+    <% @user_stories_current_sprint.each do |user_story| %>
+      <%= render :partial => 'user_story_box', :locals => { :user_story => user_story } %>
+    <% end %>
+    </div>
+  </div>
+
+  <div id="box_backlog" class="span8 userstory_box">
+    <div class="userstory_box_header">
+      BACKLOG
+    </div>
+    <div class="user_stories_container">
+    <% @user_stories_in_backlog.each do |user_story| %>
+      <%= render :partial => 'user_story_box', :locals => { :user_story => user_story } %>
+    <% end %>
+    </div>
+  </div>
+
+</div>
 
