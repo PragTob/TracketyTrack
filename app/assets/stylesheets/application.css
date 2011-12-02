@@ -11,4 +11,10 @@
   height:40px;
   margin-bottom:30px;
 }
+.login legend{
+  padding:20px;
+}
+div .actions {
+  margin-top:40px;
+}
 
