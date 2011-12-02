@@ -1,4 +1,6 @@
 class UserStoriesController < ApplicationController
+  before_filter :authenticate
+
   # GET /user_stories
   # GET /user_stories.json
   def index
