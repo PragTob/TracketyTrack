@@ -15,6 +15,7 @@ describe UserStory do
   it { should respond_to :estimation }
   it { should respond_to :status }
   it { should respond_to :user }
+  it { should respond_to :sprint }
   it { should be_valid }
 
   context "when being saved" do

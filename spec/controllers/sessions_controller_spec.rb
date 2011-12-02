@@ -12,9 +12,9 @@ describe SessionsController do
         @attr = { :email => "email@example.com", :password => "invalid" }
       end
 
-      it "should redirect to the users page" do
+      it "should redirect to the signin page" do
         post :create, :session => @attr
-        response.should redirect_to users_path
+        response.should redirect_to signin_path
       end
 
       it "should have a flash message" do

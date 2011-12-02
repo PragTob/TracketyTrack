@@ -5,11 +5,11 @@ describe "sprints/index.html.erb" do
     assign(:sprints, [
       stub_model(Sprint,
         :number => 1,
-        :velocity => 1
+        :velocity => 2
       ),
       stub_model(Sprint,
         :number => 1,
-        :velocity => 1
+        :velocity => 2
       )
     ])
   end
@@ -22,3 +22,4 @@ describe "sprints/index.html.erb" do
     assert_select "tr>td", :text => 1.to_s, :count => 2
   end
 end
+

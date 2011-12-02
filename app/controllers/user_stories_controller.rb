@@ -1,4 +1,6 @@
 class UserStoriesController < ApplicationController
+  before_filter :authenticate
+
   # GET /user_stories
   # GET /user_stories.json
   def index
@@ -85,12 +87,11 @@ class UserStoriesController < ApplicationController
   # POST /user_stories/1
   def start
     @user_story = UserStory.find(params[:id])
-    @user = User.find(params[:user_id])
     @user_story.status = "active"
-    @user_story.user = @user
-    @user.user_stories << @user_story
+    @user_story.user = current_user
+    current_user.user_stories << @user_story
     @user_story.save
-    @user.save
+    current_user.save
 
     respond_to do |format|
       format.html { redirect_to @user_story }

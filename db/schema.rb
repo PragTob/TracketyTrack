@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201211112) do
+ActiveRecord::Schema.define(:version => 20111202114544) do
 
   create_table "projects", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20111201211112) do
     t.string   "repository_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "current_sprint_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -32,6 +33,15 @@ ActiveRecord::Schema.define(:version => 20111201211112) do
     t.integer "user_id"
   end
 
+  create_table "sprints", :force => true do |t|
+    t.integer  "number"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "velocity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user_stories", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -43,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20111201211112) do
     t.string   "status"
     t.integer  "user_id"
     t.string   "category"
+    t.integer  "sprint_id"
   end
 
   create_table "users", :force => true do |t|

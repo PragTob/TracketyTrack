@@ -42,5 +42,12 @@ FactoryGirl.define do
     project.repository_url  "http://example.com"
   end
 
+  factory :sprint do |sprint|
+    sprint.number       1
+    sprint.start_date   DateTime.strptime('2001-02-03T04:05:06+07:00', '%Y-%m-%dT%H:%M:%S%z')
+    sprint.end_date     DateTime.strptime('2001-02-10T04:05:06+07:00', '%Y-%m-%dT%H:%M:%S%z')
+    sprint.velocity     25
+  end
+
 end
 

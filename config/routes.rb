@@ -1,10 +1,14 @@
 TracketyTrack::Application.routes.draw do
+
   resources :sprints
 
-  get "page/index", :as => "overview"
   post "user_stories/start"
   post "user_stories/complete"
-  root to: 'page#index'
+
+  root to: "page#current_sprint"
+
+  get "/current_sprint", :to => 'page#current_sprint'
+  get "/sprint_planning", :to => 'page#sprint_planning'
 
   resources :projects
 

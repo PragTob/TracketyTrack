@@ -24,7 +24,7 @@ describe SprintsController do
   # Sprint. As you add validations to Sprint, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    Factory.attributes_for(:sprint)
   end
 
   describe "GET index" do
@@ -155,3 +155,4 @@ describe SprintsController do
   end
 
 end
+

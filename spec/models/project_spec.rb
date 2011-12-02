@@ -15,6 +15,7 @@ describe Project do
   it{should respond_to :title}
   it{should respond_to :description}
   it{should respond_to :repository_url}
+  it{should respond_to :current_sprint}
 
   it "can be created with valid attributes" do
     Project.new(@valid_attributes).should be_valid

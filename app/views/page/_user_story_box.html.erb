@@ -1,0 +1,14 @@
+<div class="user_story_box">
+  <% if user_story.status == "active" %>
+
+  <% end %>
+  <% if user_story.status == "inactive" %>
+    <div class="startbutton"><%= button_to "Start", {controller: 'user_stories', action: 'start', id: user_story.id, user_id: current_user}, class: 'btn success' %></div>
+  <% end %>
+  <% if user_story.status == "completed" %>
+
+  <% end %>
+
+  <%= user_story.name %>
+</div>
+
