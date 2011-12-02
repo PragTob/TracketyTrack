@@ -141,6 +141,7 @@ describe UserStoriesController do
       end
 
       it "assigns user story to user" do
+        test_sign_in(@user)
         post :start, :id => @user_story.id, :user_id => @user.id
         UserStory.find(@user_story.id).user.should == @user
       end
