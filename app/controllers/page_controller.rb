@@ -1,15 +1,4 @@
 class PageController < ApplicationController
-  def index
-    if Project.all.empty?
-      redirect_to new_project_path
-    elsif User.all.empty?
-      redirect_to new_user_path
-    else
-      @project = Project.first
-      render
-    end
-
-  end
 
   def current_sprint
     if Project.all.empty?
@@ -23,7 +12,7 @@ class PageController < ApplicationController
       @page = "current"
       render 'current_sprint'
     else
-      redirect_to root_path
+      redirect_to signin_path
     end
 
   end
