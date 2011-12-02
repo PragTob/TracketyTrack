@@ -10,23 +10,13 @@ describe PageController do
     Factory.attributes_for(:user)
   end
 
-  describe "GET 'index'" do
-    it "returns http success when already at least one user and one project exist" do
+  describe "GET 'sprint_planning'" do
+    it "returns success and renders sprint_planning if (project exists, user is signed in)" do
       Project.create! valid_project_attributes
-      User.create! valid_user_attributes
-      get 'index'
+      test_sign_in(Factory(:user))
+      get 'sprint_planning'
       response.should be_success
-    end
-
-    it "redirects to the new project page if no project was created" do
-      get :index
-      response.should redirect_to new_project_path
-    end
-
-    it "redirects to the new user page if a project was created and no user was created yet" do
-      Project.create! valid_project_attributes
-      get :index
-      response.should redirect_to new_user_path
+      response.should render_template("sprint_planning")
     end
 
   end
@@ -45,11 +35,18 @@ describe PageController do
       response.should redirect_to new_project_path
     end
 
-    it "redirects to the root page if no user is signed in and a project exists" do
+    it "redirects to the new user page if a project was created and no user was created yet" do
       Project.create! valid_project_attributes
+      get :current_sprint
+      response.should redirect_to new_user_path
+    end
+
+    it "redirects to the sign_in page if no user is signed in and a project exists" do
+      Project.create! valid_project_attributes
+      User.create! valid_user_attributes
       controller.should_not be_signed_in
       get 'current_sprint'
-      response.should redirect_to root_path
+      response.should redirect_to signin_path
     end
 
   end
