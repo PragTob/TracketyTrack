@@ -1,4 +1,4 @@
-<div class="user_story_planning_box">
+<div class="user_story_box">
   <% if backlog %>
     <div class="button"><%= button_to "To Current Sprint", {controller: 'user_stories', action: 'assign_sprint', id: user_story.id}, method: "put", class: 'btn success' %></div>
   <% else %>
