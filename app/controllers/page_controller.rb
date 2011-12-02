@@ -28,7 +28,20 @@ class PageController < ApplicationController
     render 'sprint_planning'
   end
 
-  protected
+  # TODO: Remove me!!
+  def create_demo_sprint
+    @project = Project.first
+    @sprint = Sprint.new(number: 1, start_date: 1.day.ago, end_date: Time.now, velocity: 1)
+    @sprint.save
+    @project.update_attributes(current_sprint: @sprint)
+
+    respond_to do |format|
+      format.html { redirect_to "/sprint_planning" }
+      format.json { head :ok }
+    end
+  end
+
+  private
     def redirect_and_login_check
       if Project.all.empty?
         redirect_to new_project_path

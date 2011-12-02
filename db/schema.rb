@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(:version => 20111202114544) do
     t.datetime "updated_at"
     t.string   "status"
     t.integer  "user_id"
-    t.string   "category"
     t.integer  "sprint_id"
   end
 

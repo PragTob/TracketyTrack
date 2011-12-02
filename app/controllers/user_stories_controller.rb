@@ -118,7 +118,7 @@ class UserStoriesController < ApplicationController
     @sprint = Project.first.current_sprint
     set_sprint(params[:id], @sprint)
     respond_to do |format|
-      format.html { redirect_to "page/sprint_planning" }
+      format.html { redirect_to "/sprint_planning" }
       format.json { head :ok }
     end
   end
@@ -128,7 +128,7 @@ class UserStoriesController < ApplicationController
     set_sprint(params[:id], nil)
 
     respond_to do |format|
-      format.html { redirect_to "page/sprint_planning" }
+      format.html { redirect_to "/sprint_planning" }
       format.json { head :ok }
     end
   end

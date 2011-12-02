@@ -12,6 +12,9 @@ TracketyTrack::Application.routes.draw do
   get "/current_sprint", :to => 'page#current_sprint'
   get "/sprint_planning", :to => 'page#sprint_planning'
 
+  # TODO: Remove me!!
+  get "/page/create_demo_sprint"
+
   resources :projects
 
   resources :users
