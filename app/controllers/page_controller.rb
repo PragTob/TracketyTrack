@@ -11,8 +11,10 @@ class PageController < ApplicationController
 
   def sprint_planning
     @project = Project.last
+    @user_stories_current_sprint = UserStory.all()
+    @user_stories_in_backlog = UserStory.all()
     @page = "planning"
-    render
+    render 'sprint_planning'
   end
 
   protected

@@ -2,13 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#box_in_progress, #box_current_sprint {
+#box_in_progress, #box_current_sprint, #box_backlog {
   height: 300px;
   border: 2px solid #666;
   width: 440px;
   padding:5px;
 }
-#box_in_progress .user_stories_container, #box_current_sprint .user_stories_container {
+#box_in_progress .user_stories_container,
+#box_current_sprint .user_stories_container,
+#box_backlog .user_stories_container {
   overflow: automatically;
   height: 260px;
 }
