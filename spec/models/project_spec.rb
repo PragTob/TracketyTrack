@@ -30,5 +30,30 @@ describe Project do
     Project.create(@valid_attributes).should_not be_valid
   end
 
+  describe "#current_sprint" do
+    context "when current_sprint_id is not set" do
+      it "returns nil" do
+        @project.current_sprint_id = nil
+        @project.current_sprint.should be_nil
+      end
+    end
+    context "when current_sprint_id is set" do
+      it "returns nil" do
+        @project.current_sprint_id = 1
+        sprint = Factory.build(:sprint)
+        Sprint.stub(:find).with(@project.current_sprint_id).and_return(sprint)
+        @project.current_sprint.should be sprint
+      end
+    end
+  end
+
+  describe "#current_sprint=" do
+    it "set current_sprint_id to id of the given sprint" do
+      sprint = Factory.build(:sprint, id: 1)
+      @project.current_sprint = sprint
+      @project.current_sprint_id.should eq sprint.id
+    end
+  end
+
 end
 

@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe PageController do
 
+  before (:each) do
+    @project = Factory(:project)
+  end
+
   def valid_project_attributes
     Factory.attributes_for(:project)
   end
@@ -11,42 +15,137 @@ describe PageController do
   end
 
   describe "GET 'sprint_planning'" do
-    it "returns success and renders sprint_planning if (project exists, user is signed in)" do
-      Project.create! valid_project_attributes
-      test_sign_in(Factory(:user))
-      get 'sprint_planning'
-      response.should be_success
-      response.should render_template("sprint_planning")
+
+    before(:each) do
+       @user_story = Factory(:user_story, status: "inactive")
+       @other_user_story = Factory(:user_story, status: "inactive")
+       sign_in_a_saved_user
+    end
+
+    describe "with current sprint" do
+
+      before(:each) do
+        @sprint = Factory(:sprint)
+        @project.update_attributes(current_sprint: @sprint)
+        @user_story.update_attributes(sprint: @sprint)
+      end
+
+      it "selects all inactive user stories of the current sprint" do
+        get :sprint_planning
+        assigns(:user_stories_current_sprint).should eq [@user_story]
+      end
+
+      it "selects all active user stories of the current sprint" do
+        get :sprint_planning
+        assigns(:user_stories_in_backlog).should eq [@other_user_story]
+      end
+
+    end
+
+    describe "without current sprint" do
+
+      it "selects empty collection for current sprint" do
+        get :sprint_planning
+        assigns(:user_stories_current_sprint).should eq []
+      end
+
+      it "selects all user stories of the product laptop" do
+        get :sprint_planning
+        assigns(:user_stories_in_backlog).should eq [@user_story,
+                                                     @other_user_story]
+      end
+
+    end
+
+    describe "when project exists and user is signed in" do
+      it "returns success and renders sprint_planning" do
+        Project.create! valid_project_attributes
+        get 'sprint_planning'
+        response.should be_success
+        response.should render_template("sprint_planning")
+      end
     end
 
   end
 
   describe "GET 'current_sprint'" do
-    it "returns http success and renders current_sprint when a project exists and a user is signed in" do
-      Project.create! valid_project_attributes
-      test_sign_in(Factory(:user))
-      get 'current_sprint'
-      response.should be_success
-      response.should render_template("current_sprint")
+
+    describe "with current sprint" do
+
+      before(:each) do
+        @user_story = Factory(:user_story, status: "inactive")
+        @other_user_story = Factory(:user_story, status: "active")
+        @sprint = Factory(:sprint)
+        @project.update_attributes(current_sprint: @sprint)
+        @user_story.update_attributes(sprint: @sprint)
+        @other_user_story.update_attributes(sprint: @sprint)
+        sign_in_a_saved_user
+      end
+
+      it "selects all inactive user stories of the current sprint" do
+        get :current_sprint
+        assigns(:user_stories_current_sprint).should eq [@user_story]
+      end
+
+      it "selects all active user stories of the current sprint" do
+        get :current_sprint
+        assigns(:user_stories_in_progress).should eq [@other_user_story]
+      end
+
     end
 
-    it "redirects to the new project page if no project was created" do
-      get :current_sprint
-      response.should redirect_to new_project_path
+    describe "without current sprint" do
+
+      it "selects empty collections" do
+        sign_in_a_saved_user
+        get :current_sprint
+        assigns(:user_stories_current_sprint).should eq []
+        assigns(:user_stories_in_progress).should eq []
+      end
+
     end
 
-    it "redirects to the new user page if a project was created and no user was created yet" do
-      Project.create! valid_project_attributes
-      get :current_sprint
-      response.should redirect_to new_user_path
+    describe "when project exists and user is logged in" do
+
+      it "is successful and renders current_sprint" do
+        sign_in_a_saved_user
+        get :current_sprint
+        response.should be_success
+        response.should render_template("current_sprint")
+      end
+
     end
 
-    it "redirects to the sign_in page if no user is signed in and a project exists" do
-      Project.create! valid_project_attributes
-      User.create! valid_user_attributes
-      controller.should_not be_signed_in
-      get 'current_sprint'
-      response.should redirect_to signin_path
+    describe "when no project exists" do
+
+      it "redirects to the new project page" do
+        @project.destroy
+        get :current_sprint
+        response.should redirect_to new_project_path
+      end
+
+    end
+
+    describe "when no user was created" do
+
+      it "redirects to the new user page" do
+        Project.create! valid_project_attributes
+        get :current_sprint
+        response.should redirect_to new_user_path
+      end
+
+    end
+
+    describe "when user is not signed in" do
+
+      it "redirects to the sign_in page" do
+        Project.create! valid_project_attributes
+        User.create! valid_user_attributes
+        controller.should_not be_signed_in
+        get 'current_sprint'
+        response.should redirect_to signin_path
+      end
+
     end
 
   end

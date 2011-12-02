@@ -41,5 +41,10 @@ RSpec.configure do |config|
     test_sign_in user
   end
 
+  def sign_in_a_saved_user
+    user = Factory :user
+    test_sign_in user
+  end
+
 end
 

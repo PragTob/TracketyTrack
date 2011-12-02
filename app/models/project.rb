@@ -19,7 +19,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_sprint=(sprint)
-    current_sprint_id = sprint.id
+    self.current_sprint_id = sprint.id
   end
 
   validates_with ProjectValidator

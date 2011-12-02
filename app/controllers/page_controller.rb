@@ -3,16 +3,27 @@ class PageController < ApplicationController
 
   def current_sprint
     @project = Project.first
-    @user_stories_current_sprint = UserStory.all()
-    @user_stories_in_progress = UserStory.where(status: "active")
+    if @project.current_sprint.nil?
+      @user_stories_current_sprint = []
+      @user_stories_in_progress = []
+    else
+      @user_stories_current_sprint = @project.current_sprint.user_stories
+      @user_stories_current_sprint = @user_stories_current_sprint.select{|each| each.status == "inactive" or each.status == "completed"}
+      @user_stories_in_progress = @project.current_sprint.user_stories.select{|each| each.status == "active"}
+    end
+
     @page = "current"
     render 'current_sprint'
   end
 
   def sprint_planning
     @project = Project.last
-    @user_stories_current_sprint = UserStory.all()
-    @user_stories_in_backlog = UserStory.all()
+    if @project.current_sprint.nil?
+      @user_stories_current_sprint = []
+    else
+      @user_stories_current_sprint = @project.current_sprint.user_stories
+    end
+    @user_stories_in_backlog = UserStory.backlog
     @page = "planning"
     render 'sprint_planning'
   end
@@ -24,9 +35,7 @@ class PageController < ApplicationController
       elsif User.all.empty?
         redirect_to new_user_path
       else
-        unless signed_in?
-          redirect_to signin_path
-        end
+        redirect_to signin_path unless signed_in?
       end
     end
 

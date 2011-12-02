@@ -8,6 +8,10 @@ class UserStory < ActiveRecord::Base
   validates :name, presence: true
   validates_inclusion_of :status, :in => ["active", "inactive", "completed"]
 
+  def self.backlog
+    self.where(sprint_id: nil)
+  end
+
 end
 # == Schema Information
 #
