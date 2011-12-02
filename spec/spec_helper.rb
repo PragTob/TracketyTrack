@@ -36,5 +36,10 @@ RSpec.configure do |config|
     controller.sign_in(user)
   end
 
+  def sign_in_a_user
+    user = Factory.build(:user)
+    test_sign_in user
+  end
+
 end
 
