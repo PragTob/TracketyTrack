@@ -1,4 +1,6 @@
 class UserStoriesController < ApplicationController
+  include UserStoriesHelper
+
   before_filter :authenticate
 
   # GET /user_stories
@@ -110,5 +112,27 @@ class UserStoriesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # PUT /user_stories/1
+  def assign_sprint
+    @sprint = Project.first.current_sprint
+    set_sprint(params[:id], @sprint)
+    respond_to do |format|
+      format.html { redirect_to "page/sprint_planning" }
+      format.json { head :ok }
+    end
+  end
+
+  # PUT /user_stories/1
+  def unassign_sprint
+    set_sprint(params[:id], nil)
+
+    respond_to do |format|
+      format.html { redirect_to "page/sprint_planning" }
+      format.json { head :ok }
+    end
+  end
+
+
 end
 

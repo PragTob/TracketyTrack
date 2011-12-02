@@ -159,6 +159,27 @@ describe UserStoriesController do
       end
     end
 
+    describe "PUT assign_sprint" do
+
+      it "assignes the user story to the current sprint" do
+        @sprint = Factory(:sprint)
+        @project = Factory(:project, current_sprint: @sprint)
+        put :assign_sprint, id: @user_story.id
+        UserStory.find(@user_story.id).sprint.should eq @project.current_sprint
+      end
+
+    end
+
+    describe "PUT unassign_sprint" do
+
+      it "unassignes the user story" do
+        @sprint = Factory(:sprint)
+        @user_story.update_attributes(sprint: @sprint)
+        put :unassign_sprint, id: @user_story.id
+        UserStory.find(@user_story.id).sprint.should be_nil
+      end
+
+    end
   end
 
   describe "No action should be accessible without a logged in user" do
