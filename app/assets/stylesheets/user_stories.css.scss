@@ -1,3 +1,19 @@
 // Place all the styles related to the UserStories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user_story_box {
+  background-color: #efefef;
+  padding:7px;
+  margin-bottom:5px;
+  position:relative;
+  min-height:50px;
+}
+
+.user_story_box .startbutton {
+  position:absolute;
+  top:10px;
+  right:10px;
+  display:block;
+}
+

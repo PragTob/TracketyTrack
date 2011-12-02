@@ -31,5 +31,28 @@ describe PageController do
 
   end
 
+  describe "GET 'current_sprint'" do
+    it "returns http success and renders current_sprint when a project exists and a user is signed in" do
+      Project.create! valid_project_attributes
+      test_sign_in(Factory(:user))
+      get 'current_sprint'
+      response.should be_success
+      response.should render_template("current_sprint")
+    end
+
+    it "redirects to the new project page if no project was created" do
+      get :current_sprint
+      response.should redirect_to new_project_path
+    end
+
+    it "redirects to the root page if no user is signed in and a project exists" do
+      Project.create! valid_project_attributes
+      controller.should_not be_signed_in
+      get 'current_sprint'
+      response.should redirect_to root_path
+    end
+
+  end
+
 end
 

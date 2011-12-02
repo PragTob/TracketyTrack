@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="span10">
+    <h1><%= @project.title %></h1>
+  </div>
+  <div class="span5 offset1">
+    <ul class="pills">
+      <li<% if @page=="current"%> class="active"<% end %>>
+        <%= link_to 'Current Sprint', :controller => "page", :action => "current_sprint" %>
+      </li>
+      <li<% if @page=="planning"%> class="active"<% end %>>
+        <%= link_to 'Sprint Planning', :controller => "page", :action => "sprint_planning" %>
+      </li>
+    </ul>
+  </div>
+</div>
+

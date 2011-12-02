@@ -4,6 +4,9 @@ TracketyTrack::Application.routes.draw do
   post "user_stories/complete"
   root to: 'page#index'
 
+  get "/current_sprint", :to => 'page#current_sprint', :as => "current_sprint"
+  get "/sprint_planning", :to => 'page#sprint_planning', :as => "sprint_planning"
+
   resources :projects
 
   resources :users
