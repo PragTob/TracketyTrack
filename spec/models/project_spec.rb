@@ -16,18 +16,24 @@ describe Project do
   it{should respond_to :description}
   it{should respond_to :repository_url}
   it{should respond_to :current_sprint}
+  it { should be_valid }
 
-  it "can be created with valid attributes" do
-    Project.new(@valid_attributes).should be_valid
-  end
-
-  it "is invalid without a name" do
+  it "is invalid without a title" do
     Project.new(@valid_attributes.merge(title: nil)).should_not be_valid
   end
 
   it "exists only maximum one project at a time" do
-    @project.save
-    Project.create(@valid_attributes).should_not be_valid
+    Factory.create(:project)
+
+    lambda{Project.create(@valid_attributes)}.should change{
+      Project.all.size
+    }.by(0)
+  end
+
+  it "raises an error when trying to create a second project" do
+    Factory.create(:project)
+
+    lambda{Factory.create(:project, title: "bla")}.should raise_error
   end
 
   describe "#current_sprint" do
