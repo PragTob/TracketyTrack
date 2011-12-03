@@ -1,6 +1,6 @@
 class ProjectValidator < ActiveModel::Validator
   def validate(record)
-    if Project.count > 1
+    if Project.count >= 1
       record.errors.add(:base,
                         "It is not possible to create more than one project")
     end
