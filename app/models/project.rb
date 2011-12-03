@@ -21,6 +21,7 @@ class Project < ActiveRecord::Base
 
   def current_sprint=(sprint)
     self.current_sprint_id = sprint.id
+    self.save
   end
 
   # there shall only be one project atm

@@ -76,12 +76,12 @@ describe PageController do
       end
 
       it "selects all inactive user stories of the current sprint" do
-        get :current_sprint
+        get :current_sprint_overview
         assigns(:user_stories_current_sprint).should eq [@user_story]
       end
 
       it "selects all active user stories of the current sprint" do
-        get :current_sprint
+        get :current_sprint_overview
         assigns(:user_stories_in_progress).should eq [@other_user_story]
       end
 
@@ -91,7 +91,7 @@ describe PageController do
 
       it "selects empty collections" do
         sign_in_a_saved_user
-        get :current_sprint
+        get :current_sprint_overview
         assigns(:user_stories_current_sprint).should eq []
         assigns(:user_stories_in_progress).should eq []
       end
@@ -102,7 +102,7 @@ describe PageController do
 
       it "is successful and renders current_sprint" do
         sign_in_a_saved_user
-        get :current_sprint
+        get :current_sprint_overview
         response.should be_success
         response.should render_template("current_sprint")
       end
@@ -113,7 +113,7 @@ describe PageController do
 
       it "redirects to the new project page" do
         @project.destroy
-        get :current_sprint
+        get :current_sprint_overview
         response.should redirect_to new_project_path
       end
 
@@ -122,7 +122,7 @@ describe PageController do
     describe "when no user was created" do
 
       it "redirects to the new user page" do
-        get :current_sprint
+        get :current_sprint_overview
         response.should redirect_to new_user_path
       end
 
@@ -133,7 +133,7 @@ describe PageController do
       it "redirects to the sign_in page" do
         Factory :user
         controller.should_not be_signed_in
-        get 'current_sprint'
+        get :current_sprint_overview
         response.should redirect_to signin_path
       end
 

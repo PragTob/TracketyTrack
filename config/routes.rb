@@ -7,9 +7,9 @@ TracketyTrack::Application.routes.draw do
   put "user_stories/assign_sprint"
   put "user_stories/unassign_sprint"
 
-  root to: "page#current_sprint"
+  root to: "page#current_sprint_overview"
 
-  get "/current_sprint", :to => 'page#current_sprint'
+  get "/current_sprint", :to => 'page#current_sprint_overview'
   get "/sprint_planning", :to => 'page#sprint_planning'
 
   # TODO: Remove me!!
