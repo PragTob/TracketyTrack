@@ -3,14 +3,14 @@ require 'spec_helper'
 describe "page/sprint_planning.html.erb" do
 
   before (:each) do
-    assign(:project, Factory.build(:project))
+    view.stub!(current_project: Factory.build(:project))
     @user_story = Factory.build(:user_story)
     @other_user_story = Factory.build(:user_story, name: "Other Name")
     assign(:user_stories_current_sprint, [@user_story])
     assign(:user_stories_in_backlog, [@other_user_story])
-    view.stub!(:signed_in?).and_return(true)
+    view.stub!(signed_in?: true)
     @user = Factory(:user)
-    view.stub!(:current_user).and_return(@user)
+    view.stub!(current_user: @user)
     render
   end
   it "contains one box for the current sprint" do

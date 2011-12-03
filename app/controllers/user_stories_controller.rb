@@ -96,7 +96,7 @@ class UserStoriesController < ApplicationController
     current_user.save
 
     respond_to do |format|
-      format.html { redirect_to @user_story }
+      format.html { redirect_to current_sprint_path }
       format.json { head :ok }
     end
   end
@@ -108,7 +108,7 @@ class UserStoriesController < ApplicationController
     @user_story.save
 
     respond_to do |format|
-      format.html { redirect_to @user_story }
+      format.html { redirect_to current_sprint_path }
       format.json { head :ok }
     end
   end
@@ -117,7 +117,7 @@ class UserStoriesController < ApplicationController
   def assign_sprint
     set_sprint(params[:id], current_sprint)
     respond_to do |format|
-      format.html { redirect_to "/sprint_planning" }
+      format.html { redirect_to sprint_planning_path }
       format.json { head :ok }
     end
   end
@@ -127,7 +127,7 @@ class UserStoriesController < ApplicationController
     set_sprint(params[:id], nil)
 
     respond_to do |format|
-      format.html { redirect_to "/sprint_planning" }
+      format.html { redirect_to sprint_planning_path }
       format.json { head :ok }
     end
   end

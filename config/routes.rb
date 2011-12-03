@@ -2,15 +2,17 @@ TracketyTrack::Application.routes.draw do
 
   resources :sprints
 
-  post "user_stories/start"
-  post "user_stories/complete"
+  put "user_stories/start"
+  put "user_stories/complete"
   put "user_stories/assign_sprint"
   put "user_stories/unassign_sprint"
 
   root to: "page#current_sprint_overview"
 
-  get "/current_sprint", :to => 'page#current_sprint_overview'
-  get "/sprint_planning", :to => 'page#sprint_planning'
+  get "/current_sprint", to: 'page#current_sprint_overview',
+                         as: :current_sprint
+  get "/sprint_planning", to: 'page#sprint_planning',
+                          as: :sprint_planning
 
   # TODO: Remove me!!
   get "/page/create_demo_sprint"
@@ -21,10 +23,10 @@ TracketyTrack::Application.routes.draw do
 
   resources :user_stories
 
-  resources :sessions, :only => [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy]
 
-  match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -133,30 +133,37 @@ describe UserStoriesController do
       end
     end
 
-    describe "POST start" do
+    describe "PUT start" do
       before{ @user = Factory(:user) }
       it "changes user story status to active" do
-        post :start, :id => @user_story.id, :user_id => @user.id
+        put :start, :id => @user_story.id, :user_id => @user.id
         UserStory.find(@user_story.id).status.should == "active"
       end
 
       it "assigns user story to user" do
         test_sign_in(@user)
-        post :start, :id => @user_story.id, :user_id => @user.id
+        put :start, :id => @user_story.id, :user_id => @user.id
         UserStory.find(@user_story.id).user.should == @user
       end
 
-      it "redirect to user story's page" do
-        post :start, :id => @user_story.id, :user_id => @user.id
-        response.should redirect_to(@user_story)
+      it "redirect to current sprint" do
+        put :start, :id => @user_story.id, :user_id => @user.id
+        response.should redirect_to current_sprint_path
       end
     end
 
-    describe "POST complete" do
+    describe "PUT complete" do
+
       it "changes user story status to completed" do
-        post :complete, :id => @user_story.id
+        put :complete, :id => @user_story.id
         UserStory.find(@user_story.id).status.should == "completed"
       end
+
+      it "redirects to current sprint" do
+        put :complete, :id => @user_story.id
+        response.should redirect_to current_sprint_path
+      end
+
     end
 
     describe "PUT assign_sprint" do

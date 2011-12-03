@@ -43,7 +43,7 @@ describe UsersController do
 
       it "redirects to the created user" do
         post :create, :user => valid_attributes
-        response.should redirect_to(User.last)
+        response.should redirect_to(signin_path)
       end
     end
 
