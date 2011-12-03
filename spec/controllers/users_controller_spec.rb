@@ -64,17 +64,17 @@ describe UsersController do
     end
   end
 
-  describe "GET index" do
-    it "assigns all users as @users" do
-      get :index
-      assigns(:users).should eq([@user])
-    end
-  end
-
   describe "Actions that need a logged in user" do
 
     before :each do
       sign_in_a_user
+    end
+
+    describe "GET index" do
+      it "assigns all users as @users" do
+        get :index
+        assigns(:users).should eq([@user])
+      end
     end
 
     describe "GET edit" do
@@ -152,6 +152,11 @@ describe UsersController do
 
     it "has no access to destroy" do
       delete :destroy, id: 1
+      response.should redirect_to signin_path
+    end
+
+    it "has no access to index" do
+      get :index
       response.should redirect_to signin_path
     end
 

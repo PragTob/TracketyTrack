@@ -1,3 +1,4 @@
+
 class ProjectValidator < ActiveModel::Validator
   def validate(record)
     if Project.count >= 1
@@ -22,7 +23,8 @@ class Project < ActiveRecord::Base
     self.current_sprint_id = sprint.id
   end
 
-  validates_with ProjectValidator
+  # there shall only be one project atm
+  validates_with ProjectValidator, on: :create
   validates :title, presence: true
 end
 

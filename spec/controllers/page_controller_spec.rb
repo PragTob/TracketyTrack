@@ -6,14 +6,6 @@ describe PageController do
     @project = Factory(:project)
   end
 
-  def valid_project_attributes
-    Factory.attributes_for(:project)
-  end
-
-  def valid_user_attributes
-    Factory.attributes_for(:user)
-  end
-
   describe "GET 'sprint_planning'" do
 
     before(:each) do
@@ -27,7 +19,9 @@ describe PageController do
       before(:each) do
         @sprint = Factory(:sprint)
         @project.update_attributes(current_sprint: @sprint)
+        @project.save
         @user_story.update_attributes(sprint: @sprint)
+        @user_story.save
       end
 
       it "selects all inactive user stories of the current sprint" do
@@ -35,7 +29,7 @@ describe PageController do
         assigns(:user_stories_current_sprint).should eq [@user_story]
       end
 
-      it "selects all active user stories of the current sprint" do
+      it "selects all user stories of the backlog" do
         get :sprint_planning
         assigns(:user_stories_in_backlog).should eq [@other_user_story]
       end
@@ -59,7 +53,6 @@ describe PageController do
 
     describe "when project exists and user is signed in" do
       it "returns success and renders sprint_planning" do
-        Project.create! valid_project_attributes
         get 'sprint_planning'
         response.should be_success
         response.should render_template("sprint_planning")
@@ -129,7 +122,6 @@ describe PageController do
     describe "when no user was created" do
 
       it "redirects to the new user page" do
-        Project.create! valid_project_attributes
         get :current_sprint
         response.should redirect_to new_user_path
       end
@@ -139,8 +131,7 @@ describe PageController do
     describe "when user is not signed in" do
 
       it "redirects to the sign_in page" do
-        Project.create! valid_project_attributes
-        User.create! valid_user_attributes
+        Factory :user
         controller.should_not be_signed_in
         get 'current_sprint'
         response.should redirect_to signin_path

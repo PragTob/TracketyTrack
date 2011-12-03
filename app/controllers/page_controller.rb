@@ -17,7 +17,7 @@ class PageController < ApplicationController
   end
 
   def sprint_planning
-    @project = Project.last
+    @project = Project.first
     if @project.current_sprint.nil?
       @user_stories_current_sprint = []
     else
