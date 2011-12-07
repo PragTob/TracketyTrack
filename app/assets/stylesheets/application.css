@@ -22,4 +22,7 @@ div .actions {
   padding:5px;
   display:inline;
 }
+form {
+  margin-bottom:3px!important;
+}
 

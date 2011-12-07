@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span10">
-    <h1><%= current_project.title %></h1>
+    <h1><%= link_to current_project.title, project_path(current_project) %></h1>
   </div>
   <div class="span5 offset1">
     <ul class="pills">

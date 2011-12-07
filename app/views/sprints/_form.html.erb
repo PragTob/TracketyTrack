@@ -1,7 +1,7 @@
 <%= form_for(@sprint) do |f| %>
   <% if @sprint.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sprint.errors.count, "error") %> prohibited this sprint from being saved:</h2>
+    <div class="alert-message block-message error">
+      <h4><%= pluralize(@sprint.errors.count, "error") %> prohibited this sprint from being saved:</h4>
 
       <ul>
       <% @sprint.errors.full_messages.each do |msg| %>
@@ -11,23 +11,33 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :number %><br />
-    <%= f.number_field :number %>
+  <div class="clearfix">
+    <%= f.label :number %>
+    <div class="input">
+      <%= f.number_field :number, :class => 'span2' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :start_date %><br />
-    <%= f.datetime_select :start_date %>
+  <div class="clearfix">
+    <%= f.label :start_date %>
+    <div class="input">
+      <%= f.datetime_select :start_date, :class => 'span6' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :end_date %><br />
-    <%= f.datetime_select :end_date %>
+  <div class="clearfix">
+    <%= f.label :end_date %>
+    <div class="input">
+      <%= f.datetime_select :end_date, :class => 'span6' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :velocity %><br />
-    <%= f.number_field :velocity %>
+  <div class="clearfix">
+    <%= f.label :velocity %>
+    <div class="input">
+      <%= f.number_field :velocity, :class => 'span2' %>
+    </div>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn primary' %>
   </div>
 <% end %>
+

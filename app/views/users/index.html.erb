@@ -1,8 +1,8 @@
-<h1>Listing users</h1>
-
-<table>
+<h2>Users</h2>
+<br />
+<table class="bordered-table zebra-striped">
   <tr>
-    <th>Name</th>
+    <th class="span6">Name</th>
     <th>Email</th>
     <th>Description</th>
     <th></th>
@@ -15,13 +15,15 @@
     <td><%= user.name %></td>
     <td><%= user.email %></td>
     <td><%= user.description %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Show', user, method: :get, class: "btn" %></td>
+    <td><%= button_to 'Edit', edit_user_path(user), method: :get, class: "btn" %></td>
+    <td><%= button_to 'Delete', user,
+              confirm: 'Are you sure?', method: :delete, class: "btn" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%= button_to 'New User', new_user_path, method: :get, class: "btn success" %>
+

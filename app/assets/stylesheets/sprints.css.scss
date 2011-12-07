@@ -1,3 +1,19 @@
 // Place all the styles related to the Sprints controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#sprint_start_date_1i,
+#sprint_start_date_3i,
+#sprint_start_date_4i,
+#sprint_start_date_5i,
+#sprint_end_date_1i,
+#sprint_end_date_3i,
+#sprint_end_date_4i,
+#sprint_end_date_5i {
+  width:70px;
+}
+#sprint_start_date_2i,
+#sprint_end_date_2i {
+  width:120px;
+}
+

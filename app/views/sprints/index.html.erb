@@ -1,6 +1,6 @@
-<h1>Listing sprints</h1>
-
-<table>
+<h2>Sprints</h2>
+<br />
+<table class="bordered-table zebra-striped">
   <tr>
     <th>Number</th>
     <th>Start date</th>
@@ -17,13 +17,15 @@
     <td><%= sprint.start_date %></td>
     <td><%= sprint.end_date %></td>
     <td><%= sprint.velocity %></td>
-    <td><%= link_to 'Show', sprint %></td>
-    <td><%= link_to 'Edit', edit_sprint_path(sprint) %></td>
-    <td><%= link_to 'Destroy', sprint, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Show', sprint, method: :get, class: "btn" %></td>
+    <td><%= button_to 'Edit', edit_sprint_path(sprint), method: :get, class: "btn" %></td>
+    <td><%= button_to 'Delete', sprint,
+              confirm: 'Are you sure?', method: :delete, class: "btn" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Sprint', new_sprint_path %>
+<%= button_to 'New Sprint', new_sprint_path, method: :get, class: "btn success" %>
+

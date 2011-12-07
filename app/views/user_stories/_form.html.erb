@@ -1,7 +1,7 @@
 <%= form_for(@user_story) do |f| %>
   <% if @user_story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_story.errors.count, "error") %> prohibited this user_story from being saved:</h2>
+    <div class="alert-message block-message error">
+      <h4><%= pluralize(@user_story.errors.count, "error") %> prohibited this user_story from being saved:</h4>
 
       <ul>
       <% @user_story.errors.full_messages.each do |msg| %>
@@ -9,29 +9,42 @@
       <% end %>
       </ul>
     </div>
+  <br />
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="clearfix">
+    <%= f.label :name %>
+    <div class="input">
+      <%= f.text_field :name, :class => 'span6' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="clearfix">
+    <%= f.label :description %>
+    <div class="input">
+      <%= f.text_area :description, :class => 'span6 description' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :acceptance_criteria %><br />
-    <%= f.text_area :acceptance_criteria %>
+  <div class="clearfix">
+    <%= f.label :acceptance_criteria %>
+    <div class="input">
+      <%= f.text_area :acceptance_criteria, :class => 'span6 description' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :priority %><br />
-    <%= f.text_field :priority %>
+  <div class="clearfix">
+    <%= f.label :priority %>
+    <div class="input">
+      <%= f.text_field :priority, :class => 'span2' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :estimation %><br />
-    <%= f.text_field :estimation %>
+  <div class="clearfix">
+    <%= f.label :estimation %>
+    <div class="input">
+      <%= f.text_field :estimation, :class => 'span2' %>
+    </div>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn primary' %>
   </div>
 <% end %>
+

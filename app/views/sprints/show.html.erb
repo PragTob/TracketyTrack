@@ -1,9 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Number:</b>
-  <%= @sprint.number %>
-</p>
+<h2>Sprint  <%= @sprint.number %></h2>
+<br />
 
 <p>
   <b>Start date:</b>
@@ -20,6 +16,8 @@
   <%= @sprint.velocity %>
 </p>
 
+<h3>Related User Stories</h3>
 
-<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
-<%= link_to 'Back', sprints_path %>
+
+<%= link_to 'Back to Sprint Overview', sprints_path %>
+
