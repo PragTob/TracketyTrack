@@ -26,6 +26,15 @@
 </p>
 
 <p>
+  <b>Assignees:</b>
+  <% if @user_story.user %>
+    <%= @user_story.user.name %>
+  <% else %>
+    No user assigned
+  <% end %>
+</p>
+
+<p>
   <% if @user_story.status == "inactive" %>
     <%= button_to "Start", {action: 'start', id: @user_story.id, user_id: 1}%>
   <% elsif @user_story.status == "completed" %>

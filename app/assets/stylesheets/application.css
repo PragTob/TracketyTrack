@@ -17,4 +17,9 @@
 div .actions {
   margin-top:40px;
 }
+.current_account {
+  color:#AAA;
+  padding:5px;
+  display:inline;
+}
 

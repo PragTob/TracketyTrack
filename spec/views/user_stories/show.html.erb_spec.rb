@@ -19,6 +19,18 @@ describe "user_stories/show.html.erb" do
     rendered.should match(@user_story.estimation.to_s)
   end
 
+  it "renders all names of assignees" do
+    @user = Factory(:user)
+    @user_story.user = @user
+    render
+    rendered.should match(@user.name)
+  end
+
+  it "states 'No user assigned' if no user is assigned" do
+    render
+    rendered.should match("No user assigned")
+  end
+
   it "shows a 'Start' button if the user story is inactive" do
     render
     rendered.should have_button("Start")

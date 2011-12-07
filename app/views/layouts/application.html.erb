@@ -14,17 +14,19 @@
           <%= link_to 'TracketyTrack', root_path ,class: 'brand'%>
 
           <ul class="nav">
-            <li class="active"><%= link_to 'Home', root_path %></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><%= link_to 'Tracker', current_sprint_path %></li>
+            <li><%= link_to 'User Stories', user_stories_path %></li>
+            <li><%= link_to 'Sprints', sprints_path %></li>
+            <li><%= link_to 'Users', users_path %></li>
             <li><%= link_to 'Register', new_user_path unless signed_in? %></li>
           </ul>
           <% if signed_in? %>
-            <%= form_for(:session, url: signout_path, class: "pull-right") do |f| %>
+            <%= form_for(:session, url: signout_path, html: {class: "pull-right"}) do |f| %>
+                <div class="current_account"><%= current_user.name %></div>
                 <%= f.submit "Logout" %>
             <% end %>
           <% else %>
-            <%= form_for(:session, url: sessions_path, class: "pull-right") do |f| %>
+            <%= form_for(:session, url: sessions_path, html: {class: "pull-right"}) do |f| %>
                 <%= f.text_field :email, class: "input-small", placeholder: "Email" %>
                 <%= f.password_field :password, class: "input-small", placeholder: "Password" %>
                 <%= f.submit "Sign in" %>
