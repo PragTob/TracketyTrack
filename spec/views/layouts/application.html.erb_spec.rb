@@ -27,7 +27,9 @@ describe "layouts/application.html.erb" do
   describe "logged in" do
 
     before :each do
-      view.stub!(:signed_in?).and_return(true)
+      @user = Factory.build :user
+      view.stub!(current_user: @user)
+      view.stub!(signed_in?: true)
     end
 
     it "contains a logout button" do
@@ -43,6 +45,11 @@ describe "layouts/application.html.erb" do
     it "does contain a login part" do
       render
       rendered.should_not have_button("Sign in")
+    end
+
+    it "contains the name of the current user" do
+      render
+      rendered.should match(@user.name)
     end
 
   end

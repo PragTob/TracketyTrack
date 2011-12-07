@@ -3,34 +3,21 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Description</th>
-    <th>Acceptance criteria</th>
+    <th>Status</th>
     <th>Priority</th>
     <th>Estimation</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @user_stories.each do |user_story| %>
   <tr>
-    <td><%= user_story.name %></td>
-    <td><%= user_story.description %></td>
-    <td><%= user_story.acceptance_criteria %></td>
+    <td><%= link_to user_story.name, user_story %></td>
+    <td><%= user_story.status %></td>
     <td><%= user_story.priority %></td>
     <td><%= user_story.estimation %></td>
-    <td><%= link_to 'Show', user_story %></td>
     <td><%= link_to 'Edit', edit_user_story_path(user_story) %></td>
-    <td><%= link_to 'Destroy', user_story, confirm: 'Are you sure?', method: :delete %></td>
-    <td>
-    <% if user_story.status == "inactive" %>
-      <%= button_to "Start", {action: 'start', id: user_story.id, user_id: 1}%>
-    <% elsif user_story.status == "completed" %>
-      <%= button_to "Re-Start", {action: 'start', id: user_story.id, user_id: 1}%>
-    <% elsif user_story.status == "active" %>
-      <%= button_to "Complete", {action: 'complete', id: user_story.id, user_id: 1}%>
-    <% end %>
-    </td>
+    <td><%= link_to 'Delete', user_story, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
