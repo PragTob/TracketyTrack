@@ -97,6 +97,7 @@ describe SprintsController do
 
   describe "PUT update" do
     describe "with valid params" do
+
       it "updates the requested sprint" do
         sprint = Sprint.create! valid_attributes
         # Assuming there are no other sprints in the database, this

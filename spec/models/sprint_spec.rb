@@ -44,5 +44,34 @@ describe Sprint do
     it { should_not be_valid }
   end
 
+  context "with overlapping dates" do
+
+    before (:each) do
+        @sprint2 = Factory(:sprint, number: 2)
+    end
+    context "when the new start date lies within an other sprint" do
+
+      before do
+        @sprint.start_date = @sprint2.start_date + 1
+        @sprint.end_date = @sprint2.end_date + 1
+      end
+
+      it { should_not be_valid }
+
+    end
+
+    context "when the new end date lies within an other sprint" do
+
+      before do
+        @sprint.start_date = @sprint2.start_date - 1
+        @sprint.end_date = @sprint2.end_date - 1
+      end
+
+      it { should_not be_valid }
+
+    end
+
+  end
+
 end
 
