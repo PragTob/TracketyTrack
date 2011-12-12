@@ -13,14 +13,6 @@ describe ProjectsController do
     @project = Project.create! valid_attributes
   end
 
-  describe "GET index" do
-    it "assigns all projects as @projects" do
-      create_project
-      get :index
-      assigns(:projects).should eq([@project])
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested @project as @@project" do
       create_project
