@@ -1,4 +1,7 @@
 class SprintsController < ApplicationController
+
+  before_filter :authenticate
+
   # GET /sprints
   # GET /sprints.json
   def index
