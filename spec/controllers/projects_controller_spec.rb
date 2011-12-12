@@ -14,7 +14,7 @@ describe ProjectsController do
   end
 
   describe "GET show" do
-    it "assigns the requested @project as @@project" do
+    it "assigns the requested project as @project" do
       create_project
       get :show, :id => @project.id
       assigns(:project).should eq(@project)
@@ -22,7 +22,7 @@ describe ProjectsController do
   end
 
   describe "GET new" do
-    it "assigns a new @project as @@project" do
+    it "assigns a new project as @project" do
       get :new
       assigns(:project).should be_a_new(Project)
     end
@@ -36,7 +36,7 @@ describe ProjectsController do
         }.to change(Project, :count).by(1)
       end
 
-      it "assigns a newly created @project as @@project" do
+      it "assigns a newly created project as @project" do
         post :create, :project => valid_attributes
         assigns(:project).should be_a(Project)
         assigns(:project).should be_persisted
@@ -44,7 +44,7 @@ describe ProjectsController do
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved @project as @@project" do
+      it "assigns a newly created but unsaved @project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
         post :create, :project => {}
@@ -70,7 +70,7 @@ describe ProjectsController do
     describe "PUT update" do
       describe "with valid params" do
 
-        it "updates the requested @project" do
+        it "updates the requested project" do
           # Assuming there are no other projects in the database, this
           # specifies that the Project created on the previous line
           # receives the :update_attributes message with whatever params are
@@ -79,12 +79,12 @@ describe ProjectsController do
           put :update, :id => @project.id, :project => {'these' => 'params'}
         end
 
-        it "assigns the requested @project as @@project" do
+        it "assigns the requested project as @project" do
           put :update, :id => @project.id, :project => valid_attributes
           assigns(:project).should eq(@project)
         end
 
-        it "redirects to the @project" do
+        it "redirects to the project" do
           put :update, :id => @project.id, :project => valid_attributes
           response.should redirect_to(@project)
         end
@@ -92,7 +92,7 @@ describe ProjectsController do
 
       describe "with invalid params" do
 
-        it "assigns the @project as @@project" do
+        it "assigns the project as @project" do
           # Trigger the behavior that occurs when invalid params are submitted
           Project.any_instance.stub(:save).and_return(false)
           put :update, :id => @project.id, :project => {}
@@ -110,7 +110,7 @@ describe ProjectsController do
     end
 
     describe "DELETE destroy" do
-      it "destroys the requested @project" do
+      it "destroys the requested project" do
         expect {
           delete :destroy, :id => @project.id
         }.to change(Project, :count).by(-1)
@@ -124,7 +124,7 @@ describe ProjectsController do
 
     describe "GET edit" do
 
-      it "assigns the requested @project as @@project" do
+      it "assigns the requested project as @project" do
         get :edit, :id => @project.id
         assigns(:project).should eq(@project)
       end
