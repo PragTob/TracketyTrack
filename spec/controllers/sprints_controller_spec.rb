@@ -155,5 +155,38 @@ describe SprintsController do
     end
   end
 
+  describe "PUT start" do
+    describe "when there is one sprint containing the current date" do
+
+      before :each do
+        @sprint = Factory(:sprint, start_date: DateTime.now - 1,
+                                  end_date: DateTime.now + 1)
+        @project = Factory(:project)
+        put :start
+      end
+
+      it "sets this sprint as current sprint" do
+        project = Project.find(@project.id)
+        project.current_sprint.should eq @sprint
+      end
+
+      it "redirects to the sprint planning page" do
+        response.should redirect_to sprint_planning_path
+      end
+
+    end
+
+    describe "when there is one sprint containing the current date" do
+
+      it "redirects to the create sprint page" do
+        put :start
+        response.should redirect_to new_sprint_url
+      end
+
+    end
+
+
+  end
+
 end
 

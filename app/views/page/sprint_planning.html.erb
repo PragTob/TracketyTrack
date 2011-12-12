@@ -1,6 +1,8 @@
 <%= render 'header' %>
 <div class="row">
-
+  <% if current_project.current_sprint.nil? %>
+  <div class="button"><%= button_to "Start Sprint", {controller: 'sprints', action: 'start'}, method: "put", class: 'btn success' %></div>
+  <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
     <div class="userstory_box_header">
       CURRENT SPRINT
