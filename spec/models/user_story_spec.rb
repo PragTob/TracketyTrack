@@ -28,7 +28,7 @@ describe UserStory do
     UserStory.new.should_not be_valid
   end
 
-  context "with a status unlike inactive, active, or completed" do
+  context "with a status unlike inactive, active, suspended or completed" do
     before{ @user_story.status = "foo" }
     it {should_not be_valid}
   end
@@ -47,5 +47,6 @@ end
 #  estimation          :integer
 #  created_at          :datetime
 #  updated_at          :datetime
+#  status              :string          active, inactive, suspended, completed
 #
 

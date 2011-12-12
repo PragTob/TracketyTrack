@@ -44,7 +44,7 @@ describe Project do
       end
     end
     context "when current_sprint_id is set" do
-      it "returns nil" do
+      it "returns the current_sprint" do
         @project.current_sprint_id = 1
         sprint = Factory.build(:sprint)
         Sprint.stub(:find).with(@project.current_sprint_id).and_return(sprint)
