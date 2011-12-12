@@ -1,5 +1,8 @@
 TracketyTrack::Application.routes.draw do
 
+
+  put "sprints/start"
+
   resources :sprints
 
   put "user_stories/start"
