@@ -44,7 +44,7 @@ class SprintsController < ApplicationController
 
     respond_to do |format|
       if @sprint.save
-        format.html { redirect_to @sprint, notice: 'Sprint was successfully created.' }
+        format.html { redirect_to @sprint, flash: {success: 'Sprint was successfully created.'} }
         format.json { render json: @sprint, status: :created, location: @sprint }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class SprintsController < ApplicationController
 
     respond_to do |format|
       if @sprint.update_attributes(params[:sprint])
-        format.html { redirect_to @sprint, notice: 'Sprint was successfully updated.' }
+        format.html { redirect_to @sprint, flash: {success: 'Sprint was successfully updated.'} }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -81,3 +81,4 @@ class SprintsController < ApplicationController
     end
   end
 end
+
