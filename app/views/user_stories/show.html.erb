@@ -34,11 +34,18 @@
 
 <p>
   <% if @user_story.status == "inactive" %>
-    <%= button_to "Start", {action: 'start', id: @user_story.id, user_id: 1}%>
+    <%= button_to "Start", {action: 'start', id: @user_story.id, user_id: 1},
+                                                               method: "put"%>
   <% elsif @user_story.status == "completed" %>
-    <%= button_to "Re-Start", {action: 'start', id: @user_story.id, user_id: 1}%>
+    <%= button_to "Re-Start", {action: 'start', id: @user_story.id, user_id: 1},
+                                                               method: "put"%>
   <% elsif @user_story.status == "active" %>
-    <%= button_to "Complete", {action: 'complete', id: @user_story.id, user_id: 1}%>
+    <% if @user_story.user == current_user %>
+      <%= button_to "Pause", {action: 'pause', id: @user_story.id, user_id: 1},
+                                                               method: "put"%>
+    <% end %>
+    <%= button_to "Complete", {action: 'complete', id: @user_story.id, user_id: 1},
+                                                               method: "put"%>
   <%end%>
 </p>
 

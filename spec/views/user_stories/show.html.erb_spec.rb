@@ -4,6 +4,9 @@ describe "user_stories/show.html.erb" do
   before(:each) do
     @user_story = Factory(:user_story, status: "inactive")
     assign(:user_story, @user_story)
+    @user = Factory(:user)
+    @user_story.user = @user
+    view.stub!(current_user: @user)
   end
 
   after(:each) do
@@ -20,13 +23,12 @@ describe "user_stories/show.html.erb" do
   end
 
   it "renders all names of assignees" do
-    @user = Factory(:user)
-    @user_story.user = @user
     render
     rendered.should match(@user.name)
   end
 
   it "states 'No user assigned' if no user is assigned" do
+    @user_story.user = nil
     render
     rendered.should match("No user assigned")
   end
@@ -51,10 +53,11 @@ describe "user_stories/show.html.erb" do
     rendered.should_not have_button("Re-Start")
   end
 
-  it "shows a 'Complete' button if the user story is active" do
+  it "shows a 'Complete' and a 'Edit' button if the user story is active" do
     @user_story.update_attributes(status: "active")
     assign(:user_story, @user_story)
     render
+    rendered.should have_button("Pause")
     rendered.should have_button("Complete")
   end
 

@@ -9,7 +9,7 @@ class PageController < ApplicationController
     else
       @user_stories_current_sprint = current_sprint.user_stories
       @user_stories_current_sprint = @user_stories_current_sprint.select{|each| each.status == "inactive" or each.status == "completed"}
-      @user_stories_in_progress = current_sprint.user_stories.select{|each| each.status == "active"}
+      @user_stories_in_progress = current_sprint.user_stories.select{|each| each.status == "active" or each.status == "suspended"}
     end
 
     @page = "current"

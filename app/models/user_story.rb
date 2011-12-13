@@ -6,7 +6,7 @@ class UserStory < ActiveRecord::Base
   # without description etc.
 
   validates :name, presence: true
-  validates_inclusion_of :status, :in => ["active", "inactive", "completed"]
+  validates_inclusion_of :status, :in => ["inactive", "active", "suspended", "completed"]
 
   def self.backlog
     self.where(sprint_id: nil)

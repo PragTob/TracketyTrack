@@ -86,7 +86,7 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # POST /user_stories/1
+  # PUT /user_stories/1
   def start
     @user_story = UserStory.find(params[:id])
     @user_story.status = "active"
@@ -101,7 +101,27 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # POST /user_stories/1
+  #PUT /user_stories/1
+  def pause
+    @user_story = UserStory.find(params[:id])
+    @user = User.find(params[:user_id])
+    if @user_story.user == @user
+      @user_story.status = "suspended"
+      @user_story.save
+
+      respond_to do |format|
+        format.html { redirect_to current_sprint_path }
+        format.json { head :ok }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to current_sprint_path }
+        format.json { render json: @user_story.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /user_stories/1
   def complete
     @user_story = UserStory.find(params[:id])
     @user_story.status = "completed"

@@ -83,5 +83,23 @@ class SprintsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # PUT /sprints
+  def start
+
+    if Sprint.actual_sprint?
+      current_project.current_sprint = Sprint.actual_sprint
+      respond_to do |format|
+        format.html { redirect_to sprint_planning_path }
+        format.json { head :ok }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_sprint_url }
+        format.json { head :ok }
+      end
+    end
+
+  end
 end
 

@@ -44,5 +44,61 @@ describe Sprint do
     it { should_not be_valid }
   end
 
+  context "with overlapping dates" do
+
+    before (:each) do
+        @sprint2 = Factory(:sprint, number: 2)
+    end
+    context "when the new start date lies within an other sprint" do
+
+      before do
+        @sprint.start_date = @sprint2.start_date + 1
+        @sprint.end_date = @sprint2.end_date + 1
+      end
+
+      it { should_not be_valid }
+
+    end
+
+    context "when the new end date lies within an other sprint" do
+
+      before do
+        @sprint.start_date = @sprint2.start_date - 1
+        @sprint.end_date = @sprint2.end_date - 1
+      end
+
+      it { should_not be_valid }
+
+    end
+
+  end
+
+  describe ".actual_sprint?" do
+
+    it "returns true if a sprint is defined containing the current date" do
+      Factory(:sprint, start_date: DateTime.now, end_date: DateTime.now + 1)
+      Sprint.actual_sprint?.should be_true
+    end
+
+  end
+
+  describe ".actual_sprint" do
+
+    context "when there is one sprint, which contains the current date" do
+      it "returns this sprint" do
+        sprint = Factory(:sprint, start_date: DateTime.now,
+                                  end_date: DateTime.now + 1)
+        Sprint.actual_sprint.should eq sprint
+      end
+    end
+
+    context "when there is no sprint containing the current date" do
+      it "returns nil" do
+        Sprint.actual_sprint.should eq nil
+      end
+    end
+
+  end
+
 end
 

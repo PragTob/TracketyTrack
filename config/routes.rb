@@ -1,11 +1,16 @@
 TracketyTrack::Application.routes.draw do
 
+
+  put "sprints/start"
+
   resources :sprints
 
   put "user_stories/start"
+  put "user_stories/pause"
   put "user_stories/complete"
   put "user_stories/assign_sprint"
   put "user_stories/unassign_sprint"
+
 
   root to: "page#current_sprint_overview"
 

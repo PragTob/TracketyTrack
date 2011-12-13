@@ -44,7 +44,9 @@ describe SprintsController do
     end
 
     describe "POST create" do
+
       describe "with valid params" do
+
         it "creates a new Sprint" do
           expect {
             post :create, :sprint => valid_attributes
@@ -61,9 +63,11 @@ describe SprintsController do
           post :create, :sprint => valid_attributes
           response.should redirect_to(Sprint.last)
         end
+
       end
 
       describe "with invalid params" do
+
         it "assigns a newly created but unsaved sprint as @sprint" do
           # Trigger the behavior that occurs when invalid params are submitted
           Sprint.any_instance.stub(:save).and_return(false)
@@ -77,11 +81,15 @@ describe SprintsController do
           post :create, :sprint => {}
           response.should render_template("new")
         end
+
       end
+
     end
 
     describe "PUT update" do
+
       describe "with valid params" do
+
         it "updates the requested sprint" do
           sprint = Sprint.create! valid_attributes
           Sprint.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
@@ -99,9 +107,11 @@ describe SprintsController do
           put :update, :id => sprint.id, :sprint => valid_attributes
           response.should redirect_to(sprint)
         end
+
       end
 
       describe "with invalid params" do
+
         it "assigns the sprint as @sprint" do
           sprint = Sprint.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
@@ -117,7 +127,9 @@ describe SprintsController do
           put :update, :id => sprint.id, :sprint => {}
           response.should render_template("edit")
         end
+
       end
+
     end
 
     describe "DELETE destroy" do
@@ -133,6 +145,39 @@ describe SprintsController do
         sprint = Sprint.create! valid_attributes
         delete :destroy, :id => sprint.id
         response.should redirect_to(sprints_url)
+      end
+
+    end
+
+    describe "PUT start" do
+
+      describe "when there is one sprint containing the current date" do
+
+        before :each do
+          @sprint = Factory(:sprint, start_date: DateTime.now - 1,
+                                    end_date: DateTime.now + 1)
+          @project = Factory(:project)
+          put :start
+        end
+
+        it "sets this sprint as current sprint" do
+          project = Project.find(@project.id)
+          project.current_sprint.should eq @sprint
+        end
+
+        it "redirects to the sprint planning page" do
+          response.should redirect_to sprint_planning_path
+        end
+
+      end
+
+      describe "when there is one sprint containing the current date" do
+
+        it "redirects to the create sprint page" do
+          put :start
+          response.should redirect_to new_sprint_url
+        end
+
       end
 
     end
