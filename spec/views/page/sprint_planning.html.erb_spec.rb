@@ -42,5 +42,25 @@ describe "page/sprint_planning.html.erb" do
       end
     end
   end
+
+  describe "when there is no current sprint" do
+
+    it "shows a start sprint button" do
+      render
+      rendered.should have_button("Start Sprint")
+    end
+
+  end
+
+  describe "when there is a current sprint" do
+
+    it "shows a 'Stop Sprint' button" do
+      @project.current_sprint = Factory(:sprint)
+      render
+      rendered.should have_button("Stop Sprint")
+    end
+
+  end
+
 end
 

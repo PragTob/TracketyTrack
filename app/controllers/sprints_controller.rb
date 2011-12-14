@@ -84,7 +84,7 @@ class SprintsController < ApplicationController
     end
   end
 
-  # PUT /sprints
+  # PUT /sprints/start
   def start
 
     if Sprint.actual_sprint?
@@ -101,5 +101,22 @@ class SprintsController < ApplicationController
     end
 
   end
+
+  # PUT /sprints/stop/1
+  def stop
+
+    sprint = current_project.current_sprint
+    sprint.end_date = DateTime.now
+    sprint.save
+
+    current_project.current_sprint = nil
+
+    respond_to do |format|
+      format.html { redirect_to sprint_planning_path }
+      format.json { head :ok }
+    end
+
+  end
+
 end
 

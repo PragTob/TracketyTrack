@@ -2,6 +2,7 @@ TracketyTrack::Application.routes.draw do
 
 
   put "sprints/start"
+  put "sprints/stop"
 
   resources :sprints
 

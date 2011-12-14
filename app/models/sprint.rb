@@ -35,5 +35,9 @@ class Sprint < ActiveRecord::Base
     Sprint.where("start_date <= ? AND end_date >= ?", time, time).first
   end
 
+  def expired?
+    self.end_date < DateTime.now
+  end
+
 end
 

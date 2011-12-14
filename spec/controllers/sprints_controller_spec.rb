@@ -182,7 +182,32 @@ describe SprintsController do
 
     end
 
+    describe "PUT stop" do
+
+      before :each do
+        @sprint = Factory(:sprint, end_date: DateTime.now - 1)
+        @project = Factory(:project)
+        @project.current_sprint = @sprint
+        put :stop
+      end
+
+      it "sets the end date of the current sprint to the actual date" do
+        Sprint.find(@sprint.id).end_date.to_date.should eq DateTime.now.to_date
+      end
+
+      it "makes the current sprint no longer current" do
+        project = Project.find(@project.id).current_sprint.should be_nil
+      end
+
+      it "redirects to the sprint planning page" do
+        response.should redirect_to sprint_planning_path
+      end
+
+    end
+
   end
+
+
 
   describe "A logged out user can do nothing" do
 

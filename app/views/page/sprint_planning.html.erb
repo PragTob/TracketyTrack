@@ -1,7 +1,13 @@
 <%= render 'header' %>
 <div class="row">
   <% if current_project.current_sprint.nil? %>
-  <div class="button"><%= button_to "Start Sprint", {controller: 'sprints', action: 'start'}, method: "put", class: 'btn success' %></div>
+    <div class="button"><%= button_to "Start Sprint", {controller: 'sprints', action: 'start'}, method: "put", class: 'btn success' %></div>
+  <%else%>
+    <%if current_project.current_sprint.expired? %>
+      <div class="button"><%= button_to "Stop Sprint", {controller: 'sprints', action: 'stop'}, method: "put", class: 'btn success' %></div>
+    <%else%>
+      <div class="button"><%= button_to "Stop Sprint", {controller: 'sprints', action: 'stop'}, confirm: "The end date of the current sprint is not reached yet, do you still want to stop it?", method: "put", class: 'btn success' %></div>
+    <%end%>
   <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
     <div class="userstory_box_header">

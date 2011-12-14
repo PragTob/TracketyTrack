@@ -57,11 +57,26 @@ describe Project do
   end
 
   describe "#current_sprint=" do
-    it "set current_sprint_id to id of the given sprint" do
-      sprint = Factory.build(:sprint, id: 1)
-      @project.current_sprint = sprint
-      @project.current_sprint_id.should eq sprint.id
+
+    context "when sprint id is given" do
+
+        it "sets current_sprint_id to id of the given sprint" do
+          sprint = Factory.build(:sprint, id: 1)
+          @project.current_sprint = sprint
+          @project.current_sprint_id.should eq sprint.id
+        end
+
     end
+
+    context "when nil is given" do
+
+      it "sets the current_sprint_id to nil" do
+        @project.current_sprint = nil
+        @project.current_sprint_id.should be_nil
+      end
+
+    end
+
   end
 
   describe "destroy" do

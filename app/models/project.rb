@@ -20,7 +20,11 @@ class Project < ActiveRecord::Base
   end
 
   def current_sprint=(sprint)
-    self.current_sprint_id = sprint.id
+    if sprint.nil?
+      self.current_sprint_id = nil
+    else
+      self.current_sprint_id = sprint.id
+    end
     self.save
   end
 
