@@ -20,9 +20,6 @@ TracketyTrack::Application.routes.draw do
   get "/sprint_planning", to: 'page#sprint_planning',
                           as: :sprint_planning
 
-  # TODO: Remove me!!
-  get "/page/create_demo_sprint"
-
   resources :projects
 
   resources :users
