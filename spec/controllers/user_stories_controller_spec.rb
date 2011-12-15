@@ -26,7 +26,7 @@ describe UserStoriesController do
     describe "GET current_sprint_list" do
       it "assigns only the user stories of the current sprint to @@user_stories" do
         @current_sprint = Factory(:sprint)
-        Project.stub!(:current_sprint).and_return(@current_sprint)
+        @project = Factory(:project, current_sprint: @current_sprint)
         @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
         get :current_sprint_list
         assigns(:user_stories).should eq([@other_user_story])
