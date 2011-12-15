@@ -12,6 +12,20 @@ class UserStory < ActiveRecord::Base
     self.where(sprint_id: nil)
   end
 
+  def self.current_sprint_stories
+    unless Project.current_sprint.nil?
+      self.where(sprint_id: Project.current_sprint.id)
+    end
+  end
+
+  def self.completed_stories
+    self.where(status: "completed")
+  end
+
+  def self.work_in_progress_stories
+    self.where(status: "active")
+  end
+
 end
 # == Schema Information
 #

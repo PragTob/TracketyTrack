@@ -6,7 +6,8 @@ describe "user_stories/index.html.erb" do
     before(:each) do
       @user_story = Factory(:user_story, status: "inactive")
       @another_user_story = Factory(:user_story, status: "active")
-
+      @project = Factory(:project)
+      view.stub!(current_project: @project)
     end
 
     it "renders a list of user_stories" do

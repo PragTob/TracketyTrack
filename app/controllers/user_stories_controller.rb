@@ -14,6 +14,26 @@ class UserStoriesController < ApplicationController
     end
   end
 
+  def current_sprint_list
+    @user_stories = UserStory.current_sprint_stories
+    render 'current_sprint_list'
+  end
+
+  def completed_stories_list
+    @user_stories = UserStory.completed_stories
+    render 'completed_stories_list'
+  end
+
+  def work_in_progress_list
+    @user_stories = UserStory.work_in_progress_stories
+    render 'work_in_progress_list'
+  end
+
+  def backlog_list
+    @user_stories = UserStory.backlog
+    render 'backlog_list'
+  end
+
   # GET /user_stories/1
   # GET /user_stories/1.json
   def show

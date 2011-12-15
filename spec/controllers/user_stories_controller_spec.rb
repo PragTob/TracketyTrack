@@ -23,6 +23,42 @@ describe UserStoriesController do
       end
     end
 
+    describe "GET current_sprint_list" do
+      it "assigns only the user stories of the current sprint to @@user_stories" do
+        @current_sprint = Factory(:sprint)
+        Project.stub!(:current_sprint).and_return(@current_sprint)
+        @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
+        get :current_sprint_list
+        assigns(:user_stories).should eq([@other_user_story])
+      end
+    end
+
+    describe "GET completed_stories_list" do
+      it "assigns only the completed user stories to @@user_stories" do
+        @other_user_story = Factory(:user_story, status: "completed")
+        get :completed_stories_list
+        assigns(:user_stories).should eq([@other_user_story])
+      end
+    end
+
+    describe "GET work_in_progress_list" do
+      it "assigns only the WiP user stories to @@user_stories" do
+        @other_user_story = Factory(:user_story, status: "active")
+        get :work_in_progress_list
+        assigns(:user_stories).should eq([@other_user_story])
+      end
+    end
+
+    describe "GET backlog_list" do
+      it "assigns only the user stories without sprint to @@user_stories" do
+        @current_sprint = Factory(:sprint)
+        @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
+        get :backlog_list
+        assigns(:user_stories).should eq([@user_story])
+      end
+    end
+
+
     describe "GET show" do
       it "assigns the requested @user_story as @@user_story" do
         get :show, id: @user_story.id

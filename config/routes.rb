@@ -12,6 +12,15 @@ TracketyTrack::Application.routes.draw do
   put "user_stories/assign_sprint"
   put "user_stories/unassign_sprint"
 
+  get "/current_sprint_list", to: 'user_stories#current_sprint_list',
+                              as: :current_sprint_list
+  get "/completed_stories_list", to: 'user_stories#completed_stories_list',
+                              as: :completed_stories_list
+  get "/work_in_progress_list", to: 'user_stories#work_in_progress_list',
+                              as: :work_in_progress_list
+  get "/backlog_list",          to: 'user_stories#backlog_list',
+                              as: :backlog_list
+
 
   root to: "page#current_sprint_overview"
 

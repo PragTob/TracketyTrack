@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="span10">
+    <h1><%= link_to current_project.title, project_path(current_project) %></h1>
+  </div>
+  <div class="span5 offset1">
+    <ul class="pills">
+      <li>
+        <%= link_to 'All Stories', controller: "user_stories",
+                                    action: "index" %>
+      </li>
+      <li>
+        <%= link_to 'Current Sprint', controller: "user_stories",
+                                    action: "current_sprint_list" %>
+      </li>
+      <li>
+        <%= link_to 'Completed Stories', controller: "user_stories",
+                                    action: "completed_stories_list" %>
+      </li>
+      <li>
+        <%= link_to 'Work in Progress Stories', controller: "user_stories",
+                                    action: "work_in_progress_list" %>
+      </li>
+      <li>
+        <%= link_to 'Backlog User Stories', controller: "user_stories",
+                                    action: "backlog_list" %>
+      </li>
+    </ul>
+  </div>
+</div>
+

@@ -1,0 +1,21 @@
+<%= render 'header' %>
+
+<h2>Backlog User Stories</h2>
+<br />
+
+<table class="bordered-table zebra-striped">
+  <tr>
+    <th class="span10">Name</th>
+    <th>Priority</th>
+    <th>Estimation</th>
+  </tr>
+
+<% @user_stories.each do |user_story| %>
+  <tr>
+    <td><%= link_to user_story.name, user_story %></td>
+    <td><%= user_story.priority %></td>
+    <td><%= user_story.estimation %></td>
+  </tr>
+<% end %>
+</table>
+

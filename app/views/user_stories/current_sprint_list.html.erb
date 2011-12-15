@@ -1,15 +1,14 @@
 <%= render 'header' %>
 
-<h2>All User Stories</h2>
+<h2>User Stories of the Current Sprint</h2>
 <br />
+
 <table class="bordered-table zebra-striped">
   <tr>
     <th class="span10">Name</th>
     <th>Status</th>
     <th>Priority</th>
     <th>Estimation</th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @user_stories.each do |user_story| %>
@@ -18,14 +17,7 @@
     <td><%= user_story.status %></td>
     <td><%= user_story.priority %></td>
     <td><%= user_story.estimation %></td>
-    <td><%= button_to 'Edit', edit_user_story_path(user_story), method: :get, class: "btn" %></td>
-    <td><%= button_to 'Delete', user_story,
-              confirm: 'Are you sure?', method: :delete, class: "btn" %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= button_to 'New User story', new_user_story_path, method: :get, class: "btn success" %>
 
