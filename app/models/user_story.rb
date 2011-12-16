@@ -13,9 +13,8 @@ class UserStory < ActiveRecord::Base
   end
 
   def self.current_sprint_stories
-    unless Project.current.current_sprint.nil?
-      self.where(sprint_id: Project.current.current_sprint)
-    end
+    project = Project.current
+    self.where(sprint_id: project.current_sprint) if project.has_current_sprint?
   end
 
   def self.completed_stories

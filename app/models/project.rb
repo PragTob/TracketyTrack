@@ -32,6 +32,10 @@ class Project < ActiveRecord::Base
     self.first
   end
 
+  def has_current_sprint?
+    current_sprint_id != nil
+  end
+
   # there shall only be one project atm
   validates_with ProjectValidator, on: :create
   validates :title, presence: true

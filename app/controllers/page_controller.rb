@@ -3,13 +3,13 @@ class PageController < ApplicationController
 
   def current_sprint_overview
 
-    if current_sprint.nil?
-      @user_stories_current_sprint = []
-      @user_stories_in_progress = []
-    else
+    if current_project.has_current_sprint?
       @user_stories_current_sprint = current_sprint.user_stories
       @user_stories_current_sprint = @user_stories_current_sprint.select{|each| each.status == "inactive" or each.status == "completed"}
       @user_stories_in_progress = current_sprint.user_stories.select{|each| each.status == "active" or each.status == "suspended"}
+    else
+      @user_stories_current_sprint = []
+      @user_stories_in_progress = []
     end
 
     @page = "current"
@@ -17,10 +17,10 @@ class PageController < ApplicationController
   end
 
   def sprint_planning
-    if current_sprint.nil?
-      @user_stories_current_sprint = []
-    else
+    if current_project.has_current_sprint?
       @user_stories_current_sprint = current_sprint.user_stories
+    else
+      @user_stories_current_sprint = []
     end
     @user_stories_in_backlog = UserStory.backlog
     @page = "planning"
