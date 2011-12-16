@@ -6,7 +6,7 @@ class UserStoriesController < ApplicationController
   # GET /user_stories
   # GET /user_stories.json
   def index
-    @page = "all"
+    @title = "All Stories"
     @user_stories = UserStory.all
 
     respond_to do |format|
@@ -16,27 +16,27 @@ class UserStoriesController < ApplicationController
   end
 
   def current_sprint_list
-    @page = "current_sprint"
+    @title = "User Stories of the Current Sprint"
     @user_stories = UserStory.current_sprint_stories
-    render 'current_sprint_list'
+    render 'index'
   end
 
   def completed_stories_list
-    @page = "completed_stories"
+    @title = "Completed User Stories"
     @user_stories = UserStory.completed_stories
-    render 'completed_stories_list'
+    render 'index'
   end
 
   def work_in_progress_list
-    @page = "WIP"
+    @title = "Work in Progress User Stories"
     @user_stories = UserStory.work_in_progress_stories
-    render 'work_in_progress_list'
+    render 'index'
   end
 
   def backlog_list
-    @page = "backlog"
+    @title = "Backlog User Stories"
     @user_stories = UserStory.backlog
-    render 'backlog_list'
+    render 'index'
   end
 
   # GET /user_stories/1
