@@ -41,3 +41,16 @@ class Sprint < ActiveRecord::Base
 
 end
 
+# == Schema Information
+#
+# Table name: sprints
+#
+#  id         :integer         not null, primary key
+#  number     :integer
+#  start_date :datetime
+#  end_date   :datetime
+#  velocity   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+

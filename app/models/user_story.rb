@@ -38,5 +38,8 @@ end
 #  estimation          :integer
 #  created_at          :datetime
 #  updated_at          :datetime
+#  status              :string(255)
+#  user_id             :integer
+#  sprint_id           :integer
 #
 
