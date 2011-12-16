@@ -4,23 +4,23 @@
   </div>
   <div class="span10 offset1">
     <ul class="pills">
-      <li>
+      <li<% if @page == "all"%> class="active"<% end %>>
         <%= link_to 'All Stories', controller: "user_stories",
                                     action: "index" %>
       </li>
-      <li>
+      <li<% if @page == "current_sprint"%> class="active"<% end %>>
         <%= link_to 'Current Sprint', controller: "user_stories",
                                     action: "current_sprint_list" %>
       </li>
-      <li>
+      <li<% if @page == "completed_stories"%> class="active"<% end %>>
         <%= link_to 'Completed Stories', controller: "user_stories",
                                     action: "completed_stories_list" %>
       </li>
-      <li>
+      <li<% if @page == "WIP"%> class="active"<% end %>>
         <%= link_to 'Work in Progress Stories', controller: "user_stories",
                                     action: "work_in_progress_list" %>
       </li>
-      <li>
+      <li<% if @page == "backlog"%> class="active"<% end %>>
         <%= link_to 'Backlog User Stories', controller: "user_stories",
                                     action: "backlog_list" %>
       </li>
