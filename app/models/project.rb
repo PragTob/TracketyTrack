@@ -28,6 +28,10 @@ class Project < ActiveRecord::Base
     self.save
   end
 
+  def self.current
+    self.first
+  end
+
   # there shall only be one project atm
   validates_with ProjectValidator, on: :create
   validates :title, presence: true

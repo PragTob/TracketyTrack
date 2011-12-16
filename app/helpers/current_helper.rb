@@ -1,7 +1,7 @@
 module CurrentHelper
 
   def current_project
-    @current_project ||= Project.first
+    @current_project ||= Project.current
   end
 
   def current_sprint

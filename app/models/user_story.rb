@@ -1,5 +1,4 @@
 class UserStory < ActiveRecord::Base
-  include CurrentHelper
   belongs_to :user
   belongs_to :sprint
 
@@ -14,9 +13,8 @@ class UserStory < ActiveRecord::Base
   end
 
   def self.current_sprint_stories
-    # TODO: get project/current sprint from helper (or project model)
-    unless Project.first.current_sprint.nil?
-      self.where(sprint_id: Project.first.current_sprint)
+    unless Project.current.current_sprint.nil?
+      self.where(sprint_id: Project.current.current_sprint)
     end
   end
 
