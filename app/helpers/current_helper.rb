@@ -8,5 +8,9 @@ module CurrentHelper
     current_project.current_sprint
   end
 
+  def current_sprint= sprint
+    current_project.current_sprint = sprint
+  end
+
 end
 

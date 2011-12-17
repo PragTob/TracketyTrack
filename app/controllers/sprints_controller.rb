@@ -88,10 +88,11 @@ class SprintsController < ApplicationController
   def start
 
     if Sprint.actual_sprint?
-      current_project.current_sprint = Sprint.actual_sprint
+      self.current_sprint = Sprint.actual_sprint
       respond_to do |format|
-        format.html { redirect_to sprint_planning_path }
-        format.json { head :ok }
+        format.html { redirect_to sprint_planning_path, flash:
+                      {success: "Sprint #{current_sprint.number} was started." +
+                      "It is planned to end #{current_sprint.end_date}"} }
       end
     else
       respond_to do |format|

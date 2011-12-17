@@ -24,7 +24,7 @@ class Sprint < ActiveRecord::Base
   validates :number,  presence: true,
                       uniqueness: true
   validates_with SprintDatesValidator
-  validates_numericality_of :velocity, greater_than: 0
+  validates :velocity,  numericality: {greater_than: 0}, allow_nil: true
 
   def self.actual_sprint?
     not Sprint.actual_sprint.nil?

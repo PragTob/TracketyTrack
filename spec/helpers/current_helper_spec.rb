@@ -15,5 +15,12 @@ describe CurrentHelper do
     @project.current_sprint = @sprint
     current_sprint.should eq @sprint
   end
+
+  it "sets the current sprint" do
+    @sprint = Factory(:sprint)
+    self.current_sprint = @sprint
+    current_sprint.should eq @sprint
+  end
+
 end
 

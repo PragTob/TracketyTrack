@@ -14,10 +14,9 @@ describe Sprint do
   it { should respond_to :user_stories }
   it { should be_valid }
 
-  context "when being saved" do
-    before{ @sprint.save }
-    it { should be_persisted }
-    after{ @sprint.destroy }
+  it "is valid without a velocity" do
+    @sprint.velocity = nil
+    @sprint.should be_valid
   end
 
   context "without a number" do
@@ -26,12 +25,8 @@ describe Sprint do
   end
 
   context "when number is already taken" do
-    before do
-      @sprint2 = Factory(:sprint)
-      @sprint.save
-    end
-    it { should_not be_persisted }
-    after { @sprint2.destroy }
+    before { @sprint2 = Factory(:sprint) }
+    it { should_not be_valid }
   end
 
   context "when the end date lies before the start date" do
