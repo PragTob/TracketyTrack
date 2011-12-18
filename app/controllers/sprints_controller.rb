@@ -105,12 +105,10 @@ class SprintsController < ApplicationController
 
   # PUT /sprints/stop/1
   def stop
+    current_sprint.end_date = DateTime.now
+    current_sprint.save
 
-    sprint = current_project.current_sprint
-    sprint.end_date = DateTime.now
-    sprint.save
-
-    current_project.current_sprint = nil
+    self.current_sprint = nil
 
     respond_to do |format|
       format.html { redirect_to sprint_planning_path }

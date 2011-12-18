@@ -5,7 +5,7 @@ module CurrentHelper
   end
 
   def current_sprint
-    current_project.current_sprint
+    @current_sprint ||= current_project.current_sprint
   end
 
   def current_sprint= sprint
