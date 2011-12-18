@@ -9,9 +9,6 @@ describe UserStoriesController do
       sign_in_a_user
     end
 
-    # This should return the minimal set of attributes required to create a valid
-    # UserStory. As you add validations to UserStory, be sure to
-    # update the return value of this method accordingly.
     def valid_attributes
       Factory.attributes_for(:user_story)
     end
@@ -24,7 +21,7 @@ describe UserStoriesController do
     end
 
     describe "GET current_sprint_list" do
-      it "assigns only the user stories of the current sprint to @@user_stories" do
+      it "assigns only the user stories of the current sprint to @user_stories" do
         @current_sprint = Factory(:sprint)
         @project = Factory(:project, current_sprint: @current_sprint)
         @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
@@ -34,7 +31,7 @@ describe UserStoriesController do
     end
 
     describe "GET completed_stories_list" do
-      it "assigns only the completed user stories to @@user_stories" do
+      it "assigns only the completed user stories to @user_stories" do
         @other_user_story = Factory(:user_story, status: "completed")
         get :completed_stories_list
         assigns(:user_stories).should eq([@other_user_story])
@@ -42,7 +39,7 @@ describe UserStoriesController do
     end
 
     describe "GET work_in_progress_list" do
-      it "assigns only the WiP user stories to @@user_stories" do
+      it "assigns only the WiP user stories to @user_stories" do
         @other_user_story = Factory(:user_story, status: "active")
         get :work_in_progress_list
         assigns(:user_stories).should eq([@other_user_story])
@@ -50,7 +47,7 @@ describe UserStoriesController do
     end
 
     describe "GET backlog_list" do
-      it "assigns only the user stories without sprint to @@user_stories" do
+      it "assigns only the user stories without sprint to @user_stories" do
         @current_sprint = Factory(:sprint)
         @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
         get :backlog_list
@@ -60,21 +57,21 @@ describe UserStoriesController do
 
 
     describe "GET show" do
-      it "assigns the requested @user_story as @@user_story" do
+      it "assigns the requested user_story as @user_story" do
         get :show, id: @user_story.id
         assigns(:user_story).should eq(@user_story)
       end
     end
 
     describe "GET new" do
-      it "assigns a new @user_story as @@user_story" do
+      it "assigns a new user_story as @user_story" do
         get :new
         assigns(:user_story).should be_a_new(UserStory)
       end
     end
 
     describe "GET edit" do
-      it "assigns the requested @user_story as @@user_story" do
+      it "assigns the requested user_story as @user_story" do
         get :edit, id: @user_story.id
         assigns(:user_story).should eq(@user_story)
       end
@@ -118,46 +115,53 @@ describe UserStoriesController do
     end
 
     describe "PUT update" do
+
       describe "with valid params" do
-        it "updates the requested @user_story" do
-          # Assuming there are no other user_stories in the database, this
-          # specifies that the UserStory created on the previous line
-          # receives the :update_attributes message with whatever params are
-          # submitted in the request.
+
+        it "updates the requested user_story" do
           UserStory.any_instance.should_receive(:update_attributes).with({'name' => 'Test'})
           put :update, id: @user_story.id, user_story: {'name' => 'Test'}
         end
 
-        it "assigns the requested @user_story as @@user_story" do
+        it "assigns the requested user_story as @user_story" do
           put :update, id: @user_story.id, user_story: valid_attributes
           assigns(:user_story).should eq(@user_story)
         end
 
-        it "redirects to the @user_story" do
+        it "redirects to the user_story" do
           put :update, id: @user_story.id, user_story: valid_attributes
           response.should redirect_to(@user_story)
         end
+
+        it "updates the assigned user" do
+          @user = Factory :user
+          put :update, id: @user_story.id,
+              user_story: { name: "Bla", user_id: @user.id }
+          UserStory.find(@user_story.id).user.should eq @user
+        end
+
       end
 
       describe "with invalid params" do
-        it "assigns the @user_story as @@user_story" do
-          # Trigger the behavior that occurs when invalid params are submitted
+
+        it "assigns the user_story as @user_story" do
           UserStory.any_instance.stub(:save).and_return(false)
           put :update, id: @user_story.id, user_story: {}
           assigns(:user_story).should eq(@user_story)
         end
 
         it "re-renders the 'edit' template" do
-          # Trigger the behavior that occurs when invalid params are submitted
           UserStory.any_instance.stub(:save).and_return(false)
           put :update, id: @user_story.id, user_story: {}
           response.should render_template("edit")
         end
+
       end
+
     end
 
     describe "DELETE destroy" do
-      it "destroys the requested @user_story" do
+      it "destroys the requested user_story" do
         expect {
           delete :destroy, id: @user_story.id
         }.to change(UserStory, :count).by(-1)

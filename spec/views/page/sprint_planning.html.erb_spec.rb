@@ -15,6 +15,7 @@ describe "page/sprint_planning.html.erb" do
     view.stub!(current_project: @project)
     render
   end
+
   it "contains one box for the current sprint" do
     rendered.should have_content("CURRENT SPRINT")
     rendered.should have_selector("#box_current_sprint")

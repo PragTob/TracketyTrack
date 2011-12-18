@@ -54,6 +54,7 @@ class UserStoriesController < ApplicationController
   # GET /user_stories/new.json
   def new
     @user_story = UserStory.new
+    @users = User.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -64,6 +65,7 @@ class UserStoriesController < ApplicationController
   # GET /user_stories/1/edit
   def edit
     @user_story = UserStory.find(params[:id])
+    @users = User.all
   end
 
   # POST /user_stories
