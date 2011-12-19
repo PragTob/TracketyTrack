@@ -33,6 +33,16 @@ describe UserStory do
     it {should_not be_valid}
   end
 
+  describe "#short_description" do
+
+    it "returns a shortened description" do
+      @user_story.description = "tr" + "ol" * 100
+      @user_story.short_description.length.should eq 200
+      @user_story.short_description.start_with?("trolololol").should be_true
+    end
+
+  end
+
 end
 
 # == Schema Information

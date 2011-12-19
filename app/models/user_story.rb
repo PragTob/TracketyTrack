@@ -25,6 +25,10 @@ class UserStory < ActiveRecord::Base
     self.where(status: "active")
   end
 
+  def short_description
+    self.description[0..199]
+  end
+
 end
 # == Schema Information
 #

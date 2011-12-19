@@ -13,6 +13,9 @@
     <div class="restartbutton"><%= button_to "Restart", {controller: 'user_stories', action: 'start', id: user_story.id, user_id: current_user}, method: "put", class: 'btn primary' %></div>
   <% end %>
 
-  <%= user_story.name %>
+  <%= link_to user_story.name, '#', class: 'short_description_link' %>
+  <div class='short_description' style="display: none">
+    <%= user_story.short_description %>
+  </div>
 </div>
 
