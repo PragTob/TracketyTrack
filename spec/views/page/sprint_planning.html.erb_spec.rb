@@ -51,6 +51,11 @@ describe "page/sprint_planning.html.erb" do
       rendered.should have_button("Start Sprint")
     end
 
+    it "shows a notification that there is no current sprint" do
+      render
+      rendered.should have_content "There is no current sprint. Please start a new one."
+    end
+
   end
 
   describe "when there is a current sprint" do
