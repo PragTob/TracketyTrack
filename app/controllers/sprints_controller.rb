@@ -47,6 +47,7 @@ class SprintsController < ApplicationController
 
     if @sprint.start_date.nil?
       @sprint.start_date = DateTime.now
+      @sprint.end_date = DateTime.now
     end
     respond_to do |format|
       if @sprint.save

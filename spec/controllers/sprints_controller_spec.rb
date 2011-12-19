@@ -67,6 +67,7 @@ describe SprintsController do
         describe "when no start date is given" do
 
           it "sets the start date to now" do
+            Factory(:project)
             post :create, :sprint => valid_attributes.merge(start_date: nil)
             assigns(:sprint).start_date.to_date.should eq DateTime.now.to_date
           end
