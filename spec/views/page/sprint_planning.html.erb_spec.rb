@@ -3,7 +3,6 @@ require 'spec_helper'
 describe "page/sprint_planning.html.erb" do
 
   before (:each) do
-    view.stub!(current_project: Factory.build(:project))
     @user_story = Factory.build(:user_story)
     @other_user_story = Factory.build(:user_story, name: "Other Name")
     assign(:user_stories_current_sprint, [@user_story])
@@ -47,8 +46,11 @@ describe "page/sprint_planning.html.erb" do
   describe "when there is no current sprint" do
 
     it "shows a start sprint button" do
-      render
       rendered.should have_button("Start Sprint")
+    end
+
+    it "shows a notification that there is no current sprint" do
+      rendered.should have_content "There is no current sprint. Please start a new one."
     end
 
   end

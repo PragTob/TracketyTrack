@@ -64,6 +64,29 @@ describe SprintsController do
           response.should redirect_to(Sprint.last)
         end
 
+        describe "when no start date is given" do
+
+          it "sets the start date to now" do
+            Factory(:project)
+            post :create, :sprint => valid_attributes.merge(start_date: nil)
+            assigns(:sprint).start_date.to_date.should eq DateTime.now.to_date
+          end
+
+        end
+
+        describe "when created sprint is actual sprint" do
+
+          it "starts this sprint" do
+            project = Factory(:project)
+            attributes = valid_attributes.merge(start_date: DateTime.now - 1,
+                                                end_date: DateTime.now + 1)
+            post :create, :sprint => attributes
+            project = Project.find(project.id)
+            project.current_sprint.should eq assigns(:sprint)
+          end
+
+        end
+
       end
 
       describe "with invalid params" do
@@ -149,38 +172,38 @@ describe SprintsController do
 
     end
 
-    describe "PUT start" do
+#    describe "PUT start" do
 
-      describe "when there is one sprint containing the current date" do
+#      describe "when there is one sprint containing the current date" do
 
-        before :each do
-          @sprint = Factory(:sprint, start_date: DateTime.now - 1,
-                                    end_date: DateTime.now + 1)
-          @project = Factory(:project)
-          put :start
-        end
+#        before :each do
+#          @sprint = Factory(:sprint, start_date: DateTime.now - 1,
+#                                    end_date: DateTime.now + 1)
+#          @project = Factory(:project)
+#          put :start
+#        end
 
-        it "sets this sprint as current sprint" do
-          project = Project.find(@project.id)
-          project.current_sprint.should eq @sprint
-        end
+#        it "sets this sprint as current sprint" do
+#          project = Project.find(@project.id)
+#          project.current_sprint.should eq @sprint
+#        end
 
-        it "redirects to the sprint planning page" do
-          response.should redirect_to sprint_planning_path
-        end
+#        it "redirects to the sprint planning page" do
+#          response.should redirect_to sprint_planning_path
+#        end
 
-      end
+#      end
 
-      describe "when there is one sprint containing the current date" do
+#      describe "when there is one sprint containing the current date" do
 
-        it "redirects to the create sprint page" do
-          put :start
-          response.should redirect_to new_sprint_url
-        end
+#        it "redirects to the create sprint page" do
+#          put :start
+#          response.should redirect_to new_sprint_url
+#        end
 
-      end
+#      end
 
-    end
+#    end
 
     describe "PUT stop" do
 

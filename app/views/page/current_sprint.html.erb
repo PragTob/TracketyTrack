@@ -1,26 +1,33 @@
 <%= render 'header' %>
 
-<div class="row">
-  <div id="box_in_progress" class="span8 userstory_box">
-    <div class="userstory_box_header">
-      IN PROGRESS
+ <% if current_project.has_current_sprint? %>
+  <div class="row">
+    <div id="box_in_progress" class="span8 userstory_box">
+      <div class="userstory_box_header">
+        IN PROGRESS
+      </div>
+      <div class="user_stories_container">
+      <% @user_stories_in_progress.each do |user_story| %>
+        <%= render :partial => 'user_stories/user_story_box', :locals => { :user_story => user_story } %>
+      <% end %>
+      </div>
     </div>
-    <div class="user_stories_container">
-    <% @user_stories_in_progress.each do |user_story| %>
-      <%= render :partial => 'user_stories/user_story_box', :locals => { :user_story => user_story } %>
-    <% end %>
-    </div>
-  </div>
 
-  <div id="box_current_sprint" class="span8 userstory_box">
-    <div class="userstory_box_header">
-      CURRENT SPRINT
-    </div>
-    <div class="user_stories_container">
-    <% @user_stories_current_sprint.each do |user_story| %>
-      <%= render :partial => 'user_stories/user_story_box', :locals => { :user_story => user_story } %>
-    <% end %>
+    <div id="box_current_sprint" class="span8 userstory_box">
+      <div class="userstory_box_header">
+        CURRENT SPRINT
+      </div>
+      <div class="user_stories_container">
+      <% @user_stories_current_sprint.each do |user_story| %>
+        <%= render :partial => 'user_stories/user_story_box', :locals => { :user_story => user_story } %>
+      <% end %>
+      </div>
     </div>
   </div>
-</div>
+ <% else %>
+    <div id="box_no_current_sprint">
+      There is no current sprint. Please start a new one.
+      <div class="button"><%= button_to "Start Sprint", new_sprint_url, method: "get", class: 'btn success' %></div>
+    </div>
+ <% end %>
 

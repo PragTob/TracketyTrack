@@ -1,23 +1,22 @@
 <%= render 'header' %>
 <div class="row">
-  <% if current_project.has_current_sprint? %>
-    <%if current_project.current_sprint.expired? %>
-      <div class="button"><%= button_to "Stop Sprint", {controller: 'sprints', action: 'stop'}, method: "put", class: 'btn danger' %></div>
-    <%else%>
-      <div class="button"><%= button_to "Stop Sprint", {controller: 'sprints', action: 'stop'}, confirm: "The end date of the current sprint is not reached yet, do you still want to stop it?", method: "put", class: 'btn danger' %></div>
-    <%end%>
-  <%else%>
-    <div class="button"><%= button_to "Start Sprint", {controller: 'sprints', action: 'start'}, method: "put", class: 'btn success' %></div>
-  <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
     <div class="userstory_box_header">
       CURRENT SPRINT
     </div>
+   <% if current_project.has_current_sprint? %>
+    <div class="button"><%= button_to "Stop Sprint", {controller: 'sprints', action: 'stop'}, method: "put", class: 'btn danger' %></div>
     <div class="user_stories_container">
-    <% @user_stories_current_sprint.each do |user_story| %>
-      <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: false } %>
+     <% @user_stories_current_sprint.each do |user_story| %>
+       <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: false } %>
+     <% end %>
+     </div>
+    <% else %>
+     <div class="box_no_current_sprint">
+      There is no current sprint. Please start a new one.
+      <div class="button"><%= button_to "Start Sprint", new_sprint_url, method: "get", class: 'btn success' %></div>
+     </div>
     <% end %>
-    </div>
   </div>
 
   <div id="box_backlog" class="span8 userstory_box">

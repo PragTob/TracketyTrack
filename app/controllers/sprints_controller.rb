@@ -45,8 +45,15 @@ class SprintsController < ApplicationController
   def create
     @sprint = Sprint.new(params[:sprint])
 
+    if @sprint.start_date.nil?
+      @sprint.start_date = DateTime.now
+      @sprint.end_date = DateTime.now
+    end
     respond_to do |format|
       if @sprint.save
+        if Sprint.actual_sprint == @sprint
+          self.current_sprint = @sprint
+        end
         format.html { redirect_to @sprint, flash: {success: 'Sprint was successfully created.'} }
         format.json { render json: @sprint, status: :created, location: @sprint }
       else
@@ -85,23 +92,23 @@ class SprintsController < ApplicationController
   end
 
   # PUT /sprints/start
-  def start
+#  def start
 
-    if Sprint.actual_sprint?
-      self.current_sprint = Sprint.actual_sprint
-      respond_to do |format|
-        format.html { redirect_to sprint_planning_path, flash:
-                      {success: "Sprint #{current_sprint.number} was started." +
-                      "It is planned to end #{current_sprint.end_date}"} }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to new_sprint_url }
-        format.json { head :ok }
-      end
-    end
+#    if Sprint.actual_sprint?
+#      self.current_sprint = Sprint.actual_sprint
+#      respond_to do |format|
+#        format.html { redirect_to sprint_planning_path, flash:
+#                      {success: "Sprint #{current_sprint.number} was started." +
+#                      "It is planned to end #{current_sprint.end_date}"} }
+#      end
+#    else
+#      respond_to do |format|
+#        format.html { redirect_to new_sprint_url }
+#        format.json { head :ok }
+#      end
+#    end
 
-  end
+#  end
 
   # PUT /sprints/stop/1
   def stop
