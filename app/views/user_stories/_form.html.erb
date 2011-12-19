@@ -45,9 +45,9 @@
   <div class="clearfix">
     <%= f.label :users, "Assignees" %>
     <div class="input">
-      <% options = { multiple: true, include_blank: true, size: @users.size }
-        options.merge!({selected: @user_story.users.first.id}) unless @user_story.users.empty? %>
-      <%= f.select :users, @users.map { |u| [u.name, u.id] }, { include_blank: true, selected: @user_story.users.map(&:id) }, {multiple: true, size: 10} %>
+      <%= f.select :users, @users.map { |u| [u.name, u.id] },
+      { selected: @user_story.users.map(&:id) },
+      { multiple: true, size: @users.size } %>
     </div>
   </div>
 

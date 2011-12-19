@@ -7,8 +7,8 @@ module UserStoriesHelper
   end
 
   def add_users params
-    users = params[:user_story][:users]
-    users.map! { |user_id| User.find(user_id) } unless users.blank?
+    params[:user_story][:users] ||= []
+    params[:user_story][:users].map! { |user_id| User.find(user_id) }
   end
 
 end

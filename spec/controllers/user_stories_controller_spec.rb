@@ -119,8 +119,8 @@ describe UserStoriesController do
       describe "with valid params" do
 
         it "updates the requested user_story" do
-          UserStory.any_instance.should_receive(:update_attributes).with({'name' => 'Test'})
           put :update, id: @user_story.id, user_story: {'name' => 'Test'}
+          UserStory.find(@user_story.id).name.should eq 'Test'
         end
 
         it "assigns the requested user_story as @user_story" do
@@ -138,6 +138,17 @@ describe UserStoriesController do
           put :update, id: @user_story.id,
               user_story: { name: "Bla", users: users }
           UserStory.find(@user_story.id).users.should eq users
+        end
+
+        it "correctly unassigns users if no users are supplied" do
+          users = [Factory(:user)]
+          @user_story.users << users
+          @user_story.save
+
+          put :update, id: @user_story.id,
+              user_story: { name: "Bla" }
+
+          UserStory.find(@user_story.id).users.should be_empty
         end
 
       end

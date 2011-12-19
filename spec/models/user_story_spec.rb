@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def add_users_to_story
+  @user_story.users << Factory.build(:user) << Factory.build(:other_user)
+end
+
 # more examples to come when the model gets more complex
 describe UserStory do
   before :each do
@@ -31,6 +35,22 @@ describe UserStory do
   context "with a status unlike inactive, active, suspended or completed" do
     before{ @user_story.status = "foo" }
     it {should_not be_valid}
+  end
+
+  it "is valid with multiple users assigned" do
+    add_users_to_story
+    @user_story.should be_valid
+  end
+
+  it "has an appropriate users size" do
+    add_users_to_story
+    @user_story.users.size.should be 2
+  end
+
+  it "doesn't have duplicated users" do
+    user = Factory :user
+    @user_story.users << user << user
+    @user_story.users.size.should be 1
   end
 
 end

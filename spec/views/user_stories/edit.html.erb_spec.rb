@@ -24,13 +24,20 @@ describe "user_stories/edit.html.erb" do
   end
 
   it "preselects the currently assigned user" do
-    pending
     @user_story.users << @user
     @user_story.save
     render
 
-    page.has_select?("user_story[users]", selected: [@user.name]).should == true
+    page.has_select?("user_story_users", selected: @user.name).should be true
   end
+
+  it "preselects two currently assigned users" do
+     @user_story.users =  @users
+     @user_story.save
+     render
+
+     page.has_select?("user_story_users", selected: @users.map(&:name)).should be true
+   end
 
 end
 
