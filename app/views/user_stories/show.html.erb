@@ -28,9 +28,7 @@
   <% if @user_story.users.empty? %>
     No user assigned
   <% else %>
-    <% @user_story.users.each do |user| user.name %>
-      <%= user.name %>
-    <% end %>
+    <%= @user_story.users.map(&:name).join(', ') %>
   <% end %>
 </p>
 
