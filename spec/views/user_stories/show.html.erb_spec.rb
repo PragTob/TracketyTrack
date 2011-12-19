@@ -5,7 +5,7 @@ describe "user_stories/show.html.erb" do
     @user_story = Factory(:user_story, status: "inactive")
     assign(:user_story, @user_story)
     @user = Factory(:user)
-    @user_story.user = @user
+    @user_story.users << @user
     view.stub!(current_user: @user)
   end
 
@@ -28,7 +28,7 @@ describe "user_stories/show.html.erb" do
   end
 
   it "states 'No user assigned' if no user is assigned" do
-    @user_story.user = nil
+    @user_story.users = []
     render
     rendered.should match("No user assigned")
   end

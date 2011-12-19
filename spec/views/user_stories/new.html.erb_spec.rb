@@ -15,7 +15,7 @@ describe "user_stories/new.html.erb" do
       assert_select "textarea#user_story_acceptance_criteria", name: "user_story[acceptance_criteria]"
       assert_select "input#user_story_priority", name: "user_story[priority]"
       assert_select "input#user_story_estimation", name: "user_story[estimation]"
-      assert_select "select#user_story_user_id", name: "user_story[user_id]"
+      assert_select "select#user_story_users", name: "user_story[users]"
     end
   end
 end

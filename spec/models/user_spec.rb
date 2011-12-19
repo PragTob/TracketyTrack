@@ -65,6 +65,28 @@ describe User do
 
   end
 
+  describe "user stories" do
+
+    before :each do
+      @user_story = Factory.build(:user_story)
+      @user.user_stories << @user_story
+    end
+
+    it "can have an assigned user story" do
+      @user.should be_valid
+    end
+
+    it "counts the assigned user stories" do
+      @user.user_stories.size.should be 1
+    end
+
+    it "may not have the same user story assigned twice" do
+      @user.user_stories << @user_story
+      @user.user_stories.size.should be 1
+    end
+
+  end
+
   describe "Password validation" do
 
     it "is invalid without a password" do

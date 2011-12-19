@@ -1,5 +1,5 @@
 class UserStory < ActiveRecord::Base
-  belongs_to :user
+  has_and_belongs_to_many :users, uniq: true
   belongs_to :sprint
 
   # just the name is needed, as sometimes one wants to add a new user story fast

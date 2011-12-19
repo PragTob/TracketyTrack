@@ -19,7 +19,7 @@ class SprintDatesValidator < ActiveModel::Validator
 end
 
 class Sprint < ActiveRecord::Base
-  has_many :user_stories
+  has_many :user_stories, uniq: true
 
   validates :number,  presence: true,
                       uniqueness: true

@@ -25,10 +25,10 @@
 
 <p>
   <b>Assignees:</b>
-  <% if @user_story.user %>
-    <%= @user_story.user.name %>
-  <% else %>
+  <% if @user_story.users.empty? %>
     No user assigned
+  <% else %>
+    <%= @user_story.users.map(&:name).join(', ') %>
   <% end %>
 </p>
 
@@ -40,7 +40,7 @@
     <%= button_to "Re-Start", {action: 'start', id: @user_story.id, user_id: 1},
                                                                method: "put"%>
   <% elsif @user_story.status == "active" %>
-    <% if @user_story.user == current_user %>
+    <% if @user_story.users.include? current_user %>
       <%= button_to "Pause", {action: 'pause', id: @user_story.id, user_id: 1},
                                                                method: "put"%>
     <% end %>

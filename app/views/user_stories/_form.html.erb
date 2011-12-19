@@ -43,14 +43,11 @@
     </div>
   </div>
   <div class="clearfix">
-    <%= f.label :user_id, "Assignee" %>
+    <%= f.label :users, "Assignees" %>
     <div class="input">
-      <% if @user_story.user.nil?
-           options = { include_blank: true }
-         else
-           options = { selected: @user_story.user.id, include_blank: true }
-         end %>
-      <%= f.select :user_id, @users.map { |u| [u.name, u.id] }, options %>
+      <%= f.select :users, @users.map { |u| [u.name, u.id] },
+      { selected: @user_story.users.map(&:id) },
+      { multiple: true, size: @users.size } %>
     </div>
   </div>
 

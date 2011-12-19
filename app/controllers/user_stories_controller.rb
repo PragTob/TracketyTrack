@@ -2,6 +2,7 @@ class UserStoriesController < ApplicationController
   include UserStoriesHelper
 
   before_filter :authenticate
+  before_filter(only: [:update, :create]) {|c| c.add_users(params)}
 
   # GET /user_stories
   # GET /user_stories.json
@@ -39,8 +40,6 @@ class UserStoriesController < ApplicationController
     render 'index'
   end
 
-  # GET /user_stories/1
-  # GET /user_stories/1.json
   def show
     @user_story = UserStory.find(params[:id])
 
@@ -50,8 +49,6 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # GET /user_stories/new
-  # GET /user_stories/new.json
   def new
     @user_story = UserStory.new
     @users = User.all
@@ -62,14 +59,11 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # GET /user_stories/1/edit
   def edit
     @user_story = UserStory.find(params[:id])
     @users = User.all
   end
 
-  # POST /user_stories
-  # POST /user_stories.json
   def create
     @user_story = UserStory.new(params[:user_story])
     @user_story.status = "inactive"
@@ -85,8 +79,6 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # PUT /user_stories/1
-  # PUT /user_stories/1.json
   def update
     @user_story = UserStory.find(params[:id])
 
@@ -101,8 +93,6 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # DELETE /user_stories/1
-  # DELETE /user_stories/1.json
   def destroy
     @user_story = UserStory.find(params[:id])
     @user_story.destroy
@@ -113,11 +103,10 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # PUT /user_stories/1
   def start
     @user_story = UserStory.find(params[:id])
     @user_story.status = "active"
-    @user_story.user = current_user
+    @user_story.users << current_user
     current_user.user_stories << @user_story
     @user_story.save
     current_user.save
@@ -128,11 +117,9 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  #PUT /user_stories/1
   def pause
     @user_story = UserStory.find(params[:id])
-    @user = User.find(params[:user_id])
-    if @user_story.user == @user
+    if @user_story.users.include? current_user
       @user_story.status = "suspended"
       @user_story.save
 

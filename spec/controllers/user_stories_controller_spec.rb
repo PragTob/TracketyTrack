@@ -98,7 +98,7 @@ describe UserStoriesController do
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved @user_story as @@user_story" do
+        it "assigns a newly created but unsaved user_story as @user_story" do
           # Trigger the behavior that occurs when invalid params are submitted
           UserStory.any_instance.stub(:save).and_return(false)
           post :create, user_story: {}
@@ -119,8 +119,8 @@ describe UserStoriesController do
       describe "with valid params" do
 
         it "updates the requested user_story" do
-          UserStory.any_instance.should_receive(:update_attributes).with({'name' => 'Test'})
           put :update, id: @user_story.id, user_story: {'name' => 'Test'}
+          UserStory.find(@user_story.id).name.should eq 'Test'
         end
 
         it "assigns the requested user_story as @user_story" do
@@ -134,10 +134,21 @@ describe UserStoriesController do
         end
 
         it "updates the assigned user" do
-          @user = Factory :user
+          users = [Factory(:user)]
           put :update, id: @user_story.id,
-              user_story: { name: "Bla", user_id: @user.id }
-          UserStory.find(@user_story.id).user.should eq @user
+              user_story: { name: "Bla", users: users }
+          UserStory.find(@user_story.id).users.should eq users
+        end
+
+        it "correctly unassigns users if no users are supplied" do
+          users = [Factory(:user)]
+          @user_story.users << users
+          @user_story.save
+
+          put :update, id: @user_story.id,
+              user_story: { name: "Bla" }
+
+          UserStory.find(@user_story.id).users.should be_empty
         end
 
       end
@@ -174,20 +185,23 @@ describe UserStoriesController do
     end
 
     describe "PUT start" do
-      before{ @user = Factory(:user) }
+      before do
+        @user = Factory(:user)
+        test_sign_in @user
+      end
+
       it "changes user story status to active" do
-        put :start, id:  @user_story.id, user_id: @user.id
+        put :start, id:  @user_story.id
         UserStory.find(@user_story.id).status.should == "active"
       end
 
       it "assigns user story to user" do
-        test_sign_in(@user)
-        put :start, id: @user_story.id, user_id: @user.id
-        UserStory.find(@user_story.id).user.should == @user
+        put :start, id: @user_story.id
+        UserStory.find(@user_story.id).users.should == [@user]
       end
 
       it "redirect to current sprint" do
-        put :start, id: @user_story.id, user_id: @user.id
+        put :start, id: @user_story.id
         response.should redirect_to current_sprint_path
       end
     end
@@ -196,23 +210,24 @@ describe UserStoriesController do
 
       before :each do
         @user = Factory(:user)
+        test_sign_in @user
       end
       it "changes user story status to suspended" do
-        @user_story.user = @user
+        @user_story.users << @user
         @user_story.save
-        put :pause, id: @user_story.id, user_id: @user.id
+        put :pause, id: @user_story.id
         UserStory.find(@user_story.id).status.should == "suspended"
       end
 
       it "can only be suspended by a user that is working on the story" do
         another_user = Factory(:other_user)
         previous_status = @user_story.status
-        put :pause, id: @user_story.id, user_id: another_user.id
+        put :pause, id: @user_story.id
         UserStory.find(@user_story.id).status.should == previous_status
       end
 
       it "redirect to current sprint" do
-        put :pause, id: @user_story.id, user_id: @user.id
+        put :pause, id: @user_story.id
         response.should redirect_to current_sprint_path
       end
     end
