@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
   include UsersHelper
 
-  before_filter :authenticate, only: [:edit, :update, :destroy, :index]
+  before_filter :authenticate, except: [:new, :create]
 
-  # GET /users
-  # GET /users.json
   def index
     @users = User.all
 
@@ -14,8 +12,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
 
@@ -25,8 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.json
   def new
     @user = User.new
 
@@ -36,19 +30,16 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(params[:user])
     set_accepted(@user)
 
     respond_to do |format|
-      if @user.save
+      if @user.password_valid? && @user.save
           format.html { redirect_to signin_path, flash: {success: 'User was successfully created.'} }
           format.json { render json: @user, status: :created, location: @user }
       else
@@ -58,13 +49,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    @user.attributes = params[:user]
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.password_valid? && @user.save
         format.html { redirect_to @user, flash: {success: 'User was successfully updated.'} }
         format.json { head :ok }
       else
@@ -74,8 +64,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -84,6 +72,18 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :ok }
     end
+  end
+
+  def accept_user
+    @user = User.find(params[:id])
+    @user.accept
+
+    redirect_to accept_url, flash:
+                { success: 'The user has been accepted to join your project!' }
+  end
+
+  def accept
+    @users = User.find_all_by_accepted(false)
   end
 
 end

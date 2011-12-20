@@ -27,11 +27,12 @@ FactoryGirl.define do
     user.accepted               true
   end
 
-  factory :unauthorized_user, class: "user" do |user|
+  factory :unaccepted_user, class: "user" do |user|
     user.name                   "Steve"
     user.email                  "Ottie@example.com"
-    user.password               "12345678"
-    user.password_confirmation  "12345678"
+    user.password               "123456789"
+    user.password_confirmation  "123456789"
+    user.accepted               false
   end
 
   factory :role do |role|

@@ -6,18 +6,8 @@ describe UsersController do
     @user = Factory(:user)
   end
 
-  # This should return the minimal set of attributes required to create a valid
-  # User. As you add validations to User, be sure to
-  # update the return value of this method accordingly.
   def valid_attributes
     Factory.attributes_for(:other_user)
-  end
-
-  describe "GET show" do
-    it "assigns the requested user as @user" do
-      get :show, :id => @user.id
-      assigns(:user).should eq(@user)
-    end
   end
 
   describe "GET new" do
@@ -28,7 +18,6 @@ describe UsersController do
   end
 
   describe "POST create" do
-
     describe "with valid params" do
 
       it "creates a new User" do
@@ -49,13 +38,13 @@ describe UsersController do
       end
 
       it "creates the first user authorized" do
-        post :create, user: Factory.attributes_for(:unauthorized_user)
+        post :create, user: Factory.attributes_for(:unaccepted_user)
         User.first.should be_accepted
       end
 
       it "creates all non first users as not authorized" do
         Factory :other_user
-        post :create, user: Factory.attributes_for(:unauthorized_user)
+        post :create, user: Factory.attributes_for(:unaccepted_user)
         assigns(:user).should_not be_accepted
       end
 
@@ -64,25 +53,32 @@ describe UsersController do
     describe "with invalid params" do
 
       it "assigns a newly created but unsaved user as @user" do
-        # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
         post :create, :user => {}
         assigns(:user).should be_a_new(User)
       end
 
       it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
         post :create, :user => {}
         response.should render_template("new")
       end
+
     end
+
   end
 
   describe "Actions that need a logged in user" do
 
     before :each do
       sign_in_a_user
+    end
+
+    describe "GET show" do
+      it "assigns the requested user as @user" do
+        get :show, :id => @user.id
+        assigns(:user).should eq(@user)
+      end
     end
 
     describe "GET index" do
@@ -101,13 +97,11 @@ describe UsersController do
 
     describe "PUT update" do
       describe "with valid params" do
+
         it "updates the requested user" do
-          # Assuming there are no other users in the database, this
-          # specifies that the User created on the previous line
-          # receives the :update_attributes message with whatever params are
-          # submitted in the request.
-          User.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => @user.id, :user => {'these' => 'params'}
+          attributes = valid_attributes.merge(name: "Hugo")
+          put :update, :id => @user.id, :user => attributes
+          User.find(@user.id).name.should == "Hugo"
         end
 
         it "assigns the requested user as @user" do
@@ -119,26 +113,27 @@ describe UsersController do
           put :update, :id => @user.id, :user => valid_attributes
           response.should redirect_to(@user)
         end
+
       end
 
       describe "with invalid params" do
         it "assigns the user as @user" do
-          # Trigger the behavior that occurs when invalid params are submitted
           User.any_instance.stub(:save).and_return(false)
           put :update, :id => @user.id, :user => {}
           assigns(:user).should eq(@user)
         end
 
         it "re-renders the 'edit' template" do
-          # Trigger the behavior that occurs when invalid params are submitted
           User.any_instance.stub(:save).and_return(false)
           put :update, :id => @user.id, :user => {}
           response.should render_template("edit")
         end
+
       end
     end
 
     describe "DELETE destroy" do
+
       it "destroys the requested user" do
         expect {
           delete :destroy, :id => @user.id
@@ -149,6 +144,43 @@ describe UsersController do
         delete :destroy, :id => @user.id
         response.should redirect_to(users_url)
       end
+
+    end
+
+    describe "accept" do
+
+    before :each do
+        @unaccepted_user = Factory(:unaccepted_user)
+      end
+
+      describe "POST accept_user" do
+
+
+
+        it "accepts the user with the given id" do
+          post :accept_user, id: @unaccepted_user.id
+          User.find(@unaccepted_user.id).should be_accepted
+        end
+
+        it "redirects to the accept url" do
+          post :accept_user, id: @unaccepted_user.id
+          response.should redirect_to(accept_url)
+        end
+
+        it "displays a flash message indicating the succesful authorization" do
+          post :accept_user, id: @unaccepted_user.id
+          flash[:success].should =~ /accepted/i
+        end
+
+      end
+
+      describe "GET accept" do
+        it "assigns the unaccepted user to @user" do
+          get :accept
+          assigns(:users).should == [@unaccepted_user]
+        end
+      end
+
     end
 
   end
@@ -167,6 +199,11 @@ describe UsersController do
 
     it "has no access to destroy" do
       delete :destroy, id: 1
+      response.should redirect_to signin_path
+    end
+
+    it "has no access to show" do
+      get :show, id: 1
       response.should redirect_to signin_path
     end
 

@@ -25,8 +25,8 @@ describe SessionsController do
     end
 
     describe "with valid email and password" do
-
       describe "and accepted" do
+
         before(:each) do
           @user = Factory(:user)
           @attr = { :email => @user.email, :password => @user.password }
@@ -45,8 +45,9 @@ describe SessionsController do
       end
 
       describe "and not accepted" do
+
         before(:each) do
-          @user = Factory(:unauthorized_user)
+          @user = Factory(:unaccepted_user)
           @attr = { :email => @user.email, :password => @user.password }
         end
 
@@ -59,8 +60,8 @@ describe SessionsController do
           post :create, :session => @attr
           flash[:error].should =~ /accepted/i
         end
-      end
 
+      end
     end
 
     describe "DELETE 'destroy'" do
