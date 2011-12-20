@@ -43,7 +43,6 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'simplecov'
 end
 
 group :test do
@@ -51,5 +50,7 @@ group :test do
   gem 'turn', '~> 0.8.3', :require => false
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'simplecov'
+  gem 'timecop'
 end
 
