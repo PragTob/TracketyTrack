@@ -68,8 +68,10 @@ describe SprintsController do
 
           it "sets the start date to now" do
             Factory(:project)
+            time = DateTime.now
+            Timecop.freeze(time)
             post :create, :sprint => valid_attributes.merge(start_date: nil)
-            assigns(:sprint).start_date.to_date.should eq DateTime.now.to_date
+            assigns(:sprint).start_date.to_i.should == time.to_i
           end
 
         end
@@ -211,11 +213,13 @@ describe SprintsController do
         @sprint = Factory(:sprint, end_date: DateTime.now - 1)
         @project = Factory(:project)
         @project.current_sprint = @sprint
+        @time = DateTime.now
+        Timecop.freeze(@time)
         put :stop
       end
 
       it "sets the end date of the current sprint to the actual date" do
-        Sprint.find(@sprint.id).end_date.to_date.should eq DateTime.now.to_date
+        Sprint.find(@sprint.id).end_date.to_i.should eq @time.to_i
       end
 
       it "makes the current sprint no longer current" do
