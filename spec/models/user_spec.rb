@@ -17,6 +17,7 @@ describe User do
   it{should respond_to :email}
   it{should respond_to :description}
   it{should respond_to :user_stories}
+  it{should respond_to :accepted?}
 
   context "given valid attributes" do
     it { should be_valid }
@@ -41,6 +42,13 @@ describe User do
   context "when email is already taken by an other user" do
     before{Factory(:user)}
     it{should_not be_valid}
+  end
+
+  it "is not authorized when freshly created" do
+    user = User.create(name: "Bla",
+                       password: "12345678",
+                       password_confirmation: "12345678")
+    user.should_not be_accepted
   end
 
   describe "Role" do

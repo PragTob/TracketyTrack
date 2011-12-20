@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include UsersHelper
 
   before_filter :authenticate, only: [:edit, :update, :destroy, :index]
 
@@ -44,6 +45,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    set_accepted(@user)
 
     respond_to do |format|
       if @user.save

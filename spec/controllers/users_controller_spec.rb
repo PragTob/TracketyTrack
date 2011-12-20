@@ -28,7 +28,9 @@ describe UsersController do
   end
 
   describe "POST create" do
+
     describe "with valid params" do
+
       it "creates a new User" do
         expect {
           post :create, :user => valid_attributes
@@ -45,9 +47,22 @@ describe UsersController do
         post :create, :user => valid_attributes
         response.should redirect_to(signin_path)
       end
+
+      it "creates the first user authorized" do
+        post :create, user: Factory.attributes_for(:unauthorized_user)
+        User.first.should be_accepted
+      end
+
+      it "creates all non first users as not authorized" do
+        Factory :other_user
+        post :create, user: Factory.attributes_for(:unauthorized_user)
+        assigns(:user).should_not be_accepted
+      end
+
     end
 
     describe "with invalid params" do
+
       it "assigns a newly created but unsaved user as @user" do
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
