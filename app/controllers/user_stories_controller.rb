@@ -4,8 +4,6 @@ class UserStoriesController < ApplicationController
   before_filter :authenticate
   before_filter(only: [:update, :create]) {|c| c.add_users(params)}
 
-  # GET /user_stories
-  # GET /user_stories.json
   def index
     @title = "All Stories"
     @user_stories = UserStory.all
@@ -135,7 +133,6 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # PUT /user_stories/1
   def complete
     @user_story = UserStory.find(params[:id])
     @user_story.status = "completed"
@@ -147,7 +144,6 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # PUT /user_stories/1
   def assign_sprint
     set_sprint(params[:id], current_sprint)
     respond_to do |format|
@@ -156,7 +152,6 @@ class UserStoriesController < ApplicationController
     end
   end
 
-  # PUT /user_stories/1
   def unassign_sprint
     set_sprint(params[:id], nil)
 

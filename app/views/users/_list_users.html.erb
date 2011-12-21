@@ -1,0 +1,29 @@
+<br />
+<table class="bordered-table zebra-striped">
+  <tr>
+    <th class="span6">Name</th>
+    <th>Email</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <% if type == :index %>
+      <th></th>
+    <% end %>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.description %></td>
+    <% if type == :index %>
+      <%= render partial: 'index_buttons', locals: { user: user} %>
+    <% else %>
+      <%= render partial: 'accept_buttons', locals: { user: user} %>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

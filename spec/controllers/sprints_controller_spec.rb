@@ -59,19 +59,31 @@ describe SprintsController do
           assigns(:sprint).should be_persisted
         end
 
-        it "redirects to the created sprint" do
+        it "redirects to the sprint planning modus" do
           post :create, :sprint => valid_attributes
-          response.should redirect_to(Sprint.last)
+          response.should redirect_to(sprint_planning_path)
         end
 
         describe "when no start date is given" do
-
-          it "sets the start date to now" do
+          before :each do
             Factory(:project)
-            post :create, :sprint => valid_attributes.merge(start_date: nil)
-            assigns(:sprint).start_date.to_date.should eq DateTime.now.to_date
+            @time = DateTime.now
+            Timecop.freeze(@time)
           end
 
+          it "sets the start date to now" do
+            post :create, sprint: valid_attributes.merge(start_date: nil)
+            assigns(:sprint).start_date.to_i.should == @time.to_i
+          end
+
+          describe "and no end date is given" do
+            it "does not raise an error" do
+              lambda do
+                post :create, sprint: valid_attributes.merge(start_date: nil,
+                                                             end_date: nil)
+              end.should_not raise_error
+            end
+          end
         end
 
         describe "when created sprint is actual sprint" do
@@ -211,11 +223,13 @@ describe SprintsController do
         @sprint = Factory(:sprint, end_date: DateTime.now - 1)
         @project = Factory(:project)
         @project.current_sprint = @sprint
+        @time = DateTime.now
+        Timecop.freeze(@time)
         put :stop
       end
 
       it "sets the end date of the current sprint to the actual date" do
-        Sprint.find(@sprint.id).end_date.to_date.should eq DateTime.now.to_date
+        Sprint.find(@sprint.id).end_date.to_i.should eq @time.to_i
       end
 
       it "makes the current sprint no longer current" do

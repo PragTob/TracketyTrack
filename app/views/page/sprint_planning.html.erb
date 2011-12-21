@@ -1,7 +1,7 @@
 <%= render 'header' %>
 <div class="row">
    <% if current_project.has_current_sprint? %>
-    <div class="button"><%= button_to "Stop Sprint", {controller: 'sprints', action: 'stop'}, method: "put", class: 'btn danger' %></div>
+    <%= render 'sprints/stop_sprint_button' %>
   <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
     <div class="userstory_box_header">

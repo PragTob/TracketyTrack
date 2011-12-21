@@ -39,6 +39,11 @@ describe Sprint do
     it { should_not be_valid }
   end
 
+  context "without an end date" do
+    before { @sprint.end_date = nil }
+    it { should be_valid }
+  end
+
   context "with overlapping dates" do
 
     before (:each) do

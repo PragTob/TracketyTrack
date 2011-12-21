@@ -1,0 +1,5 @@
+<td><%= button_to 'Accept', {controller: 'users', action: 'accept_user',
+id: user.id }, method: :post, class: "btn success" %></td>
+<td><%= button_to 'Reject', user,
+          confirm: 'Are you sure?', method: :delete, class: "btn danger" %></td>
+
