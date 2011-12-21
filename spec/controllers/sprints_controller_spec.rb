@@ -65,15 +65,25 @@ describe SprintsController do
         end
 
         describe "when no start date is given" do
-
-          it "sets the start date to now" do
+          before :each do
             Factory(:project)
-            time = DateTime.now
-            Timecop.freeze(time)
-            post :create, :sprint => valid_attributes.merge(start_date: nil)
-            assigns(:sprint).start_date.to_i.should == time.to_i
+            @time = DateTime.now
+            Timecop.freeze(@time)
           end
 
+          it "sets the start date to now" do
+            post :create, sprint: valid_attributes.merge(start_date: nil)
+            assigns(:sprint).start_date.to_i.should == @time.to_i
+          end
+
+          describe "and no end date is given" do
+            it "does not raise an error" do
+              lambda do
+                post :create, sprint: valid_attributes.merge(start_date: nil,
+                                                             end_date: nil)
+              end.should_not raise_error
+            end
+          end
         end
 
         describe "when created sprint is actual sprint" do

@@ -37,10 +37,7 @@ class SprintsController < ApplicationController
   def create
     @sprint = Sprint.new(params[:sprint])
 
-    if @sprint.start_date.nil?
-      @sprint.start_date = DateTime.now
-      @sprint.end_date = DateTime.now
-    end
+    @sprint.start_date ||= DateTime.now
 
     respond_to do |format|
       if @sprint.save
