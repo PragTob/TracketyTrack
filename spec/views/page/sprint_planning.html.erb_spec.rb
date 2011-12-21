@@ -16,12 +16,12 @@ describe "page/sprint_planning.html.erb" do
   end
 
   it "contains one box for the current sprint" do
-    rendered.should have_content("CURRENT SPRINT")
+    rendered.should match /current sprint/i
     rendered.should have_selector("#box_current_sprint")
   end
 
   it "contains one box for the backlog" do
-    rendered.should have_content("BACKLOG")
+    rendered.should match /backlog/i
     rendered.should have_selector("#box_backlog")
   end
 

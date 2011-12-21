@@ -4,7 +4,7 @@
     <%= render 'sprints/stop_sprint_button' %>
   <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
-   <%= render partial: 'box_header', locals: { title: "Current Sprint" } %>
+   <%= render partial: 'box_header', locals: { title: "CURRENT SPRINT" } %>
    <% if current_project.has_current_sprint? %>
     <div class="user_stories_container">
      <% @user_stories_current_sprint.each do |user_story| %>
@@ -21,7 +21,7 @@
   </div>
 
   <div id="box_backlog" class="span8 userstory_box">
-    <%= render partial: 'box_header', locals: { title: "Backlog" } %>
+    <%= render partial: 'box_header', locals: { title: "BACKLOG" } %>
     <div class="user_stories_container">
     <% @user_stories_in_backlog.each do |user_story| %>
       <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: true } %>

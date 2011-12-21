@@ -13,7 +13,7 @@
     </div>
 
     <div id="box_current_sprint" class="span8 userstory_box">
-      <%= render partial: 'box_header', locals: { title: "Current Sprint" } %>
+      <%= render partial: 'box_header', locals: { title: "CURRENT SPRINT" } %>
       <div class="user_stories_container">
       <% @user_stories_current_sprint.each do |user_story| %>
         <%= render partial: 'user_stories/user_story_box', locals: { user_story: user_story } %>
