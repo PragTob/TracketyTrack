@@ -87,5 +87,6 @@ end
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
+#  accepted           :boolean
 #
 
