@@ -4,9 +4,7 @@
     <%= render 'sprints/stop_sprint_button' %>
   <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
-    <div class="userstory_box_header">
-      CURRENT SPRINT
-    </div>
+   <%= render partial: 'box_header', locals: { title: "Current Sprint" } %>
    <% if current_project.has_current_sprint? %>
     <div class="user_stories_container">
      <% @user_stories_current_sprint.each do |user_story| %>
@@ -19,17 +17,17 @@
       <div class="button"><%= button_to "Start Sprint", new_sprint_url, method: "get", class: 'btn success' %></div>
      </div>
     <% end %>
+    <%= render 'box_footer' %>
   </div>
 
   <div id="box_backlog" class="span8 userstory_box">
-    <div class="userstory_box_header">
-      BACKLOG
-    </div>
+    <%= render partial: 'box_header', locals: { title: "Backlog" } %>
     <div class="user_stories_container">
     <% @user_stories_in_backlog.each do |user_story| %>
       <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: true } %>
     <% end %>
     </div>
+    <%= render 'box_footer' %>
   </div>
 
 </div>
