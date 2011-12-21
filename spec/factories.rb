@@ -7,6 +7,7 @@ FactoryGirl.define do
     user_story.priority             3
     user_story.estimation           4
     user_story.status               "inactive"
+    user_story.work_effort          0
     user_story.users                []
   end
 

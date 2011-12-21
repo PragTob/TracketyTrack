@@ -6,7 +6,9 @@ class UserStory < ActiveRecord::Base
   # without description etc.
 
   validates :name, presence: true
-  validates_inclusion_of :status, :in => ["inactive", "active", "suspended", "completed"]
+  validates_inclusion_of :status, :in => ["inactive", "active",
+                                          "suspended", "completed"]
+  validates :work_effort, presence: true
 
   def self.backlog
     self.where(sprint_id: nil)
@@ -27,6 +29,10 @@ class UserStory < ActiveRecord::Base
 
   def short_description
     self.description[0..199]
+  end
+
+  def set_new_work_effort
+    self.work_effort += DateTime.now - self.start_time
   end
 
 end
