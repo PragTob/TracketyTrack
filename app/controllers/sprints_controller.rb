@@ -1,9 +1,8 @@
 class SprintsController < ApplicationController
+  include SprintsHelper
 
   before_filter :authenticate
 
-  # GET /sprints
-  # GET /sprints.json
   def index
     @sprints = Sprint.all
 
@@ -13,8 +12,6 @@ class SprintsController < ApplicationController
     end
   end
 
-  # GET /sprints/1
-  # GET /sprints/1.json
   def show
     @sprint = Sprint.find(params[:id])
 
@@ -24,8 +21,6 @@ class SprintsController < ApplicationController
     end
   end
 
-  # GET /sprints/new
-  # GET /sprints/new.json
   def new
     @sprint = Sprint.new
 
@@ -35,13 +30,10 @@ class SprintsController < ApplicationController
     end
   end
 
-  # GET /sprints/1/edit
   def edit
     @sprint = Sprint.find(params[:id])
   end
 
-  # POST /sprints
-  # POST /sprints.json
   def create
     @sprint = Sprint.new(params[:sprint])
 
@@ -64,8 +56,6 @@ class SprintsController < ApplicationController
     end
   end
 
-  # PUT /sprints/1
-  # PUT /sprints/1.json
   def update
     @sprint = Sprint.find(params[:id])
 
@@ -80,8 +70,6 @@ class SprintsController < ApplicationController
     end
   end
 
-  # DELETE /sprints/1
-  # DELETE /sprints/1.json
   def destroy
     @sprint = Sprint.find(params[:id])
     @sprint.destroy
@@ -111,7 +99,6 @@ class SprintsController < ApplicationController
 
 #  end
 
-  # PUT /sprints/stop/1
   def stop
     current_sprint.end_date = DateTime.now
     current_sprint.save
