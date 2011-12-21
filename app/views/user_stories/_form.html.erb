@@ -48,6 +48,7 @@
       <%= f.select :users, @users.map { |u| [u.name, u.id] },
       { selected: @user_story.users.map(&:id) },
       { multiple: true, size: @users.size } %>
+      <p class="help-inline">To deselect items or select multiple items please hold the CTRL key</p>
     </div>
   </div>
 
