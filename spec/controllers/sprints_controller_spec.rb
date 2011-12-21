@@ -59,9 +59,9 @@ describe SprintsController do
           assigns(:sprint).should be_persisted
         end
 
-        it "redirects to the created sprint" do
+        it "redirects to the sprint planning modus" do
           post :create, :sprint => valid_attributes
-          response.should redirect_to(Sprint.last)
+          response.should redirect_to(sprint_planning_path)
         end
 
         describe "when no start date is given" do

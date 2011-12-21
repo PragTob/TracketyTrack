@@ -55,7 +55,7 @@ class SprintsController < ApplicationController
         if Sprint.actual_sprint == @sprint
           self.current_sprint = @sprint
         end
-        format.html { redirect_to @sprint, flash: {success: 'Sprint was successfully created.'} }
+        format.html { redirect_to sprint_planning_path, flash: {success: 'Sprint was successfully created.'} }
         format.json { render json: @sprint, status: :created, location: @sprint }
       else
         format.html { render action: "new" }
