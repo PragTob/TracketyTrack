@@ -4,9 +4,8 @@ class PageController < ApplicationController
   def current_sprint_overview
 
     if current_project.has_current_sprint?
-      @user_stories_current_sprint = current_sprint.user_stories
-      @user_stories_current_sprint = @user_stories_current_sprint.select{|each| each.status == "inactive" or each.status == "completed"}
-      @user_stories_in_progress = current_sprint.user_stories.select{|each| each.status == "active" or each.status == "suspended"}
+      @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
+      @user_stories_in_progress = current_sprint.user_stories_in_progress
     else
       @user_stories_current_sprint = []
       @user_stories_in_progress = []

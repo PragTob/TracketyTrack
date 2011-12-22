@@ -109,6 +109,42 @@ describe Sprint do
 
   end
 
+  describe "user story helpers" do
+
+    describe "in progress" do
+
+      it "returns an active user story" do
+        user_story = Factory.build(:user_story, status: UserStory::ACTIVE)
+        @sprint.user_stories << user_story
+        @sprint.user_stories_in_progress.should include user_story
+      end
+
+      it "returns a suspended user story" do
+        user_story = Factory.build(:user_story, status: UserStory::SUSPENDED)
+        @sprint.user_stories << user_story
+        @sprint.user_stories_in_progress.should include user_story
+      end
+
+    end
+
+    describe "not in progress" do
+
+      it "returns a completed user story" do
+        user_story = Factory.build(:user_story, status: UserStory::COMPLETED)
+        @sprint.user_stories << user_story
+        @sprint.user_stories_not_in_progress.should include user_story
+      end
+
+      it "returns an inactive user story" do
+        user_story = Factory.build(:user_story, status: UserStory::INACTIVE)
+        @sprint.user_stories << user_story
+        @sprint.user_stories_not_in_progress.should include user_story
+      end
+
+    end
+
+  end
+
 end
 
 # == Schema Information

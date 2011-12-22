@@ -51,6 +51,18 @@ class Sprint < ActiveRecord::Base
     Sprint.where("start_date <= ? AND end_date >= ?", time, time).first
   end
 
+  def user_stories_not_in_progress
+    user_stories.select do |each|
+      each.status == "inactive" or each.status == "completed"
+    end
+  end
+
+  def user_stories_in_progress
+    user_stories.select do |each|
+      each.status == "active" or each.status == "suspended"
+    end
+  end
+
   def expired?
     self.end_date < DateTime.now
   end
