@@ -1,8 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate, only: [:edit, :destroy, :update]
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
 
@@ -12,8 +10,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.json
   def new
     @project = Project.new
 
@@ -23,13 +19,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
   end
 
-  # POST /projects
-  # POST /projects.json
   def create
 
     @project = Project.new(params[:project])
@@ -45,8 +38,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
 
@@ -61,8 +52,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project = Project.find(params[:id])
     @project.destroy

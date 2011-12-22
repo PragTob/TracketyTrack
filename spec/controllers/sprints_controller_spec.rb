@@ -233,7 +233,7 @@ describe SprintsController do
       end
 
       it "makes the current sprint no longer current" do
-        project = Project.find(@project.id).current_sprint.should be_nil
+        Project.find(@project.id).current_sprint.should be_kind_of NullSprint
       end
 
       it "redirects to the sprint planning page" do

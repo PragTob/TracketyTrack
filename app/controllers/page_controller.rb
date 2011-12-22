@@ -3,25 +3,17 @@ class PageController < ApplicationController
 
   def current_sprint_overview
 
-    if current_project.has_current_sprint?
-      @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
-      @user_stories_in_progress = current_sprint.user_stories_in_progress
-    else
-      @user_stories_current_sprint = []
-      @user_stories_in_progress = []
-    end
+    @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
+    @user_stories_in_progress = current_sprint.user_stories_in_progress
 
     @page = "current"
     render 'current_sprint'
   end
 
   def sprint_planning
-    if current_project.has_current_sprint?
-      @user_stories_current_sprint = current_sprint.user_stories
-    else
-      @user_stories_current_sprint = []
-    end
+    @user_stories_current_sprint = current_sprint.user_stories
     @user_stories_in_backlog = UserStory.backlog
+
     @page = "planning"
     render 'sprint_planning'
   end

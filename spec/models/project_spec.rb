@@ -41,7 +41,7 @@ describe Project do
     context "when current_sprint_id is not set" do
       it "returns nil" do
         @project.current_sprint_id = nil
-        @project.current_sprint.should be_nil
+        @project.current_sprint.should be_kind_of NullSprint
       end
     end
 

@@ -1,3 +1,4 @@
+require_relative '../../lib/null_sprint'
 
 class ProjectValidator < ActiveModel::Validator
   def validate(record)
@@ -12,10 +13,10 @@ class Project < ActiveRecord::Base
   include ActiveModel::Validations
 
   def current_sprint
-    if current_sprint_id.nil?
-      nil
-    else
+    if has_current_sprint?
       Sprint.find(current_sprint_id)
+    else
+      NullSprint.new
     end
   end
 
