@@ -32,7 +32,16 @@ class UserStory < ActiveRecord::Base
   end
 
   def set_new_work_effort
-    self.work_effort += DateTime.now - self.start_time
+    self.work_effort += DateTime.now.utc.to_i - self.start_time.to_i
+  end
+
+  def printable_work_effort
+     time = self.work_effort
+     days = time/86400.to_i
+     hours = (time/3600 - days * 24).to_i
+     minutes = (time/60 - (hours * 60 + days * 1440)).to_i
+     seconds = (time - (minutes * 60 + hours * 3600 + days * 86400))
+     "%d days %02d:%02d:%02d" % [days, hours, minutes, seconds]
   end
 
 end

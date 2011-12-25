@@ -24,6 +24,11 @@
 </p>
 
 <p>
+  <b>Work Effort:</b>
+  <%= @user_story.printable_work_effort %>
+</p>
+
+<p>
   <b>Assignees:</b>
   <% if @user_story.users.empty? %>
     No user assigned

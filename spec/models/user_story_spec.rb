@@ -66,6 +66,15 @@ describe UserStory do
 
   end
 
+  describe "#printable_work_effort" do
+
+    it "returns a string representing the used work effort" do
+      @user_story.work_effort = 1
+      @user_story.printable_work_effort.should eq "0 days 00:00:01"
+    end
+
+  end
+
   it "is valid with multiple users assigned" do
     add_users_to_story
     @user_story.should be_valid

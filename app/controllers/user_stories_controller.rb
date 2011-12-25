@@ -107,7 +107,7 @@ class UserStoriesController < ApplicationController
   def start
     @user_story = UserStory.find(params[:id])
     @user_story.status = "active"
-    @user_story.start_time = DateTime.now
+    @user_story.start_time = DateTime.now.utc
     @user_story.users << current_user
     current_user.user_stories << @user_story
     @user_story.save
