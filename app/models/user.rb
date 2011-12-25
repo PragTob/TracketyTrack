@@ -13,11 +13,12 @@ class User < ActiveRecord::Base
                     format: {with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i},
                     uniqueness: true,
                     on: :create
-  validates :password, presence: true,
-                       confirmation: true,
-                       length: { :within => 8..40 }
 
   before_save :encrypt_password
+
+  def accepted?
+    accepted
+  end
 
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
@@ -34,11 +35,32 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
+  def accept
+    self.accepted = true
+    save
+  end
+
+  def password_valid?
+    if password.blank? || !(8..40).include?(password.size)
+      self.errors.add :password,
+                      "The password is not within 8 to 40 characters"
+      false
+    else
+      if  password != password_confirmation
+        self.errors.add :password_confirmation,
+                        "The password confirmation does not match the password."
+        false
+      else
+        true
+      end
+    end
+  end
+
   private
 
     def encrypt_password
-      self.salt = make_salt unless has_password?(password)
-      self.encrypted_password = encrypt(password)
+      self.salt = make_salt if new_record?
+      self.encrypted_password = encrypt(password) unless password.blank?
     end
 
     def encrypt(string)
@@ -65,5 +87,6 @@ end
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
+#  accepted           :boolean
 #
 

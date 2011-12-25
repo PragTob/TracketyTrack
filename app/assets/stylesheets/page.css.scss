@@ -3,21 +3,83 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #box_in_progress, #box_current_sprint, #box_backlog {
-  height: 300px;
-  border: 2px solid #666;
-  width: 440px;
-  padding:5px;
+  height: 310px;
+  width: 450px;
+  background-image:url('/assets/box_border_background.gif');
+  background-position:left;
+  background-repeat:repeat-y;
 }
 #box_in_progress .user_stories_container,
 #box_current_sprint .user_stories_container,
 #box_backlog .user_stories_container {
   overflow: automatically;
   height: 260px;
+  width:420px;
+  margin-left:10px;
+  margin-top:10px;
 }
 
 #box_current_sprint .box_no_current_sprint,
 #box_no_current_sprint {
   text-align: center;
+}
+.userstory_box_header {
+  height:40px;
+  color:#FFF;
+  font-size:16px;
+  text-transform:uppercase;
+  background-image:url('/assets/box_header_background.gif');
+  background-position:left;
+  background-repeat:repeat-x;
+  line-height:38px;
+  position:relative;
+}
+.userstory_box_header_left, .userstory_box_header_center, .userstory_box_header_right  {
+  position:absolute;
+  height:40px;
+  top:0px;
+}
+.userstory_box_header_left {
+  width:10px;
+  left:0px;
+  background-image:url('/assets/box_header_left.gif');
+  background-position:left;
+  background-repeat:no-repeat;
+}
+.userstory_box_header_center {
+  width:350px;
+  left:25px;
+}
+.userstory_box_header_right {
+  width:10px;
+  right:0px;
+  background-image:url('/assets/box_header_right.gif');
+  background-position:right;
+  background-repeat:no-repeat;
+}
+.userstory_box_footer {
+  height:10px;
+  background-image:url('/assets/box_footer_bg.gif');
+  background-position:left;
+  background-repeat:repeat-x;
+  position:relative;
+}
+.userstory_box_footer_left, .userstory_box_footer_right {
+  background-position:right;
+  background-repeat:no-repeat;
+  position:absolute;
+  top:0px;
+  width:10px;
+  height:10px;
+}
+.userstory_box_footer_left { left:0px; background-image:url('/assets/box_footer_left.gif'); }
+.userstory_box_footer_right { right:0px; background-image:url('/assets/box_footer_right.gif'); }
 
+#userstory_details_box {
+	position:fixed;
+	width:920px;
+	height:100px;
+	background-color:#efefef;
+	bottom:0px;
 }
 

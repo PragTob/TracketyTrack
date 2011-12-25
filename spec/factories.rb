@@ -17,6 +17,7 @@ FactoryGirl.define do
     user.description            "This is the example user."
     user.password               "Trackety"
     user.password_confirmation  "Trackety"
+    user.accepted               true
   end
 
   factory :other_user, class: "user" do |user|
@@ -24,11 +25,16 @@ FactoryGirl.define do
     user.email                  "bobbie@example.com"
     user.password               "12345678"
     user.password_confirmation  "12345678"
+    user.accepted               true
   end
 
-#  factory :sign_up_user, class: "user", parent: :user do |user|
-#    user.password_confirmation "toor"
-#  end
+  factory :unaccepted_user, class: "user" do |user|
+    user.name                   "Steve"
+    user.email                  "Ottie@example.com"
+    user.password               "123456789"
+    user.password_confirmation  "123456789"
+    user.accepted               false
+  end
 
   factory :role do |role|
     role.name   "Standard"

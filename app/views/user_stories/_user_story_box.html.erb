@@ -3,7 +3,7 @@
   <% when "active" %>
     <div class="completebutton"><%= button_to "Complete", {controller: 'user_stories', action: 'complete',
     id: user_story.id }, method: "put", class: 'btn success' %></div>
-    <% if user_story.user == current_user %>
+    <% if user_story.users.include? current_user %>
       <div class="pausebutton"><%= button_to "Pause", {controller: 'user_stories', action: 'pause', id: user_story.id}, method: "put", class: 'btn primary' %></div>
     <% end %>
 

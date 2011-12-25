@@ -1,27 +1,3 @@
 <h2>Users</h2>
-<br />
-<table class="bordered-table zebra-striped">
-  <tr>
-    <th class="span6">Name</th>
-    <th>Email</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
-    <td><%= user.description %></td>
-    <td><%= button_to 'Show', user, method: :get, class: "btn" %></td>
-    <td><%= button_to 'Edit', edit_user_path(user), method: :get, class: "btn" %></td>
-    <td><%= button_to 'Delete', user,
-              confirm: 'Are you sure?', method: :delete, class: "btn" %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
+<%= render partial: "list_users", locals: {type: :index} %>
 

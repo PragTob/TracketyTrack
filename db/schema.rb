@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20111221122717) do
     t.datetime "updated_at"
     t.string   "encrypted_password"
     t.string   "salt"
+    t.boolean  "accepted"
   end
 
 end

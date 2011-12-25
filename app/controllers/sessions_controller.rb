@@ -8,9 +8,12 @@ class SessionsController < ApplicationController
                              params[:session][:password])
     if user.nil?
       redirect_to signin_path, flash: {error: "Invalid email or password"}
-    else
+    elsif user.accepted?
       sign_in user
       redirect_to root_path
+    else
+      redirect_to signin_path, flash:
+                  {error: "You are not yet accepted to join this project"}
     end
   end
 
