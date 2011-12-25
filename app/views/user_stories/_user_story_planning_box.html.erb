@@ -5,9 +5,6 @@
     <div class="button"><%= button_to "To Backlog", {controller: 'user_stories', action: 'unassign_sprint', id: user_story.id}, method: "put", class: 'btn success' %></div>
   <% end %>
 
-  <%= link_to user_story.name, '#', class: 'short_description_link' %>
-  <div class='short_description' style="display: none">
-    <%= user_story.short_description %>
-  </div>
+  <%= render partial: 'user_stories/user_story_information', locals: { user_story: user_story } %>
 </div>
 

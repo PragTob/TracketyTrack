@@ -85,6 +85,11 @@ describe UserStoriesController do
           }.to change(UserStory, :count).by(1)
         end
 
+        it "sets the work effort to 0" do
+          post :create, user_story: valid_attributes
+          assigns(:user_story).work_effort.should eq 0
+        end
+
         it "assigns a newly created @user_story as @@user_story" do
           post :create, :user_story => valid_attributes
           assigns(:user_story).should be_a(UserStory)
@@ -190,18 +195,23 @@ describe UserStoriesController do
         test_sign_in @user
       end
 
-      it "changes user story status to active" do
+      before :each do
         put :start, id:  @user_story.id
+      end
+
+      it "changes user story status to active" do
         UserStory.find(@user_story.id).status.should == "active"
       end
 
       it "assigns user story to user" do
-        put :start, id: @user_story.id
         UserStory.find(@user_story.id).users.should == [@user]
       end
 
+      it "sets the start date to the current date" do
+        UserStory.find(@user_story.id).start_time.to_date.should eq DateTime.now.to_date
+      end
+
       it "redirect to current sprint" do
-        put :start, id: @user_story.id
         response.should redirect_to current_sprint_path
       end
     end
@@ -212,12 +222,27 @@ describe UserStoriesController do
         @user = Factory(:user)
         test_sign_in @user
       end
-      it "changes user story status to suspended" do
-        @user_story.users << @user
-        @user_story.save
-        put :pause, id: @user_story.id
-        UserStory.find(@user_story.id).status.should == "suspended"
+
+      describe "when user is currently working on this user story" do
+
+        before do
+          @user_story.users << @user
+          @user_story.save
+          UserStory.any_instance.stub(:set_new_work_effort)
+        end
+
+        it "changes user story status to suspended" do
+          put :pause, id: @user_story.id
+          UserStory.find(@user_story.id).status.should == "suspended"
+        end
+
+        it "updates the work effort" do
+          UserStory.any_instance.should_receive(:set_new_work_effort)
+          put :pause, id: @user_story.id
+        end
+
       end
+
 
       it "can only be suspended by a user that is working on the story" do
         another_user = Factory(:other_user)
@@ -234,9 +259,18 @@ describe UserStoriesController do
 
     describe "PUT complete" do
 
+      before do
+        UserStory.any_instance.stub(:set_new_work_effort)
+      end
+
       it "changes user story status to completed" do
         put :complete, id: @user_story.id
         UserStory.find(@user_story.id).status.should == "completed"
+      end
+
+      it "updates the work effort" do
+        UserStory.any_instance.should_receive(:set_new_work_effort)
+        put :complete, id: @user_story.id
       end
 
       it "redirects to current sprint" do

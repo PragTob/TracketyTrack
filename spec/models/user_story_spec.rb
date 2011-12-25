@@ -20,6 +20,8 @@ describe UserStory do
   it { should respond_to :status }
   it { should respond_to :users }
   it { should respond_to :sprint }
+  it { should respond_to :work_effort }
+  it { should respond_to :start_time }
   it { should be_valid }
 
   context "when being saved" do
@@ -30,6 +32,10 @@ describe UserStory do
 
   it "is invalid without a name" do
     UserStory.new.should_not be_valid
+  end
+
+  it "is invalid without a work effort" do
+    Factory.build(:user_story, work_effort: nil).should_not be_valid
   end
 
   context "with a status unlike inactive, active, suspended or completed" do
@@ -43,6 +49,28 @@ describe UserStory do
       @user_story.description = "tr" + "ol" * 100
       @user_story.short_description.length.should eq 200
       @user_story.short_description.start_with?("trolololol").should be_true
+    end
+
+  end
+
+  describe "#set_new_work_effort" do
+
+    it "adds the time difference between the start time and now to the work effort" do
+      @user_story.start_time = DateTime.now
+      DateTime.stub(:now).and_return @user_story.start_time + 1
+      @user_story.work_effort = 1
+
+      @user_story.set_new_work_effort
+      @user_story.work_effort.should eq 2
+    end
+
+  end
+
+  describe "#printable_work_effort" do
+
+    it "returns a string representing the used work effort" do
+      @user_story.work_effort = 1
+      @user_story.printable_work_effort.should eq "0 days 00:00:01"
     end
 
   end
