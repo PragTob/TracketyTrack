@@ -38,15 +38,13 @@ class SprintsController < ApplicationController
 
   def create
     @sprint = Sprint.new(params[:sprint])
-
     @sprint.start_date ||= DateTime.now
 
     respond_to do |format|
       if @sprint.save
-        if Sprint.actual_sprint == @sprint
-          self.current_sprint = @sprint
-        end
-        format.html { redirect_to sprint_planning_path, flash: {success: 'Sprint was successfully created.'} }
+        self.current_sprint = @sprint if Sprint.actual_sprint == @sprint
+        format.html { redirect_to sprint_planning_path,
+                      flash: { success: 'Sprint was successfully created.'} }
         format.json { render json: @sprint, status: :created, location: @sprint }
       else
         format.html { render action: "new" }
@@ -79,7 +77,6 @@ class SprintsController < ApplicationController
     end
   end
 
-  # PUT /sprints/start
 #  def start
 
 #    if Sprint.actual_sprint?
@@ -99,9 +96,7 @@ class SprintsController < ApplicationController
 #  end
 
   def stop
-    current_sprint.end_date = DateTime.now
-    current_sprint.save
-
+    current_sprint.end
     self.current_sprint = nil
 
     respond_to do |format|

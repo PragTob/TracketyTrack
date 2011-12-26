@@ -7,6 +7,11 @@ class UserStory < ActiveRecord::Base
   COMPLETED = "completed"
   SUSPENDED = "suspended"
 
+  def initial_attributes
+    self.status = "inactive"
+    self.work_effort = 0
+  end
+
   # just the name is needed, as sometimes one wants to add a new user story fast
   # without description etc.
 
@@ -38,6 +43,27 @@ class UserStory < ActiveRecord::Base
 
   def set_new_work_effort
     self.work_effort += DateTime.now.utc.to_i - self.start_time.to_i
+  end
+
+  def start user
+    self.status = ACTIVE
+    self.start_time = DateTime.now.utc
+    self.users << user
+    user.user_stories << self
+    save
+    user.save
+  end
+
+  def pause
+    self.status = SUSPENDED
+    set_new_work_effort
+    save
+  end
+
+  def complete
+    self.status = "completed"
+    set_new_work_effort
+    save
   end
 
   def printable_work_effort

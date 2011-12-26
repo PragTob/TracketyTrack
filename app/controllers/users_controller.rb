@@ -55,7 +55,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.password_valid? && @user.save
-        format.html { redirect_to @user, flash: {success: 'User was successfully updated.'} }
+        format.html { redirect_to @user,
+                      flash: {success: 'User was successfully updated.'} }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
