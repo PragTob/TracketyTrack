@@ -27,9 +27,9 @@ TracketyTrack::Application.routes.draw do
 
   root to: "page#current_sprint_overview"
 
-  get "/current_sprint", to: 'page#current_sprint_overview',
+  get "/current_sprint", to: 'sprints#current_sprint_overview',
                          as: :current_sprint
-  get "/sprint_planning", to: 'page#sprint_planning',
+  get "/sprint_planning", to: 'sprints#sprint_planning',
                           as: :sprint_planning
 
   resources :projects

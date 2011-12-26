@@ -1,7 +1,9 @@
 class SprintsController < ApplicationController
   include SprintsHelper
 
-  before_filter :authenticate
+  dashboard_actions = [:current_sprint_overview, :sprint_planning]
+  before_filter :authenticate, except: dashboard_actions
+  before_filter :redirect_and_login_check, only: dashboard_actions
 
   def index
     @sprints = Sprint.all
@@ -107,6 +109,34 @@ class SprintsController < ApplicationController
       format.json { head :ok }
     end
 
+  end
+
+  def current_sprint_overview
+
+    @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
+    @user_stories_in_progress = current_sprint.user_stories_in_progress
+
+    @page = "current"
+    render 'current_sprint'
+  end
+
+  def sprint_planning
+    @user_stories_current_sprint = current_sprint.user_stories
+    @user_stories_in_backlog = UserStory.backlog
+
+    @page = "planning"
+    render 'sprint_planning'
+  end
+
+  private
+  def redirect_and_login_check
+    if Project.all.empty?
+      redirect_to new_project_path
+    elsif User.all.empty?
+      redirect_to new_user_path
+    else
+      authenticate
+    end
   end
 
 end

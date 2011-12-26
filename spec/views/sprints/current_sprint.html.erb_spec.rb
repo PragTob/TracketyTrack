@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "page/current_sprint.html.erb" do
+describe "sprints/current_sprint.html.erb" do
 
   before :each do
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "page/sprint_planning.html.erb" do
+describe "sprints/sprint_planning.html.erb" do
 
   before (:each) do
     @user_story = Factory.build(:user_story)
