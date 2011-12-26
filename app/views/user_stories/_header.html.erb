@@ -24,6 +24,10 @@
         <%= link_to 'Backlog User Stories', controller: "user_stories",
                                     action: "backlog_list" %>
       </li>
+      <li<% if @title == "Non estimated User Stories"%> class="active"<% end %>>
+        <%= link_to 'Non estimated Stories', controller: "user_stories",
+                                    action: "non_estimated_list" %>
+      </li>
     </ul>
   </div>
 </div>

@@ -55,6 +55,14 @@ describe UserStoriesController do
       end
     end
 
+    describe "GET non_estimated_list" do
+      it "assigns only the user stories without estimation to @user_stories" do
+        @other_user_story = Factory(:user_story, estimation: nil)
+        get :non_estimated_list
+        assigns(:user_stories).should eq([@other_user_story])
+      end
+    end
+
 
     describe "GET show" do
       it "assigns the requested user_story as @user_story" do

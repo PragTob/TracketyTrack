@@ -28,6 +28,10 @@ class UserStory < ActiveRecord::Base
     self.where(status: "completed")
   end
 
+  def self.non_estimated
+    self.where(estimation: nil)
+  end
+
   def self.work_in_progress_stories
     self.where(status: "active")
   end
