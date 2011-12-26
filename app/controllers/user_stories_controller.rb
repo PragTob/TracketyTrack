@@ -38,6 +38,12 @@ class UserStoriesController < ApplicationController
     render 'index'
   end
 
+  def non_estimated_list
+    @title = "Non estimated User Stories"
+    @user_stories = UserStory.non_estimated
+    render 'index'
+  end
+
   def show
     @user_story = UserStory.find(params[:id])
 

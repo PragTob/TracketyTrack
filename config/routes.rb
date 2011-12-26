@@ -23,6 +23,8 @@ TracketyTrack::Application.routes.draw do
                               as: :work_in_progress_list
   get "/backlog_list",          to: 'user_stories#backlog_list',
                               as: :backlog_list
+  get "/non_estimated",         to: 'user_stories#non_estimated_list',
+                              as: :non_estimated_list
 
 
   root to: "page#current_sprint_overview"
