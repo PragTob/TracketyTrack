@@ -215,6 +215,7 @@ describe UserStoriesController do
         UserStory.find(@user_story.id).users.should == [@user]
       end
 
+      # TODO fix this shit!!!!!
       it "sets the start date to the current date" do
         UserStory.find(@user_story.id).start_time.to_date.should eq DateTime.now.to_date
       end
