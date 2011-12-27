@@ -24,7 +24,6 @@ class ProjectsController < ApplicationController
   end
 
   def create
-
     @project = Project.new(params[:project])
 
     respond_to do |format|

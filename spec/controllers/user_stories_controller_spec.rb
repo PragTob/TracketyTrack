@@ -204,6 +204,8 @@ describe UserStoriesController do
       end
 
       before :each do
+        @time = DateTime.now
+        Timecop.freeze @time
         put :start, id:  @user_story.id
       end
 
@@ -217,7 +219,7 @@ describe UserStoriesController do
 
       # TODO fix this shit!!!!!
       it "sets the start date to the current date" do
-        UserStory.find(@user_story.id).start_time.to_date.should eq DateTime.now.to_date
+        UserStory.find(@user_story.id).start_time.to_i.should eq @time.to_i
       end
 
       it "redirect to current sprint" do

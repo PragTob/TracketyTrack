@@ -63,6 +63,11 @@ class Sprint < ActiveRecord::Base
     end
   end
 
+  def end
+    self.end_date = DateTime.now
+    save
+  end
+
   def expired?
     self.end_date < DateTime.now
   end

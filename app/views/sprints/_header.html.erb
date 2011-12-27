@@ -5,10 +5,10 @@
   <div class="span5 offset1">
     <ul class="pills">
       <li<% if @page == "current"%> class="active"<% end %>>
-        <%= link_to 'Current Sprint', controller: "page", action: "current_sprint_overview" %>
+        <%= link_to 'Current Sprint', :controller => "sprints", :action => "current_sprint_overview" %>
       </li>
       <li<% if @page == "planning"%> class="active"<% end %>>
-        <%= link_to 'Sprint Planning', controller: "page", action: "sprint_planning" %>
+        <%= link_to 'Sprint Planning', :controller => "sprints", :action => "sprint_planning" %>
       </li>
     </ul>
   </div>

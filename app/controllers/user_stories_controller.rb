@@ -70,8 +70,7 @@ class UserStoriesController < ApplicationController
 
   def create
     @user_story = UserStory.new(params[:user_story])
-    @user_story.status = "inactive"
-    @user_story.work_effort = 0
+    @user_story.initial_attributes
 
     respond_to do |format|
       if @user_story.save
@@ -110,12 +109,8 @@ class UserStoriesController < ApplicationController
 
   def start
     @user_story = UserStory.find(params[:id])
-    @user_story.status = "active"
-    @user_story.start_time = DateTime.now.utc
-    @user_story.users << current_user
-    current_user.user_stories << @user_story
+    @user_story.start current_user
     @user_story.save
-    current_user.save
 
     respond_to do |format|
       format.html { redirect_to current_sprint_path }
@@ -126,10 +121,7 @@ class UserStoriesController < ApplicationController
   def pause
     @user_story = UserStory.find(params[:id])
     if @user_story.users.include? current_user
-      @user_story.status = "suspended"
-      @user_story.set_new_work_effort
-
-      @user_story.save
+      @user_story.pause
 
       respond_to do |format|
         format.html { redirect_to current_sprint_path }
@@ -145,10 +137,7 @@ class UserStoriesController < ApplicationController
 
   def complete
     @user_story = UserStory.find(params[:id])
-    @user_story.status = "completed"
-    @user_story.set_new_work_effort
-
-    @user_story.save
+    @user_story.complete
 
     respond_to do |format|
       format.html { redirect_to current_sprint_path }
