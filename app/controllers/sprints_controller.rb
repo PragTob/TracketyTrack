@@ -7,29 +7,14 @@ class SprintsController < ApplicationController
 
   def index
     @sprints = Sprint.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sprints }
-    end
   end
 
   def show
     @sprint = Sprint.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @sprint }
-    end
   end
 
   def new
     @sprint = Sprint.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @sprint }
-    end
   end
 
   def edit
@@ -107,7 +92,6 @@ class SprintsController < ApplicationController
   end
 
   def current_sprint_overview
-
     @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
     @user_stories_in_progress = current_sprint.user_stories_in_progress
 

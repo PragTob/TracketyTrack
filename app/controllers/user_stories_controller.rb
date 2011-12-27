@@ -7,11 +7,6 @@ class UserStoriesController < ApplicationController
   def index
     @title = "All Stories"
     @user_stories = UserStory.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @user_stories }
-    end
   end
 
   def current_sprint_list
