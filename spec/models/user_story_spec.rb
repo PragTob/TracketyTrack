@@ -68,6 +68,12 @@ describe UserStory do
 
   describe "#printable_work_effort" do
 
+    it "does not fail when no work effort is set" do
+      @user_story.work_effort = nil
+      lambda {
+        @user_story.printable_work_effort }.should_not raise_error
+    end
+
     it "returns a string representing the used work effort" do
       @user_story.work_effort = 1
       @user_story.printable_work_effort.should eq "0 days 00:00:01"

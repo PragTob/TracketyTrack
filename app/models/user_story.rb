@@ -70,13 +70,16 @@ class UserStory < ActiveRecord::Base
     save
   end
 
+  # TODO there has got to be a better way for this
   def printable_work_effort
-     time = self.work_effort
-     days = time/86400.to_i
-     hours = (time/3600 - days * 24).to_i
-     minutes = (time/60 - (hours * 60 + days * 1440)).to_i
-     seconds = (time - (minutes * 60 + hours * 3600 + days * 86400))
-     "%d days %02d:%02d:%02d" % [days, hours, minutes, seconds]
+    if work_effort
+      time = work_effort
+      days = time/86400.to_i
+      hours = (time/3600 - days * 24).to_i
+      minutes = (time/60 - (hours * 60 + days * 1440)).to_i
+      seconds = (time - (minutes * 60 + hours * 3600 + days * 86400))
+      "%d days %02d:%02d:%02d" % [days, hours, minutes, seconds]
+    end
   end
 
 end

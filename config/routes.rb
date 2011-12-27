@@ -27,7 +27,7 @@ TracketyTrack::Application.routes.draw do
                               as: :non_estimated_list
 
 
-  root to: "page#current_sprint_overview"
+  root to: "sprints#current_sprint_overview"
 
   get "/current_sprint", to: 'sprints#current_sprint_overview',
                          as: :current_sprint

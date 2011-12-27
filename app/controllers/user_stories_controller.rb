@@ -46,21 +46,11 @@ class UserStoriesController < ApplicationController
 
   def show
     @user_story = UserStory.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user_story }
-    end
   end
 
   def new
     @user_story = UserStory.new
     @users = User.all
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user_story }
-    end
   end
 
   def edit
