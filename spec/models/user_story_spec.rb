@@ -34,6 +34,10 @@ describe UserStory do
     UserStory.new.should_not be_valid
   end
 
+  it "is valid with just a name" do
+    UserStory.new(name: "blaaa").should be_valid
+  end
+
   it "is invalid without a work effort" do
     Factory.build(:user_story, work_effort: nil).should_not be_valid
   end

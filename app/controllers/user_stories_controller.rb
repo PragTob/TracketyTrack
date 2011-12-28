@@ -55,7 +55,6 @@ class UserStoriesController < ApplicationController
 
   def create
     @user_story = UserStory.new(params[:user_story])
-    @user_story.initial_attributes
 
     respond_to do |format|
       if @user_story.save
@@ -72,7 +71,6 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.find(params[:id])
     @users = User.all
 
-    # TODOOO work effort...
     respond_to do |format|
       if @user_story.update_attributes(params[:user_story])
         format.html { redirect_to @user_story, flash: {success: 'User Story was successfully updated.'} }
@@ -107,6 +105,7 @@ class UserStoriesController < ApplicationController
 
   def pause
     @user_story = UserStory.find(params[:id])
+    # TODO get this into the pause method
     if @user_story.users.include? current_user
       @user_story.pause
 

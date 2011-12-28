@@ -98,15 +98,21 @@ describe UserStoriesController do
           assigns(:user_story).work_effort.should eq 0
         end
 
-        it "assigns a newly created @user_story as @@user_story" do
+        it "assigns a newly created user story as @user_story" do
           post :create, :user_story => valid_attributes
           assigns(:user_story).should be_a(UserStory)
           assigns(:user_story).should be_persisted
         end
 
-        it "redirects to the created @user_story" do
+        it "redirects to the created user story" do
           post :create, user_story: valid_attributes
           response.should redirect_to(UserStory.last)
+        end
+
+        it "is is succesfuly when just given a name" do
+          expect {
+            post :create, user_story: { name: "A user story" }
+          }.to change(UserStory, :count).by(1)
         end
       end
 

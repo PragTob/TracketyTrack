@@ -1,14 +1,15 @@
 class UserStory < ActiveRecord::Base
   has_and_belongs_to_many :users, uniq: true
   belongs_to :sprint
+  after_initialize :init
 
   ACTIVE    = "active"
   INACTIVE  = "inactive"
   COMPLETED = "completed"
   SUSPENDED = "suspended"
 
-  def initial_attributes
-    self.status = "inactive"
+  def init
+    self.status = INACTIVE unless status
     self.work_effort = 0
   end
 
