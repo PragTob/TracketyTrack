@@ -70,7 +70,9 @@ class UserStoriesController < ApplicationController
 
   def update
     @user_story = UserStory.find(params[:id])
+    @users = User.all
 
+    # TODOOO work effort...
     respond_to do |format|
       if @user_story.update_attributes(params[:user_story])
         format.html { redirect_to @user_story, flash: {success: 'User Story was successfully updated.'} }
