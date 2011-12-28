@@ -16,7 +16,7 @@ class UserStory < ActiveRecord::Base
   # without description etc.
 
   validates :name, presence: true
-  validates_inclusion_of :status, :in => ["inactive", "active",
+  validates_inclusion_of :status, in: ["inactive", "active",
                                           "suspended", "completed"]
   validates :work_effort, presence: true
 
@@ -26,7 +26,11 @@ class UserStory < ActiveRecord::Base
 
   def self.current_sprint_stories
     project = Project.current
-    self.where(sprint_id: project.current_sprint) if project.has_current_sprint?
+    if project.has_current_sprint?
+      self.where(sprint_id: project.current_sprint)
+    else
+      []
+    end
   end
 
   def self.completed_stories

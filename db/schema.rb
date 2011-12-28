@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(:version => 20111221122717) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
-    t.integer  "user_id"
     t.integer  "sprint_id"
     t.integer  "work_effort"
     t.datetime "start_time"
