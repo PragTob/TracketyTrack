@@ -38,18 +38,23 @@ class Project < ActiveRecord::Base
   def average_velocity
     velocities = 0
     number_of_completed_sprints = 0
-    Sprint.all.each do |sprint|
-      unless sprint.end_date.nil?
+    completed_stories.each do |sprint|
         velocities += sprint.actual_velocity
         number_of_completed_sprints += 1
-      end
     end
     if number_of_completed_sprints == 0
       0
     else
-      average = velocities/number_of_completed_sprints
-      average
+      velocities/number_of_completed_sprints
     end
+  end
+
+  def completed_stories
+    completed_stories = []
+    Sprint.all.each do |sprint|
+      completed_stories << sprint unless sprint.end_date.nil?
+    end
+    completed_stories
   end
 
   # statistics

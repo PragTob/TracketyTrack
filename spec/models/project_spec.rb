@@ -58,7 +58,7 @@ describe Project do
 
   describe "#average_velocity" do
 
-    it "returns a collection of velocities for all sprints" do
+    it "returns the average of all velocities (for completed sprints)" do
       time = DateTime.now
       Timecop.freeze(time)
       first_sprint = Factory.build(:sprint, number: 1,
@@ -69,6 +69,20 @@ describe Project do
       second_sprint.stub(actual_velocity: 30)
       Sprint.stub all: [first_sprint, second_sprint]
       @project.average_velocity.should eq 20
+    end
+
+  end
+
+  describe "#completed_stories" do
+
+    it "returns all completed stories" do
+      sprint = Factory(:sprint, end_date: DateTime.now)
+      @project.completed_stories.should eq [sprint]
+    end
+
+    it "does not contain incomplete stories" do
+      sprint = Factory(:sprint, end_date: nil)
+      @project.completed_stories.should_not include sprint
     end
 
   end
