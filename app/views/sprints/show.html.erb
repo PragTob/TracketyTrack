@@ -21,6 +21,11 @@
   <%= @sprint.description %>
 </p>
 
+<p>
+  <b>Burndown Chart:</b> <br />
+  <%= image_tag(@sprint.burndown)%>
+</p>
+
 <h3>Related User Stories</h3>
 
 <%= button_to 'Edit', edit_sprint_path(@sprint),

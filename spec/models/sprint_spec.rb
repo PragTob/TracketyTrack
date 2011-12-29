@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Sprint do
+
   before :each do
     @sprint = Factory.build(:sprint)
   end
@@ -73,7 +74,7 @@ describe Sprint do
 
   end
 
-  describe ".actual_sprint?" do
+  describe "#actual_sprint?" do
 
     it "returns true if a sprint is defined containing the current date" do
       Factory(:sprint, start_date: DateTime.now, end_date: DateTime.now + 1)
@@ -82,7 +83,7 @@ describe Sprint do
 
   end
 
-  describe ".actual_sprint" do
+  describe "#actual_sprint" do
 
     context "when there is one sprint, which contains the current date" do
       it "returns this sprint" do
@@ -105,6 +106,41 @@ describe Sprint do
     it "returns true if the end date is older than the current date" do
       sprint = Factory.build(:sprint, end_date: DateTime.now - 1)
       sprint.expired?.should be_true
+    end
+
+  end
+
+  describe "#initial_story_points" do
+
+    it "returns the sum of all story points of the given sprint" do
+      @sprint.save
+      first_user_story = Factory(:user_story, estimation: 1, sprint: @sprint)
+      second_user_story = Factory(:user_story, estimation: 2, sprint: @sprint)
+      third_user_story = Factory(:user_story, estimation: 3, sprint: @sprint)
+      @sprint.initial_story_points.should eq 6
+    end
+
+  end
+
+  describe "#completed_story_points_per_day" do
+
+    it "returns a collection of completed story points for each day of the sprint" do
+      time = DateTime.now
+      Timecop.freeze(time)
+      @sprint.update_attributes(start_date: time, end_date: time + 4)
+      first_user_story = Factory(:user_story, estimation: 1, sprint: @sprint,
+        status: UserStory::COMPLETED, close_time: time + 1)
+      second_user_story = Factory(:user_story, estimation: 2, sprint: @sprint,
+        status: UserStory::COMPLETED, close_time: time + 2)
+      third_user_story = Factory(:user_story, estimation: 3, sprint: @sprint,
+        status: UserStory::COMPLETED, close_time: time + 3)
+      first_day = time.to_date
+      date_collection = { first_day.to_s => 0,
+                          (first_day + 1).to_s => 1,
+                          (first_day + 2).to_s => 2,
+                          (first_day + 3).to_s => 3,
+                          (first_day + 4).to_s => 0 }
+      @sprint.completed_story_points_per_day.should eq date_collection
     end
 
   end

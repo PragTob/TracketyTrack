@@ -24,16 +24,21 @@ class Project < ActiveRecord::Base
     else
       self.current_sprint_id = sprint.id
     end
-    self.save
+    save
   end
 
   def self.current
-    self.first
+    first
   end
 
   def has_current_sprint?
     current_sprint_id != nil
   end
+
+  def burndown_backlog
+    chart = Gchart.bar(data: [300, 100, 30, 200])
+  end
+
 
   # there shall only be one project atm
   validates_with ProjectValidator, on: :create
