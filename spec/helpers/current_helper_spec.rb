@@ -10,7 +10,7 @@ describe CurrentHelper do
     current_project.should eq @project
   end
 
-  describe "current spritn" do
+  describe "current sprint" do
 
     before :each do
       @sprint = Factory(:sprint)

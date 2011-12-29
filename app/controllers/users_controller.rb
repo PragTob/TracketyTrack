@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include UsersHelper
 
   before_filter :authenticate, except: [:new, :create]
-
+  before_filter :only_current_user, only: [:edit, :update]
   def index
     @users = User.all
   end
@@ -70,6 +70,13 @@ class UsersController < ApplicationController
 
   def accept
     @users = User.find_all_by_accepted(false)
+  end
+
+  private
+  def only_current_user
+    user = User.find(params[:id])
+    error_message = "You don't have the permission to alter the profile of somebody else"
+    redirect_to user, flash:{error: error_message}  unless is_current_user? user
   end
 
 end

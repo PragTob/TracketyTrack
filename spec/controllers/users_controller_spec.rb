@@ -71,7 +71,7 @@ describe UsersController do
   describe "Actions that need a logged in user" do
 
     before :each do
-      sign_in_a_user
+      test_sign_in @user
     end
 
     describe "GET show" do
@@ -90,9 +90,27 @@ describe UsersController do
 
     describe "GET edit" do
       it "assigns the requested user as @user" do
-        get :edit, :id => @user.id
+        get :edit, id: @user.id
         assigns(:user).should eq(@user)
       end
+
+      describe "if the user tries to edit another user" do
+
+        before :each do
+          @other_user = Factory :other_user
+          get :edit, id: @other_user.id
+        end
+
+        it "is redirected to the show page" do
+          response.should redirect_to @other_user
+        end
+
+        it "displays an error flash when it is not the right user" do
+          flash[:error].should match /permission/i
+        end
+
+      end
+
     end
 
     describe "PUT update" do
@@ -128,8 +146,28 @@ describe UsersController do
           put :update, :id => @user.id, :user => {}
           response.should render_template("edit")
         end
-
       end
+
+      describe "when the edit is for the not currently logged in user" do
+        before :each do
+          @other_user = Factory :other_user
+          attributes = valid_attributes.merge(name: "never change!!!")
+          put :update, id: @other_user.id, user: attributes
+        end
+
+        it "is redirected to the show page" do
+          response.should redirect_to @other_user
+        end
+
+        it "displays an error flash when it is not the right user" do
+          flash[:error].should match /permission/i
+        end
+
+        it "does not change the attributes of the user" do
+          User.find(@other_user.id).name.should eq @other_user.name
+        end
+      end
+
     end
 
     describe "DELETE destroy" do
