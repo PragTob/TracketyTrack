@@ -145,6 +145,14 @@ describe Sprint do
 
   end
 
+  it "can stop the sprint when the end date is nil" do
+    sprint = Factory :sprint, end_date: nil
+    time = DateTime.now
+    Timecop.freeze time
+    sprint.end
+    sprint.end_date.to_i.should eq time.to_i
+  end
+
 end
 
 # == Schema Information

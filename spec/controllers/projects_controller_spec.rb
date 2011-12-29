@@ -10,7 +10,7 @@ describe ProjectsController do
   end
 
   def create_project
-    @project = Project.create! valid_attributes
+    @project = Factory :project
   end
 
   describe "GET show" do

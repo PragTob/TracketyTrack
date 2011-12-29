@@ -19,12 +19,12 @@ class SprintDatesValidator < ActiveModel::Validator
   end
 
   def check_overlapping_sprints record
-    Sprint.all.each do |sprint|
+    sprints_without_record = Sprint.all - [record]
+    sprints_without_record.each do |sprint|
       if (sprint.start_date <= record.start_date and
           record.start_date < sprint.end_date) or
          (sprint.start_date < record.end_date and
-          record.end_date <= sprint.end_date) and
-         sprint != record
+          record.end_date <= sprint.end_date)
 
         record.errors.add(:base,
                           "Sprint dates must not overlapp with other sprints.")
@@ -65,7 +65,7 @@ class Sprint < ActiveRecord::Base
 
   def end
     self.end_date = DateTime.now
-    save
+    self.save
   end
 
   def expired?
