@@ -16,12 +16,11 @@
 </p>
 
 <p>
-  <b>Statistics </b>
-  <br />
-    <%= image_tag(@project.burndown_backlog) %>
+  <b>Average Velocity:</b>
+  <%= @project.average_velocity %>
 </p>
 
 
 <%= button_to 'Edit', edit_project_path(@project),
-              class: "btn primary", method: :get %> |
+              class: "btn primary", method: :get %>
 

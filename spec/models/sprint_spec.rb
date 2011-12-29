@@ -163,6 +163,26 @@ describe Sprint do
 
   end
 
+  describe "#actual_velocity" do
+
+    it "returns the number of currently completed story points" do
+      first_user_story = Factory(:user_story, estimation: 5,
+                sprint: @sprint, status: UserStory::COMPLETED)
+      second_user_story = Factory(:user_story, estimation: 7,
+                sprint: @sprint, status: UserStory::COMPLETED)
+      @sprint.actual_velocity.should eq 12
+    end
+
+    it "does not consider incomplete user stories" do
+      first_user_story = Factory(:user_story, estimation: 5,
+                sprint: @sprint, status: UserStory::COMPLETED)
+      second_user_story = Factory(:user_story, estimation: 7,
+                sprint: @sprint, status: UserStory::ACTIVE)
+      @sprint.actual_velocity.should eq 5
+    end
+
+  end
+
   describe "user story helpers" do
 
     describe "in progress" do

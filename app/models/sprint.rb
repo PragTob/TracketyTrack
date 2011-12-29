@@ -77,6 +77,8 @@ class Sprint < ActiveRecord::Base
     self.end_date < DateTime.now
   end
 
+  # statistics
+
   def initial_story_points
     user_stories_estimated.inject(0) { |sum, each| sum + each.estimation }
   end
@@ -104,12 +106,20 @@ class Sprint < ActiveRecord::Base
       legend_dates << date.to_s
     end
     chart = Gchart.bar(
-                :data => story_points,
-                :axis_with_labels => ['x,y'],
-                :axis_labels => [legend_dates],
-                :axis_range => [nil, [0,initial_story_points,1]],
-                :legend => 'Story points of unfinished user stories')
+                data: story_points,
+                axis_with_labels: ['x,y'],
+                axis_labels: [legend_dates],
+                axis_range: [nil, [0,initial_story_points,1]],
+                legend: 'Story points of unfinished user stories')
     chart
+  end
+
+  def actual_velocity
+    actual_velocity = 0
+    user_stories.where(status: UserStory::COMPLETED).each do |user_story|
+      actual_velocity += user_story.estimation unless user_story.estimation.nil?
+    end
+    actual_velocity
   end
 
 end

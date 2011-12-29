@@ -35,9 +35,24 @@ class Project < ActiveRecord::Base
     current_sprint_id != nil
   end
 
-  def burndown_backlog
-    chart = Gchart.bar(data: [300, 100, 30, 200])
+  def average_velocity
+    velocities = 0
+    number_of_completed_sprints = 0
+    Sprint.all.each do |sprint|
+      unless sprint.end_date.nil?
+        velocities += sprint.actual_velocity
+        number_of_completed_sprints += 1
+      end
+    end
+    if number_of_completed_sprints == 0
+      0
+    else
+      average = velocities/number_of_completed_sprints
+      average
+    end
   end
+
+  # statistics
 
 
   # there shall only be one project atm

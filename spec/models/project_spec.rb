@@ -56,9 +56,23 @@ describe Project do
 
   end
 
-  describe "#initial_story_points" do
+  describe "#average_velocity" do
+
+    it "returns a collection of velocities for all sprints" do
+      time = DateTime.now
+      Timecop.freeze(time)
+      first_sprint = Factory.build(:sprint, number: 1,
+                            start_date: time, end_date: time + 1)
+      second_sprint = Factory.build(:sprint, number: 2,
+                            start_date: time + 2, end_date: time + 3)
+      first_sprint.stub(actual_velocity: 10)
+      second_sprint.stub(actual_velocity: 30)
+      Sprint.stub all: [first_sprint, second_sprint]
+      @project.average_velocity.should eq 20
+    end
 
   end
+
 
   describe "#current_sprint=" do
 
