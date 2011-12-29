@@ -37,6 +37,13 @@
   <% end %>
 </p>
 
+<% if @user_story.status == UserStory::DELETED %>
+  <%= button_to 'Resurrecet', { controller: :user_stories, action: :resurrect,
+                id: @user_story.id }, class: "btn success" %>
+<% else %>
+  <%= button_to 'Delete', @user_story, confirm: 'Are you sure?', method: :delete,
+              class: "btn danger" %>
+<% end %>
 <%= button_to 'Edit', edit_user_story_path(@user_story),
               class: "btn primary", method: :get %>
 <%= button_to 'All user stories', user_stories_path,

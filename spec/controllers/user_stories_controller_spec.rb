@@ -32,7 +32,7 @@ describe UserStoriesController do
 
     describe "GET completed_stories_list" do
       it "assigns only the completed user stories to @user_stories" do
-        @other_user_story = Factory(:user_story, status: "completed")
+        @other_user_story = Factory(:user_story, status: UserStory::COMPLETED)
         get :completed_stories_list
         assigns(:user_stories).should eq([@other_user_story])
       end
@@ -40,7 +40,7 @@ describe UserStoriesController do
 
     describe "GET work_in_progress_list" do
       it "assigns only the WiP user stories to @user_stories" do
-        @other_user_story = Factory(:user_story, status: "active")
+        @other_user_story = Factory(:user_story, status: UserStory::ACTIVE)
         get :work_in_progress_list
         assigns(:user_stories).should eq([@other_user_story])
       end
@@ -63,6 +63,13 @@ describe UserStoriesController do
       end
     end
 
+    describe "GET deleted_list" do
+      it "assigns only the deleted stories" do
+        other_story = Factory :user_story, status: UserStory::DELETED
+        get :deleted_list
+        assigns(:user_stories).should eq [other_story]
+      end
+    end
 
     describe "GET show" do
       it "assigns the requested user_story as @user_story" do
@@ -190,14 +197,26 @@ describe UserStoriesController do
 
     end
 
+#    describe "DELETE destroy" do
+#      it "destroys the requested user_story" do
+#        expect {
+#          delete :destroy, id: @user_story.id
+#        }.to change(UserStory, :count).by(-1)
+#      end
+
+#      it "redirects to the user_stories list" do
+#        delete :destroy, id: @user_story.id
+#        response.should redirect_to(user_stories_url)
+#      end
+#    end
+
     describe "DELETE destroy" do
-      it "destroys the requested user_story" do
-        expect {
-          delete :destroy, id: @user_story.id
-        }.to change(UserStory, :count).by(-1)
+      it "changes the user stories status to deleted" do
+        delete :destroy, id: @user_story.id
+        UserStory.find(@user_story.id).status.should eq UserStory::DELETED
       end
 
-      it "redirects to the user_stories list" do
+      it "redirects to the user stories list" do
         delete :destroy, id: @user_story.id
         response.should redirect_to(user_stories_url)
       end
@@ -309,14 +328,20 @@ describe UserStoriesController do
     end
 
     describe "PUT unassign_sprint" do
-
       it "unassignes the user story" do
         @sprint = Factory(:sprint)
         @user_story.update_attributes(sprint: @sprint)
         put :unassign_sprint, id: @user_story.id
         UserStory.find(@user_story.id).sprint.should be_nil
       end
+    end
 
+    describe "POST resurrect" do
+      it "resurrects a deleted user story" do
+        other = Factory :user_story, status: UserStory::DELETED
+        other.resurrect
+        UserStory.find(other.id).status.should == UserStory::INACTIVE
+      end
     end
   end
 
