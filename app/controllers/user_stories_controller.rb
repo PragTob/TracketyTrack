@@ -33,6 +33,12 @@ class UserStoriesController < ApplicationController
     render 'index'
   end
 
+  def deleted_list
+    @title = "Deleted User Stories"
+    @user_stories = UserStory.deleted
+    render 'index'
+  end
+
   def non_estimated_list
     @title = "Non estimated User Stories"
     @user_stories = UserStory.non_estimated
@@ -84,12 +90,16 @@ class UserStoriesController < ApplicationController
 
   def destroy
     @user_story = UserStory.find(params[:id])
-    @user_story.destroy
+    @user_story.delete
 
-    respond_to do |format|
-      format.html { redirect_to user_stories_url }
-      format.json { head :ok }
-    end
+    redirect_to user_stories_url, flash: {success: "User Story succesfully deleted" }
+  end
+
+  def resurrect
+    @user_story = UserStory.find(params[:id])
+    @user_story.resurrect
+
+    redirect_to user_stories_url, flash: {success: "User Story succesfully resurrected" }
   end
 
   def start

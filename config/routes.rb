@@ -12,6 +12,7 @@ TracketyTrack::Application.routes.draw do
   put "user_stories/assign_sprint"
   put "user_stories/unassign_sprint"
   post "users/accept_user"
+  post "user_stories/resurrect"
 
   get "accept_users", to: "users#accept", as: :accept
 
@@ -25,6 +26,8 @@ TracketyTrack::Application.routes.draw do
                               as: :backlog_list
   get "/non_estimated",         to: 'user_stories#non_estimated_list',
                               as: :non_estimated_list
+  get "/deleted_list",         to: 'user_stories#deleted_list',
+                              as: :deleted_list
 
 
   root to: "sprints#current_sprint_overview"

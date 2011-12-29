@@ -1,8 +1,9 @@
 <div class="row">
-  <div class="span5">
+
+  <div class="span4">
     <h1><%= link_to current_project.title, project_path(current_project) %></h1>
   </div>
-  <div class="span10 offset1">
+  <div class="span12">
     <ul class="pills">
       <li<% if @title == "All Stories"%> class="active"<% end %>>
         <%= link_to 'All Stories', controller: "user_stories",
@@ -27,6 +28,10 @@
       <li<% if @title == "Non estimated User Stories"%> class="active"<% end %>>
         <%= link_to 'Non estimated Stories', controller: "user_stories",
                                     action: "non_estimated_list" %>
+      </li>
+      <li<% if @title == "Deleted User Stories"%> class="active"<% end %>>
+        <%= link_to 'Deleted User Stories', controller: "user_stories",
+                                    action: "deleted_list" %>
       </li>
     </ul>
   </div>

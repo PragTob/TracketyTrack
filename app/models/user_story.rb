@@ -24,28 +24,32 @@ class UserStory < ActiveRecord::Base
   validates :work_effort, presence: true
 
   def self.backlog
-    self.where(sprint_id: nil)
+    self.where sprint_id: nil, status: OPEN_STATUSES
   end
 
   def self.current_sprint_stories
     project = Project.current
     if project.has_current_sprint?
-      self.where(sprint_id: project.current_sprint, status: OPEN_STATUSES)
+      self.where sprint_id: project.current_sprint, status: OPEN_STATUSES
     else
       []
     end
   end
 
   def self.completed_stories
-    self.where(status: UserStory::COMPLETED)
+    self.where status: UserStory::COMPLETED
   end
 
   def self.non_estimated
-    self.where(estimation: nil, status: OPEN_STATUSES)
+    self.where estimation: nil, status: OPEN_STATUSES
   end
 
   def self.work_in_progress_stories
-    self.where(status: UserStory::ACTIVE)
+    self.where status: UserStory::ACTIVE
+  end
+
+  def self. deleted
+    self.where status: UserStory::DELETED
   end
 
   def short_description
@@ -91,10 +95,12 @@ class UserStory < ActiveRecord::Base
 
   def delete
     self.status = DELETED
+    save
   end
 
   def resurrect
     self.status = INACTIVE if self.status == DELETED
+    save
   end
 
   # excludes all closed user stories (as a difference to all)
