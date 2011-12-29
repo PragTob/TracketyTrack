@@ -15,6 +15,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'googlecharts'
 
 # JavaScript runtime environment (required by rspc install)
 gem 'therubyracer'
