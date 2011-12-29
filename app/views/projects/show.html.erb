@@ -22,6 +22,6 @@
 </p>
 
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', current_sprint_path %>
+<%= button_to 'Edit', edit_project_path(@project),
+              class: "btn primary", method: :get %> |
 

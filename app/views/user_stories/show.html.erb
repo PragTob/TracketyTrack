@@ -37,24 +37,8 @@
   <% end %>
 </p>
 
-<p>
-  <% if @user_story.status == "inactive" %>
-    <%= button_to "Start", {action: 'start', id: @user_story.id, user_id: 1},
-                                                               method: "put"%>
-  <% elsif @user_story.status == "completed" %>
-    <%= button_to "Re-Start", {action: 'start', id: @user_story.id, user_id: 1},
-                                                               method: "put"%>
-  <% elsif @user_story.status == "active" %>
-    <% if @user_story.users.include? current_user %>
-      <%= button_to "Pause", {action: 'pause', id: @user_story.id, user_id: 1},
-                                                               method: "put"%>
-    <% end %>
-    <%= button_to "Complete", {action: 'complete', id: @user_story.id, user_id: 1},
-                                                               method: "put"%>
-  <%end%>
-</p>
-
-
-<%= link_to 'Edit', edit_user_story_path(@user_story) %> |
-<%= link_to 'Back', user_stories_path %>
+<%= button_to 'Edit', edit_user_story_path(@user_story),
+              class: "btn primary", method: :get %>
+<%= button_to 'All user stories', user_stories_path,
+              class: "btn primary", method: :get %>
 

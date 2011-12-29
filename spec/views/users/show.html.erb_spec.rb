@@ -4,6 +4,7 @@ describe "users/show.html.erb" do
   before(:each) do
     @user = Factory(:user)
     assign(:user, @user)
+    view.stub!(current_user: @user)
   end
 
   it "renders attributes in <p>" do
@@ -12,5 +13,17 @@ describe "users/show.html.erb" do
     rendered.should match(@user.email)
     rendered.should match(@user.description)
   end
+
+  it "has an edit link" do
+    render
+    rendered.should match /edit/i
+  end
+
+  it "has no edit link when the user is not the current user" do
+    view.stub! current_user: Factory.build(:other_user)
+    render
+    rendered.should_not match /edit/i
+  end
+
 end
 
