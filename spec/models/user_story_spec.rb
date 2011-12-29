@@ -221,20 +221,59 @@ describe UserStory do
 
   end
 
-  it "is valid with multiple users assigned" do
-    add_users_to_story
-    @user_story.should be_valid
+  describe "all_open" do
+
+    it "does contain active user stories" do
+      @user_story.update_attributes(status: UserStory::ACTIVE)
+      UserStory.all_open.should eq [@user_story]
+    end
+
+    it "does contain suspended user stories" do
+      @user_story.update_attributes(status: UserStory::SUSPENDED)
+      UserStory.all_open.should eq [@user_story]
+    end
+
+    it "does contain inactive user stories" do
+      @user_story.update_attributes(status: UserStory::INACTIVE)
+      UserStory.all_open.should eq [@user_story]
+    end
+
+    it "does contain completed user stories" do
+      @user_story.update_attributes(status: UserStory::COMPLETED)
+      UserStory.all_open.should eq [@user_story]
+    end
+
+    it "does not contain deleted user stories" do
+      @user_story.update_attributes(status: UserStory::DELETED)
+      UserStory.all_open.should_not include @user_story
+    end
+
+    it "also contains multiple user stories" do
+      @user_story.save
+      other_story = Factory :user_story, name: "blaaa"
+      UserStory.all_open.should eq [@user_story, other_story]
+    end
+
   end
 
-  it "has an appropriate users size" do
-    add_users_to_story
-    @user_story.users.size.should be 2
-  end
+  describe "association to users" do
 
-  it "doesn't have duplicated users" do
-    user = Factory :user
-    @user_story.users << user << user
-    @user_story.users.size.should be 1
+    it "is valid with multiple users assigned" do
+      add_users_to_story
+      @user_story.should be_valid
+    end
+
+    it "has an appropriate users size" do
+      add_users_to_story
+      @user_story.users.size.should be 2
+    end
+
+    it "doesn't have duplicated users" do
+      user = Factory :user
+      @user_story.users << user << user
+      @user_story.users.size.should be 1
+    end
+
   end
 
 end

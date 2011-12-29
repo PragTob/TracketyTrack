@@ -6,7 +6,7 @@ class UserStoriesController < ApplicationController
 
   def index
     @title = "All Stories"
-    @user_stories = UserStory.all
+    @user_stories = UserStory.all_open
   end
 
   def current_sprint_list

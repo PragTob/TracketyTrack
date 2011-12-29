@@ -3,12 +3,13 @@ class UserStory < ActiveRecord::Base
   belongs_to :sprint
   after_initialize :init
 
-  ACTIVE    = "active"
-  INACTIVE  = "inactive"
-  COMPLETED = "completed"
-  SUSPENDED = "suspended"
-  DELETED   = "deleted"
-  STATUSES = [ACTIVE, INACTIVE, COMPLETED, SUSPENDED, DELETED]
+  ACTIVE        = "active"
+  INACTIVE      = "inactive"
+  COMPLETED     = "completed"
+  SUSPENDED     = "suspended"
+  DELETED       = "deleted"
+  OPEN_STATUSES = [ACTIVE, INACTIVE, COMPLETED, SUSPENDED]
+  STATUSES      = OPEN_STATUSES + [DELETED]
 
   def init
     self.status = INACTIVE unless status
@@ -29,22 +30,22 @@ class UserStory < ActiveRecord::Base
   def self.current_sprint_stories
     project = Project.current
     if project.has_current_sprint?
-      self.where(sprint_id: project.current_sprint)
+      self.where(sprint_id: project.current_sprint, status: OPEN_STATUSES)
     else
       []
     end
   end
 
   def self.completed_stories
-    self.where(status: "completed")
+    self.where(status: UserStory::COMPLETED)
   end
 
   def self.non_estimated
-    self.where(estimation: nil)
+    self.where(estimation: nil, status: OPEN_STATUSES)
   end
 
   def self.work_in_progress_stories
-    self.where(status: "active")
+    self.where(status: UserStory::ACTIVE)
   end
 
   def short_description
@@ -94,6 +95,11 @@ class UserStory < ActiveRecord::Base
 
   def resurrect
     self.status = INACTIVE if self.status == DELETED
+  end
+
+  # excludes all closed user stories (as a difference to all)
+  def self.all_open
+    self.where(status: OPEN_STATUSES)
   end
 
 end
