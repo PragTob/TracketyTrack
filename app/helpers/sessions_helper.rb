@@ -26,7 +26,7 @@ module SessionsHelper
     deny_access unless signed_in?
   end
 
-  def is_current_user? user
+  def current_user? user
     current_user == user
   end
 

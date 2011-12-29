@@ -10,12 +10,12 @@ describe SessionsHelper do
     end
 
     it "returns true if the given user is the current user" do
-      view.is_current_user?(@user).should be true
+      view.current_user?(@user).should be true
     end
 
     it "returns false if the given user is not the current user" do
       other_user = Factory.build :other_user
-      view.is_current_user?(other_user).should be false
+      view.current_user?(other_user).should be false
     end
 
   end

@@ -76,7 +76,7 @@ class UsersController < ApplicationController
   def only_current_user
     user = User.find(params[:id])
     error_message = "You don't have the permission to alter the profile of somebody else"
-    redirect_to user, flash:{error: error_message}  unless is_current_user? user
+    redirect_to user, flash:{error: error_message}  unless current_user? user
   end
 
 end
