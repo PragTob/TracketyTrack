@@ -15,6 +15,12 @@
   <%= @project.repository_url %>
 </p>
 
+<p>
+  <b>Statistics </b>
+  <br />
+    <%= image_tag(@project.burndown_backlog) %>
+</p>
+
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', current_sprint_path %>

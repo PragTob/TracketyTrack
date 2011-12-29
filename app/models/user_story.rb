@@ -71,6 +71,7 @@ class UserStory < ActiveRecord::Base
 
   def complete
     self.status = "completed"
+    self.close_time = DateTime.now.utc
     set_new_work_effort
     save
   end

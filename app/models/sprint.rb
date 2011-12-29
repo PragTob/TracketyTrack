@@ -72,6 +72,41 @@ class Sprint < ActiveRecord::Base
     self.end_date < DateTime.now
   end
 
+  def initial_story_points
+    user_stories.inject(0) { |sum, each| sum + each.estimation }
+  end
+
+  def completed_story_points_per_day
+    day_of_sprint = start_date.to_date
+    story_points_per_day = {}
+    final_date = DateTime.now.to_date
+    final_date = end_date.to_date unless end_date.nil?
+    while day_of_sprint <= final_date do
+      story_points_per_day[day_of_sprint.to_s] = 0
+      day_of_sprint += 1
+    end
+    user_stories.where(status: UserStory::COMPLETED).each do |user_story|
+      story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation
+    end
+    story_points_per_day
+  end
+
+  def burndown
+    story_points = [initial_story_points]
+    legend_dates = ['initial']
+    completed_story_points_per_day.each do |date, story_points|
+      story_points << (initial_story_points - story_points)
+      legend_dates << date.to_s
+    end
+    chart = Gchart.bar(
+                :data => story_points,
+                :axis_with_labels => ['x,y'],
+                :axis_labels => [legend_dates],
+                :axis_range => [nil, [0,initial_story_points,1]],
+                :legend => 'Story points of unfinished user stories')
+    chart
+  end
+
 end
 
 # == Schema Information
