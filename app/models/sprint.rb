@@ -57,6 +57,11 @@ class Sprint < ActiveRecord::Base
     end
   end
 
+  def user_stories_estimated
+    estimated = user_stories.reject { |user_story| user_story.estimation.nil? }
+    estimated
+  end
+
   def user_stories_in_progress
     user_stories.select do |each|
       each.status == "active" or each.status == "suspended"
@@ -73,7 +78,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def initial_story_points
-    user_stories.inject(0) { |sum, each| sum + each.estimation }
+    user_stories_estimated.inject(0) { |sum, each| sum + each.estimation }
   end
 
   def completed_story_points_per_day

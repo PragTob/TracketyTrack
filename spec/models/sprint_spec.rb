@@ -120,6 +120,24 @@ describe Sprint do
       @sprint.initial_story_points.should eq 6
     end
 
+
+
+  end
+
+  describe "#user_stories_estimated" do
+
+    it "returns the user stories with estimation" do
+      @sprint.save
+      user_story = Factory(:user_story, estimation: 1, sprint: @sprint)
+      @sprint.user_stories_estimated.should eq [user_story]
+    end
+
+    it "does not contain the user stories without estimation" do
+      @sprint.save
+      user_story = Factory(:user_story, estimation: nil, sprint: @sprint)
+      @sprint.user_stories_estimated.should_not include user_story
+    end
+
   end
 
   describe "#completed_story_points_per_day" do

@@ -56,6 +56,10 @@ describe Project do
 
   end
 
+  describe "#initial_story_points" do
+
+  end
+
   describe "#current_sprint=" do
 
     context "when sprint id is given" do

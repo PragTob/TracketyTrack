@@ -24,6 +24,10 @@
 <p>
   <b>Burndown Chart:</b> <br />
   <%= image_tag(@sprint.burndown)%>
+  <% if @sprint.user_stories_estimated != @sprint.user_stories %>
+    <br />Please keep in mind that there are user stories without an estimation.
+    <br />Therefore this graph is not accurate because these stories are not considered.
+  <% end %>
 </p>
 
 <h3>Related User Stories</h3>

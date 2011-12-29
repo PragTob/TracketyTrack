@@ -14,5 +14,6 @@ describe "sprints/show.html.erb" do
     rendered.should match(/1/)
     rendered.should match(/1/)
   end
+
 end
 
