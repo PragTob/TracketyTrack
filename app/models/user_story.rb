@@ -102,5 +102,7 @@ end
 #  updated_at          :datetime
 #  status              :string(255)
 #  sprint_id           :integer
+#  work_effort         :integer
+#  start_time          :datetime
 #
 
