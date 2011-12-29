@@ -125,7 +125,7 @@ describe Sprint do
   describe "#completed_story_points_per_day" do
 
     it "returns a collection of completed story points for each day of the sprint" do
-      time = DateTime.now
+      time = DateTime.now.utc
       Timecop.freeze(time)
       @sprint.update_attributes(start_date: time, end_date: time + 4)
       first_user_story = Factory(:user_story, estimation: 1, sprint: @sprint,
