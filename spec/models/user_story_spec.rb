@@ -85,6 +85,113 @@ describe UserStory do
 
   end
 
+  describe "#backlog" do
+
+    it "returns all user stories without assigned sprint" do
+      user_story = Factory(:user_story, sprint: nil)
+      UserStory.backlog.should eq [user_story]
+    end
+
+    it "does not contain user stories with assigned sprint" do
+      sprint = Factory(:sprint)
+      @user_story.update_attributes(sprint_id: sprint.id)
+      UserStory.backlog.should_not include @user_story
+    end
+
+  end
+
+  describe "#current_sprint_stories" do
+
+    it "returns all user stories of the current sprint" do
+      sprint = Factory(:sprint)
+      project = Factory(:project, current_sprint: sprint)
+      @user_story.update_attributes(sprint: sprint)
+      UserStory.current_sprint_stories.should eq [@user_story]
+    end
+
+    it "does not contain user stories that are not assigned to a sprint" do
+      sprint = Factory(:sprint)
+      project = Factory(:project, current_sprint: sprint)
+      UserStory.current_sprint_stories.should_not include @user_story
+    end
+
+    it "does not contain user stories that are assigned to an other sprint than the current one" do
+      current_sprint = Factory(:sprint)
+      project = Factory(:project, current_sprint: current_sprint)
+      another_sprint = Sprint.create(number: 2)
+      @user_story.update_attributes(sprint: another_sprint)
+      UserStory.current_sprint_stories.should_not include @user_story
+    end
+
+    it "returns empty collection if there is no current sprint" do
+      project = Factory(:project)
+      UserStory.current_sprint_stories.should eq []
+    end
+
+  end
+
+  describe "#completed_stories" do
+
+    it "returns all completed user stories" do
+      @user_story.update_attributes(status: UserStory::COMPLETED)
+      UserStory.completed_stories.should eq [@user_story]
+    end
+
+    it "does not contain suspended user stories" do
+      @user_story.update_attributes(status: UserStory::SUSPENDED)
+      UserStory.completed_stories.should_not include @user_story
+    end
+
+    it "does not contain inactive user stories" do
+      @user_story.update_attributes(status: UserStory::INACTIVE)
+      UserStory.completed_stories.should_not include @user_story
+    end
+
+    it "does not contain active user stories" do
+      @user_story.update_attributes(status: UserStory::ACTIVE)
+      UserStory.completed_stories.should_not include @user_story
+    end
+
+  end
+
+  describe "#non_estimated" do
+
+    it "returns all user stories without estimation" do
+      @user_story.update_attributes(estimation: nil)
+      UserStory.non_estimated.should eq [@user_story]
+    end
+
+    it "does not contain user stories with estimation" do
+      @user_story.update_attributes(estimation: 1)
+      UserStory.non_estimated.should_not include @user_story
+    end
+
+  end
+
+  describe "#work_in_progress_stories" do
+
+    it "returns all active user stories" do
+      @user_story.update_attributes(status: UserStory::ACTIVE)
+      UserStory.work_in_progress_stories.should eq [@user_story]
+    end
+
+    it "does not contain suspended user stories" do
+      @user_story.update_attributes(status: UserStory::SUSPENDED)
+      UserStory.work_in_progress_stories.should_not include @user_story
+    end
+
+    it "does not contain inactive user stories" do
+      @user_story.update_attributes(status: UserStory::INACTIVE)
+      UserStory.work_in_progress_stories.should_not include @user_story
+    end
+
+    it "does not contain completed user stories" do
+      @user_story.update_attributes(status: UserStory::COMPLETED)
+      UserStory.work_in_progress_stories.should_not include @user_story
+    end
+
+  end
+
   it "is valid with multiple users assigned" do
     add_users_to_story
     @user_story.should be_valid
