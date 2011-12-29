@@ -10,6 +10,7 @@ describe SprintsController do
 
     before :each do
       sign_in_a_user
+      @project = Factory(:project)
     end
 
     describe "GET index" do
@@ -66,7 +67,6 @@ describe SprintsController do
 
         describe "when no start date is given" do
           before :each do
-            Factory(:project)
             @time = DateTime.now
             Timecop.freeze(@time)
           end
@@ -89,12 +89,11 @@ describe SprintsController do
         describe "when created sprint is actual sprint" do
 
           it "starts this sprint" do
-            project = Factory(:project)
             attributes = valid_attributes.merge(start_date: DateTime.now - 1,
                                                 end_date: DateTime.now + 1)
             post :create, :sprint => attributes
-            project = Project.find(project.id)
-            project.current_sprint.should eq assigns(:sprint)
+            @project = Project.find(@project.id)
+            @project.current_sprint.should eq assigns(:sprint)
           end
 
         end
@@ -104,14 +103,12 @@ describe SprintsController do
       describe "with invalid params" do
 
         it "assigns a newly created but unsaved sprint as @sprint" do
-          # Trigger the behavior that occurs when invalid params are submitted
           Sprint.any_instance.stub(:save).and_return(false)
           post :create, :sprint => {}
           assigns(:sprint).should be_a_new(Sprint)
         end
 
         it "re-renders the 'new' template" do
-          # Trigger the behavior that occurs when invalid params are submitted
           Sprint.any_instance.stub(:save).and_return(false)
           post :create, :sprint => {}
           response.should render_template("new")
@@ -149,7 +146,6 @@ describe SprintsController do
 
         it "assigns the sprint as @sprint" do
           sprint = Sprint.create! valid_attributes
-          # Trigger the behavior that occurs when invalid params are submitted
           Sprint.any_instance.stub(:save).and_return(false)
           put :update, :id => sprint.id, :sprint => {}
           assigns(:sprint).should eq(sprint)
@@ -157,7 +153,6 @@ describe SprintsController do
 
         it "re-renders the 'edit' template" do
           sprint = Sprint.create! valid_attributes
-          # Trigger the behavior that occurs when invalid params are submitted
           Sprint.any_instance.stub(:save).and_return(false)
           put :update, :id => sprint.id, :sprint => {}
           response.should render_template("edit")
@@ -221,7 +216,6 @@ describe SprintsController do
 
       before :each do
         @sprint = Factory(:sprint, end_date: DateTime.now - 1)
-        @project = Factory(:project)
         @project.current_sprint = @sprint
         @time = DateTime.now
         Timecop.freeze(@time)
@@ -243,8 +237,6 @@ describe SprintsController do
     end
 
   end
-
-
 
   describe "A logged out user can do nothing" do
 
