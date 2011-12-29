@@ -55,6 +55,8 @@
 </p>
 
 
-<%= link_to 'Edit', edit_user_story_path(@user_story) %> |
-<%= link_to 'Back', user_stories_path %>
+<%= button_to 'Edit', edit_user_story_path(@user_story),
+              class: "btn primary", method: :get %>
+<%= button_to 'All user stories', user_stories_path,
+              class: "btn primary", method: :get %>
 

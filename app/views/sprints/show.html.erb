@@ -23,6 +23,8 @@
 
 <h3>Related User Stories</h3>
 
-
-<%= link_to 'Back to Sprint Overview', sprints_path %>
+<%= button_to 'Edit', edit_sprint_path(@sprint),
+              class: "btn primary", method: :get %>
+<%= button_to 'Sprint Overview', sprints_path,
+              class: "btn primary", method: :get %>
 
