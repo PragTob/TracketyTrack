@@ -36,6 +36,13 @@
     </div>
   </div>
 
+  <div class="clearfix">
+    <%= f.label :description %>
+    <div class="input">
+      <%= f.text_area :description, :class => 'span6 description' %>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit "#{form_action_for @sprint} Sprint", :class => 'btn success' %>
   </div>
