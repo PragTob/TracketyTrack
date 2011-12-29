@@ -7,6 +7,8 @@ class UserStory < ActiveRecord::Base
   INACTIVE  = "inactive"
   COMPLETED = "completed"
   SUSPENDED = "suspended"
+  DELETED   = "deleted"
+  STATUSES = [ACTIVE, INACTIVE, COMPLETED, SUSPENDED, DELETED]
 
   def init
     self.status = INACTIVE unless status
@@ -17,8 +19,7 @@ class UserStory < ActiveRecord::Base
   # without description etc.
 
   validates :name, presence: true
-  validates_inclusion_of :status, in: ["inactive", "active",
-                                          "suspended", "completed"]
+  validates_inclusion_of :status, in: STATUSES
   validates :work_effort, presence: true
 
   def self.backlog
@@ -70,7 +71,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def complete
-    self.status = "completed"
+    self.status = COMPLETED
     set_new_work_effort
     save
   end
@@ -85,6 +86,14 @@ class UserStory < ActiveRecord::Base
       seconds = (time - (minutes * 60 + hours * 3600 + days * 86400))
       "%d days %02d:%02d:%02d" % [days, hours, minutes, seconds]
     end
+  end
+
+  def delete
+    self.status = DELETED
+  end
+
+  def resurrect
+    self.status = INACTIVE if self.status == DELETED
   end
 
 end

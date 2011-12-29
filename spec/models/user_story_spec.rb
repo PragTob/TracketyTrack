@@ -4,7 +4,6 @@ def add_users_to_story
   @user_story.users << Factory.build(:user) << Factory.build(:other_user)
 end
 
-# more examples to come when the model gets more complex
 describe UserStory do
   before :each do
     @user_story = Factory.build(:user_story)
@@ -45,6 +44,36 @@ describe UserStory do
   context "with a status unlike inactive, active, suspended or completed" do
     before{ @user_story.status = "foo" }
     it {should_not be_valid}
+  end
+
+  describe "actions" do
+
+    describe "delete" do
+
+      before :each do
+        @user_story.delete
+      end
+
+      it "sets the user story status to deleted" do
+        @user_story.status.should eq UserStory::DELETED
+      end
+
+      describe "resurrect" do
+        before :each do
+          @user_story.resurrect
+        end
+
+        it "can be resurrected and is not deleted anymore" do
+          @user_story.status.should_not eq UserStory::DELETED
+        end
+
+        it "is resurrected with status inactive" do
+          @user_story.status.should eq UserStory::INACTIVE
+        end
+      end
+
+    end
+
   end
 
   describe "#short_description" do
