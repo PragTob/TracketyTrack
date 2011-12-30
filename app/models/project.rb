@@ -35,30 +35,51 @@ class Project < ActiveRecord::Base
     current_sprint_id != nil
   end
 
+  #statistics
+
   def average_velocity
-    velocities = 0
-    number_of_completed_sprints = 0
-    completed_stories.each do |sprint|
-        velocities += sprint.actual_velocity
-        number_of_completed_sprints += 1
-    end
-    if number_of_completed_sprints == 0
+    completed_sprints = Sprint.completed_sprints
+    if completed_sprints.empty?
       0
     else
-      velocities/number_of_completed_sprints
+      sum_of_velocities = completed_sprints.inject(0) do |sum, sprint|
+        sum + sprint.actual_velocity
+      end
+      sum_of_velocities/completed_sprints.size
     end
   end
 
-  def completed_stories
-    completed_stories = []
-    Sprint.all.each do |sprint|
-      completed_stories << sprint unless sprint.end_date.nil?
+  def initial_story_points
+    estimated_user_stories = UserStory.all - UserStory.non_estimated
+    estimated_user_stories.inject(0) do |sum, user_story|
+      sum + user_story.estimation.to_i
     end
-    completed_stories
   end
 
-  # statistics
+  def completed_story_points_per_sprint
+    story_points_per_sprint = {}
+    Sprint.completed_sprints.each do | sprint |
+      story_points_per_sprint[sprint.number] = sprint.actual_velocity
+    end
+    story_points_per_sprint
+  end
 
+  def burndown_graph
+    story_points = [initial_story_points]
+    legend_dates = ['initial']
+    completed_story_points_per_sprint.each do | number, story_points_of_sprint |
+      story_points << (initial_story_points - story_points_of_sprint)
+      legend_dates << number.to_s + ". sprint"
+    end
+    chart = Gchart.bar(
+                data: story_points,
+                axis_with_labels: ['x,y'],
+                axis_labels: [legend_dates],
+                axis_range: [nil, [0,initial_story_points,5]],
+                legend: 'Completed Story Points per Sprint',
+                bar_width_and_spacing: {width: 30, spacing: 15})
+    chart
+  end
 
   # there shall only be one project atm
   validates_with ProjectValidator, on: :create

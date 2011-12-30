@@ -43,12 +43,16 @@ class Sprint < ActiveRecord::Base
   validates :velocity,  numericality: {greater_than: 0}, allow_nil: true
 
   def self.actual_sprint?
-    not Sprint.actual_sprint.nil?
+    not actual_sprint.nil?
   end
 
   def self.actual_sprint
     time = DateTime.now
-    Sprint.where("start_date <= ? AND end_date >= ?", time, time).first
+    where("start_date <= ? AND end_date >= ?", time, time).first
+  end
+
+  def self.completed_sprints
+    all.reject { |sprint| sprint.end_date.nil? }
   end
 
   def user_stories_not_in_progress
@@ -98,7 +102,7 @@ class Sprint < ActiveRecord::Base
     story_points_per_day
   end
 
-  def burndown
+  def burndown_graph
     story_points = [initial_story_points]
     legend_dates = ['initial']
     completed_story_points_per_day.each do |date, story_points|
@@ -110,7 +114,8 @@ class Sprint < ActiveRecord::Base
                 axis_with_labels: ['x,y'],
                 axis_labels: [legend_dates],
                 axis_range: [nil, [0,initial_story_points,1]],
-                legend: 'Story points of unfinished user stories')
+                legend: 'Story points of unfinished user stories',
+                bar_width_and_spacing: {width: 30, spacing: 10})
     chart
   end
 

@@ -181,6 +181,29 @@ describe Sprint do
       @sprint.actual_velocity.should eq 5
     end
 
+    it "does not consider user stories without estimation" do
+      first_user_story = Factory(:user_story, estimation: 5,
+                sprint: @sprint, status: UserStory::COMPLETED)
+      second_user_story = Factory(:user_story, estimation: nil,
+                sprint: @sprint, status: UserStory::COMPLETED)
+      @sprint.actual_velocity.should eq 5
+    end
+
+  end
+
+  describe "#completed_sprints" do
+
+    it "returns all completed sprints" do
+      @sprint.update_attributes(end_date: DateTime.now)
+      another_sprint = Factory(:sprint, number: 2, end_date: nil)
+      Sprint.completed_sprints.should eq [@sprint]
+    end
+
+    it "does not contain unfinished sprints" do
+      @sprint.update_attributes(end_date: nil)
+      Sprint.completed_sprints.should_not include @sprint
+    end
+
   end
 
   describe "user story helpers" do

@@ -60,11 +60,8 @@ describe Project do
 
     it "returns the average of all velocities (for completed sprints)" do
       time = DateTime.now
-      Timecop.freeze(time)
-      first_sprint = Factory.build(:sprint, number: 1,
-                            start_date: time, end_date: time + 1)
-      second_sprint = Factory.build(:sprint, number: 2,
-                            start_date: time + 2, end_date: time + 3)
+      first_sprint = Factory.build(:sprint, number: 1, end_date: time)
+      second_sprint = Factory.build(:sprint, number: 2, end_date: time)
       first_sprint.stub(actual_velocity: 10)
       second_sprint.stub(actual_velocity: 30)
       Sprint.stub all: [first_sprint, second_sprint]
@@ -73,16 +70,34 @@ describe Project do
 
   end
 
-  describe "#completed_stories" do
+  describe "#completed_story_points_per_sprint" do
 
-    it "returns all completed stories" do
-      sprint = Factory(:sprint, end_date: DateTime.now)
-      @project.completed_stories.should eq [sprint]
+    it "returns a collection of all burnt down story points per sprint" do
+      time = DateTime.now
+      first_sprint = Factory.build(:sprint, number: 1, end_date: time)
+      second_sprint = Factory.build(:sprint, number: 2, end_date: time)
+      first_sprint.stub(actual_velocity: 10)
+      second_sprint.stub(actual_velocity: 30)
+      Sprint.stub all: [first_sprint, second_sprint]
+      story_points_collection = {1 => 10, 2 => 30}
+      @project.completed_story_points_per_sprint.should eq story_points_collection
     end
 
-    it "does not contain incomplete stories" do
-      sprint = Factory(:sprint, end_date: nil)
-      @project.completed_stories.should_not include sprint
+  end
+
+  describe "#initial_story_points" do
+
+    it "returns the sum of all story points" do
+      user_story = Factory.build(:user_story, estimation: 5)
+      UserStory.stub(:all).and_return([user_story, user_story])
+      @project.initial_story_points.should eq 10
+    end
+
+    it "does not consider user stories without estimation" do
+      user_story = Factory.build(:user_story, estimation: 5)
+      user_story_without_estimation = Factory.build(:user_story, estimation: nil)
+      UserStory.stub(all: [user_story, user_story_without_estimation])
+      @project.initial_story_points.should eq 5
     end
 
   end

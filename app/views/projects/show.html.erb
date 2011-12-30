@@ -20,6 +20,10 @@
   <%= @project.average_velocity %>
 </p>
 
+<p>
+  <b>Statistics:</b><br />
+  <%= image_tag(@project.burndown_graph) %>
+</p>
 
 <%= button_to 'Edit', edit_project_path(@project),
               class: "btn primary", method: :get %>
