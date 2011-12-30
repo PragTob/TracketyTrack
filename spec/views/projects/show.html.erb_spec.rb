@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "projects/show.html.erb" do
   before(:each) do
     @project = Factory(:project)
+    @sprint = Factory(:sprint, end_date: DateTime.now)
+    @sprint.stub(actual_velocity: 100)
   end
 
   it "renders attributes in <p>" do

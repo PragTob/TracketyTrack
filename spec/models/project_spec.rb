@@ -68,6 +68,10 @@ describe Project do
       @project.average_velocity.should eq 20
     end
 
+    it "returns 0 if there are no completed sprints" do
+      @project.average_velocity.should eq 0
+    end
+
   end
 
   describe "#completed_story_points_per_sprint" do
