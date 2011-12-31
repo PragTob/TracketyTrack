@@ -355,10 +355,18 @@ describe UserStoriesController do
     end
 
     describe "POST resurrect" do
+
+      before :each do
+        @other = Factory :user_story, status: UserStory::DELETED
+        post :resurrect, id: @other.id
+      end
+
       it "resurrects a deleted user story" do
-        other = Factory :user_story, status: UserStory::DELETED
-        other.resurrect
-        UserStory.find(other.id).status.should == UserStory::INACTIVE
+        UserStory.find(@other.id).status.should == UserStory::INACTIVE
+      end
+
+      it "redirects to the user stories list" do
+        response.should redirect_to(user_stories_url)
       end
     end
   end
