@@ -13,7 +13,7 @@ class UserStory < ActiveRecord::Base
 
   def init
     self.status = INACTIVE unless status
-    self.work_effort = 0
+    self.work_effort = 0 unless work_effort
   end
 
   # just the name is needed, as sometimes one wants to add a new user story fast
@@ -82,16 +82,30 @@ class UserStory < ActiveRecord::Base
     save
   end
 
-  # TODO there has got to be a better way for this
   def printable_work_effort
     if work_effort
-      time = work_effort
-      days = time/86400.to_i
-      hours = (time/3600 - days * 24).to_i
-      minutes = (time/60 - (hours * 60 + days * 1440)).to_i
-      seconds = (time - (minutes * 60 + hours * 3600 + days * 86400))
-      "%d days %02d:%02d:%02d" % [days, hours, minutes, seconds]
+      "%d days %02d:%02d:%02d" % self.split_work_effort
     end
+  end
+
+  # TODO there has got to be a better way for this
+  def split_work_effort
+    if work_effort
+      first_day = Time.at(0).gmtime.to_date
+      spend_time = Time.at(work_effort).gmtime
+      days = spend_time.to_date.mjd - first_day.mjd
+      hours = spend_time.hour
+      minutes = spend_time.min
+      seconds = spend_time.sec
+      return [days, hours, minutes, seconds]
+    else
+      return [0,0,0,0]
+    end
+  end
+
+  def combine_work_effort days, hours, minutes, seconds
+    self.work_effort = days * 86400 + hours * 3600 + minutes * 60 + seconds
+    save
   end
 
   def delete

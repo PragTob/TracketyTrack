@@ -90,6 +90,14 @@ describe UserStoriesController do
         get :edit, id: @user_story.id
         assigns(:user_story).should eq(@user_story)
       end
+
+      it "assigns the days, hours, minutes, seconds of the user story's work effort" do
+        get :edit, id: @user_story.id
+        assigns(:days).should eq 0
+        assigns(:hours).should eq 0
+        assigns(:minutes).should eq 0
+        assigns(:seconds).should eq 0
+      end
     end
 
     describe "POST create" do
@@ -145,25 +153,35 @@ describe UserStoriesController do
       describe "with valid params" do
 
         it "updates the requested user_story" do
-          put :update, id: @user_story.id, user_story: {'name' => 'Test'}
+          put :update, id: @user_story.id, user_story: {'name' => 'Test'},
+                       days: "0", hours: "0", minutes: "0", seconds: "30"
           UserStory.find(@user_story.id).name.should eq 'Test'
         end
 
         it "assigns the requested user_story as @user_story" do
-          put :update, id: @user_story.id, user_story: valid_attributes
+          put :update, id: @user_story.id, user_story: valid_attributes,
+                       days: "0", hours: "0", minutes: "0", seconds: "30"
           assigns(:user_story).should eq(@user_story)
         end
 
         it "redirects to the user_story" do
-          put :update, id: @user_story.id, user_story: valid_attributes
+          put :update, id: @user_story.id, user_story: valid_attributes,
+                       days: "0", hours: "0", minutes: "0", seconds: "30"
           response.should redirect_to(@user_story)
         end
 
         it "updates the assigned user" do
           users = [Factory(:user)]
           put :update, id: @user_story.id,
-              user_story: { name: "Bla", users: users }
+                       user_story: { name: "Bla", users: users },
+                       days: "0", hours: "0", minutes: "0", seconds: "30"
           UserStory.find(@user_story.id).users.should eq users
+        end
+
+        it "updates the work effort using the assigned days, hours, minutes, seconds" do
+          put :update, id: @user_story.id, user_story: valid_attributes,
+                       days: "0", hours: "0", minutes: "0", seconds: "30"
+          UserStory.find(@user_story.id).work_effort.should eq 30
         end
 
         it "correctly unassigns users if no users are supplied" do
@@ -171,8 +189,8 @@ describe UserStoriesController do
           @user_story.users << users
           @user_story.save
 
-          put :update, id: @user_story.id,
-              user_story: { name: "Bla" }
+          put :update, id: @user_story.id, user_story: { name: "Bla" },
+                       days: "0", hours: "0", minutes: "0", seconds: "30"
 
           UserStory.find(@user_story.id).users.should be_empty
         end

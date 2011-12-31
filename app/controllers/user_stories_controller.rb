@@ -57,6 +57,7 @@ class UserStoriesController < ApplicationController
   def edit
     @user_story = UserStory.find(params[:id])
     @users = User.all
+    @days, @hours, @minutes, @seconds = @user_story.split_work_effort
   end
 
   def create
@@ -79,6 +80,11 @@ class UserStoriesController < ApplicationController
 
     respond_to do |format|
       if @user_story.update_attributes(params[:user_story])
+
+        @user_story.combine_work_effort params[:days].to_i, params[:hours].to_i,
+                                        params[:minutes].to_i,
+                                        params[:seconds].to_i
+
         format.html { redirect_to @user_story, flash: {success: 'User Story was successfully updated.'} }
         format.json { head :ok }
       else

@@ -114,6 +114,42 @@ describe UserStory do
 
   end
 
+  describe "#split_work_effort" do
+
+    it "converts the saved work effort to days, hours, minutes, seconds" do
+      @user_story.work_effort = 1
+      days, hours, minutes, seconds = @user_story.split_work_effort
+      days.should eq 0
+      hours.should eq 0
+      minutes.should eq 0
+      seconds.should eq 1
+    end
+
+    context "when work effort is not set" do
+
+      it "returns zeroes" do
+        @user_story.work_effort = nil
+        days, hours, minutes, seconds = @user_story.split_work_effort
+        days.should eq 0
+        hours.should eq 0
+        minutes.should eq 0
+        seconds.should eq 0
+      end
+
+    end
+
+  end
+
+  describe "#combine_work_effort" do
+
+    it "sets work effort from given days, hours, minutes, seconds" do
+      @user_story.save
+      @user_story.combine_work_effort 0, 0, 0, 2
+      UserStory.find(@user_story.id).work_effort.should eq 2
+    end
+
+  end
+
   describe "#backlog" do
 
     it "returns all user stories without assigned sprint" do
