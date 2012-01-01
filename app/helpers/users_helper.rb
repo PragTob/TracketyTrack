@@ -13,6 +13,14 @@ module UsersHelper
     gravatar_image_tag(user.email.downcase, alt: user.name,
                                             gravatar: options)
   end
+  
+  def form_action_for(user)
+    if user.new_record?
+      "Register now"
+    else
+      "Edit my profile"
+    end
+  end
 
 end
 
