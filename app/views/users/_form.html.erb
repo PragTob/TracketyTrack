@@ -25,6 +25,16 @@
     </div>
   </div>
   <div class="clearfix">
+    <label>Picture</label>
+    <div class="input">
+      <p class= "span6">
+        If you want to have a nice picture displayed please go to 
+        <%= link_to "Gravatar", "http://gravatar.com/" %> upload a picture and
+        add the email address used here.
+      </p>
+    </div>
+  </div>
+  <div class="clearfix">
     <%= f.label :description %>
     <div class="input">
       <%= f.text_area :description, :class => 'span6 description' %>
@@ -44,7 +54,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Register now', :class => 'btn primary' %>
+    <%= f.submit 'Register now', :class => 'btn success' %>
   </div>
 <% end %>
 
