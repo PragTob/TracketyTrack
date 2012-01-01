@@ -330,5 +330,6 @@ end
 #  sprint_id           :integer
 #  work_effort         :integer
 #  start_time          :datetime
+#  close_time          :datetime
 #
 

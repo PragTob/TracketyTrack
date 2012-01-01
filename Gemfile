@@ -24,7 +24,6 @@ gem 'therubyracer'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 
 group :development do
-  # Annotate models with the current db schema
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'guard-rspec'
   gem 'libnotify'
@@ -35,7 +34,6 @@ group :test, :development do
 end
 
 group :test do
-  # Pretty printed test output
   gem 'turn', '~> 0.8.3', :require => false
   gem 'capybara'
   gem 'factory_girl_rails'
