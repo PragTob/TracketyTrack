@@ -63,14 +63,11 @@ class UserStoriesController < ApplicationController
   def create
     @user_story = UserStory.new(params[:user_story])
 
-    respond_to do |format|
-      if @user_story.save
-        format.html { redirect_to @user_story, flash: {success: 'User Story was successfully created.'} }
-        format.json { render json: @user_story, status: :created, location: @user_story }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user_story.errors, status: :unprocessable_entity }
-      end
+    if @user_story.save
+      redirect_to @user_story, 
+                  flash: {success: 'User Story was successfully created.'}
+    else
+      render action: "new"
     end
   end
 
@@ -78,19 +75,15 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.find(params[:id])
     @users = User.all
 
-    respond_to do |format|
-      if @user_story.update_attributes(params[:user_story])
+    if @user_story.update_attributes(params[:user_story])
+      @user_story.combine_work_effort params[:days].to_i, params[:hours].to_i,
+                                      params[:minutes].to_i,
+                                      params[:seconds].to_i
 
-        @user_story.combine_work_effort params[:days].to_i, params[:hours].to_i,
-                                        params[:minutes].to_i,
-                                        params[:seconds].to_i
-
-        format.html { redirect_to @user_story, flash: {success: 'User Story was successfully updated.'} }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user_story.errors, status: :unprocessable_entity }
-      end
+      redirect_to @user_story, 
+                  flash: {success: 'User Story was successfully updated.'}
+    else
+      render action: "edit" 
     end
   end
 
@@ -113,27 +106,19 @@ class UserStoriesController < ApplicationController
     @user_story.start current_user
     @user_story.save
 
-    respond_to do |format|
-      format.html { redirect_to current_sprint_path }
-      format.json { head :ok }
-    end
+    redirect_to current_sprint_path
   end
 
   def pause
     @user_story = UserStory.find(params[:id])
+    
     # TODO get this into the pause method
     if @user_story.users.include? current_user
       @user_story.pause
 
-      respond_to do |format|
-        format.html { redirect_to current_sprint_path }
-        format.json { head :ok }
-      end
+      redirect_to current_sprint_path
     else
-      respond_to do |format|
-        format.html { redirect_to current_sprint_path }
-        format.json { render json: @user_story.errors, status: :unprocessable_entity }
-      end
+      redirect_to current_sprint_path
     end
   end
 
@@ -141,27 +126,17 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.find(params[:id])
     @user_story.complete
 
-    respond_to do |format|
-      format.html { redirect_to current_sprint_path }
-      format.json { head :ok }
-    end
+    redirect_to current_sprint_path
   end
 
   def assign_sprint
     set_sprint(params[:id], current_sprint)
-    respond_to do |format|
-      format.html { redirect_to sprint_planning_path }
-      format.json { head :ok }
-    end
+    redirect_to sprint_planning_path
   end
 
   def unassign_sprint
     set_sprint(params[:id], nil)
-
-    respond_to do |format|
-      format.html { redirect_to sprint_planning_path }
-      format.json { head :ok }
-    end
+    redirect_to sprint_planning_path
   end
 
 end
