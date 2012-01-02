@@ -19,10 +19,6 @@
   margin-top:10px;
 }
 
-#box_current_sprint .box_no_current_sprint,
-#box_no_current_sprint {
-  text-align: center;
-}
 .userstory_box_header {
   height:40px;
   color:#FFF;
@@ -81,5 +77,34 @@
 	height:100px;
 	background-color:#efefef;
 	bottom:0px;
+}
+.start_sprint {
+  padding-top:50px;
+  font-size:16px;
+  text-align:center;
+}
+.stop_sprint_button {
+  position:absolute;
+  top:75px;
+  right:650px;
+}
+
+#userstory_details_box, #userstory_new_box  {
+	position:fixed;
+	width:920px;
+	height:100px;
+	background-color:#efefef;
+	bottom:0px;
+	border-left:1px solid #CCC;
+	border-right:1px solid #CCC;
+}
+
+#userstory_details_box_header,#userstory_new_box_header {
+	height:7px;
+	background-color:#666;
+}
+#userstory_details_box_header:hover, #userstory_new_box_header:hover {
+	background-color:#06F;
+	cursor:pointer;
 }
 

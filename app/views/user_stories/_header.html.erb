@@ -1,39 +1,42 @@
-<div class="row">
 
-  <div class="span4">
-    <h1><%= link_to current_project.title, project_path(current_project) %></h1>
-  </div>
-  <div class="span12">
-    <ul class="pills">
-      <li<% if @title == "All Stories"%> class="active"<% end %>>
-        <%= link_to 'All Stories', controller: "user_stories",
-                                    action: "index" %>
-      </li>
-      <li<% if @title == "User Stories of the Current Sprint"%> class="active"<% end %>>
-        <%= link_to 'Current Sprint', controller: "user_stories",
-                                    action: "current_sprint_list" %>
-      </li>
-      <li<% if @title == "Completed User Stories"%> class="active"<% end %>>
-        <%= link_to 'Completed Stories', controller: "user_stories",
-                                    action: "completed_stories_list" %>
-      </li>
-      <li<% if @title == "Work in Progress User Stories"%> class="active"<% end %>>
-        <%= link_to 'Work in Progress Stories', controller: "user_stories",
-                                    action: "work_in_progress_list" %>
-      </li>
-      <li<% if @title == "Backlog User Stories"%> class="active"<% end %>>
-        <%= link_to 'Backlog User Stories', controller: "user_stories",
-                                    action: "backlog_list" %>
-      </li>
-      <li<% if @title == "Non estimated User Stories"%> class="active"<% end %>>
-        <%= link_to 'Non estimated Stories', controller: "user_stories",
-                                    action: "non_estimated_list" %>
-      </li>
-      <li<% if @title == "Deleted User Stories"%> class="active"<% end %>>
-        <%= link_to 'Deleted User Stories', controller: "user_stories",
-                                    action: "deleted_list" %>
-      </li>
-    </ul>
-  </div>
-</div>
+
+
+<ul class="breadcrumb">
+  <li<% if @title == "All Stories"%> class="active"<% end %>>
+    <%= link_to 'All Stories', controller: "user_stories",
+                                action: "index" %>
+  <span class="divider">|</span>
+  </li>
+  <li<% if @title == "User Stories of the Current Sprint"%> class="active"<% end %>>
+    <%= link_to 'Current Sprint', controller: "user_stories",
+                                action: "current_sprint_list" %>
+  <span class="divider">|</span>
+  </li>
+  <li<% if @title == "Completed User Stories"%> class="active"<% end %>>
+    <%= link_to 'Completed Stories', controller: "user_stories",
+                                action: "completed_stories_list" %>
+  <span class="divider">|</span>
+  </li>
+  <li<% if @title == "Work in Progress User Stories"%> class="active"<% end %>>
+    <%= link_to 'Work in Progress Stories', controller: "user_stories",
+                                action: "work_in_progress_list" %>
+  <span class="divider">|</span>
+  </li>
+  <li<% if @title == "Backlog User Stories"%> class="active"<% end %>>
+    <%= link_to 'Backlog User Stories', controller: "user_stories",
+                                action: "backlog_list" %>
+  <span class="divider">|</span>
+  </li>
+  <li<% if @title == "Non estimated User Stories"%> class="active"<% end %>>
+    <%= link_to 'Non estimated Stories', controller: "user_stories",
+                                action: "non_estimated_list" %>
+  <span class="divider">|</span>
+  </li>
+  <li<% if @title == "Deleted User Stories"%> class="active"<% end %>>
+    <%= link_to 'Deleted User Stories', controller: "user_stories",
+                                action: "deleted_list" %>
+  </li>
+</ul>
+
+<div class="header_space"></div>
 

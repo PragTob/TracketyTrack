@@ -1,22 +1,20 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @user.description %>
-</p>
+<div class="user_box span8">
+  <div class="user_details">
+    <h3><%= @user.name %></h3>
+    <%= @user.email %>
+    <br /><br />
+    <p>
+      <strong>Description</strong>
+      <br />
+      <%= @user.description %>
+    </p>
+  </div>
 
 <% if current_user? @user %>
   <%= button_to 'Edit', edit_user_path(@user),
                 class: "btn primary", method: :get %>
 <% end %>
+
+</div>
+<%= link_to 'Show all Users', users_path %>
 
