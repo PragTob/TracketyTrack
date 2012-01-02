@@ -12,10 +12,10 @@
      <% end %>
      </div>
     <% else %>
-     <div class="box_no_current_sprint">
-      There is no current sprint. Please start a new one.
-      <div class="button"><%= button_to "Start Sprint", new_sprint_url, method: "get", class: 'btn success' %></div>
-     </div>
+        <div class="user_stories_container">
+          <div class="start_sprint">There is no current sprint. <strong>Please start a new one!</strong><br />
+          <%= button_to "Start Sprint", new_sprint_url, method: "get", class: 'btn success btn_margin_top' %></div>
+        </div>
     <% end %>
     <%= render 'box_footer' %>
   </div>
@@ -30,5 +30,12 @@
     <%= render 'box_footer' %>
   </div>
 
+</div>
+
+<div id="userstory_new_box">
+	<div id="userstory_new_box_header"></div>
+	<div id="userstory_options">
+
+  </div>
 </div>
 
