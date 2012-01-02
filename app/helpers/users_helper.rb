@@ -8,13 +8,13 @@ module UsersHelper
       user.accepted = false
     end
   end
-  
+
   def gravatar_for(user, options = { size: 120 })
     gravatar_image_tag(user.email.downcase, alt: user.name,
                                             gravatar: options)
   end
-  
-  def form_action_for(user)
+
+  def form_action_for_user(user)
     if user.new_record?
       "Register now"
     else

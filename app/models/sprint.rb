@@ -97,7 +97,9 @@ class Sprint < ActiveRecord::Base
       day_of_sprint += 1
     end
     user_stories.where(status: UserStory::COMPLETED).each do |user_story|
-      story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation
+      if user_story.estimation
+        story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation
+  end
     end
     story_points_per_day
   end
