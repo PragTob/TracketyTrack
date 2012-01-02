@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/jnicklas/turnip.git
+  revision: 3b799c3b2f32e24d577a2eebd32caa8769e90f59
+  specs:
+    turnip (0.2.0)
+      gherkin (>= 2.5)
+      rspec (~> 2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -158,9 +166,6 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.8.3)
       ansi
-    turnip (0.2.0)
-      gherkin
-      rspec (~> 2.0)
     tzinfo (0.3.31)
     uglifier (1.1.0)
       execjs (>= 0.3.0)
@@ -190,5 +195,5 @@ DEPENDENCIES
   therubyracer
   timecop
   turn (~> 0.8.3)
-  turnip
+  turnip!
   uglifier (>= 1.0.3)
