@@ -1,5 +1,6 @@
 <div class="user_box span8">
   <div class="user_details">
+	  <%= gravatar_for @user %>
     <h3><%= @user.name %></h3>
     <%= @user.email %>
     <br /><br />

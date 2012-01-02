@@ -23,14 +23,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     set_accepted(@user)
 
-    respond_to do |format|
-      if @user.password_valid? && @user.save
-          format.html { redirect_to signin_path, flash: {success: 'User was successfully created.'} }
-          format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.password_valid? && @user.save
+        redirect_to signin_path, 
+                    flash: {success: 'User was successfully created.'}
+    else
+      render action: "new"
     end
   end
 
@@ -38,15 +35,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.attributes = params[:user]
 
-    respond_to do |format|
-      if @user.password_valid? && @user.save
-        format.html { redirect_to @user,
-                      flash: {success: 'User was successfully updated.'} }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.password_valid? && @user.save
+      redirect_to @user,
+                    flash: {success: 'User was successfully updated.'}
+    else
+      render action: "edit"
     end
   end
 
@@ -54,10 +47,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :ok }
-    end
+    redirect_to users_url
   end
 
   def accept_user
