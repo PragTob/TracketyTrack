@@ -103,9 +103,7 @@ class Sprint < ActiveRecord::Base
       day_of_sprint += 1
     end
     user_stories_completed.each do |user_story|
-      if user_story.estimation
-        story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation
-  end
+        story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation if user_story.estimation
     end
     story_points_per_day
   end
@@ -130,7 +128,7 @@ class Sprint < ActiveRecord::Base
   def actual_velocity
     actual_velocity = 0
     user_stories.where(status: UserStory::COMPLETED).each do |user_story|
-      actual_velocity += user_story.estimation unless user_story.estimation.nil?
+      actual_velocity += user_story.estimation if user_story.estimation
     end
     actual_velocity
   end

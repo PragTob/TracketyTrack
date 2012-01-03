@@ -4,11 +4,11 @@ describe "sprints/show.html.erb" do
   before(:each) do
     @user_story = Factory(:user_story)
     @sprint = assign(:sprint, stub_model(Sprint,
-      :number => 1,
-      :velocity => 1,
-      :start_date => DateTime.now,
-      :actual_velocity => 0,
-      :user_stories => [@user_story]
+      number: 1,
+      velocity: 1,
+      start_date: DateTime.now,
+      actual_velocity: 0,
+      user_stories: [@user_story]
     ))
   end
 
