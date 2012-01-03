@@ -61,6 +61,12 @@ class Sprint < ActiveRecord::Base
     end
   end
 
+  def user_stories_completed
+    user_stories.select do |each|
+      each.status == "completed"
+    end
+  end
+
   def user_stories_estimated
     estimated = user_stories.reject { |user_story| user_story.estimation.nil? }
     estimated
@@ -96,10 +102,8 @@ class Sprint < ActiveRecord::Base
       story_points_per_day[day_of_sprint.to_s] = 0
       day_of_sprint += 1
     end
-    user_stories.where(status: UserStory::COMPLETED).each do |user_story|
-      if user_story.estimation
-        story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation
-  end
+    user_stories_completed.each do |user_story|
+        story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation if user_story.estimation
     end
     story_points_per_day
   end
@@ -107,8 +111,8 @@ class Sprint < ActiveRecord::Base
   def burndown_graph
     story_points = [initial_story_points]
     legend_dates = ['initial']
-    completed_story_points_per_day.each do |date, story_points|
-      story_points << (initial_story_points - story_points)
+    completed_story_points_per_day.each do |date, story_points_of_day|
+      story_points << (story_points.last - story_points_of_day)
       legend_dates << date.to_s
     end
     chart = Gchart.bar(
@@ -117,14 +121,15 @@ class Sprint < ActiveRecord::Base
                 axis_labels: [legend_dates],
                 axis_range: [nil, [0,initial_story_points,1]],
                 legend: 'Story points of unfinished user stories',
-                bar_width_and_spacing: {width: 30, spacing: 10})
+                bar_width_and_spacing: {width: 30, spacing: 15},
+                width: 1000)
     chart
   end
 
   def actual_velocity
     actual_velocity = 0
     user_stories.where(status: UserStory::COMPLETED).each do |user_story|
-      actual_velocity += user_story.estimation unless user_story.estimation.nil?
+      actual_velocity += user_story.estimation if user_story.estimation
     end
     actual_velocity
   end

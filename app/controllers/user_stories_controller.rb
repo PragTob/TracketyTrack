@@ -5,42 +5,42 @@ class UserStoriesController < ApplicationController
   before_filter(only: [:update, :create]) {|c| c.add_users(params)}
 
   def index
-    @title = "All Stories"
+    @title = "All"
     @user_stories = UserStory.all_open
   end
 
   def current_sprint_list
-    @title = "User Stories of the Current Sprint"
+    @title = "Current Sprint"
     @user_stories = UserStory.current_sprint_stories
     render 'index'
   end
 
   def completed_stories_list
-    @title = "Completed User Stories"
+    @title = "Completed"
     @user_stories = UserStory.completed_stories
     render 'index'
   end
 
   def work_in_progress_list
-    @title = "Work in Progress User Stories"
+    @title = "Work in Progress"
     @user_stories = UserStory.work_in_progress_stories
     render 'index'
   end
 
   def backlog_list
-    @title = "Backlog User Stories"
+    @title = "Backlog"
     @user_stories = UserStory.backlog
     render 'index'
   end
 
   def deleted_list
-    @title = "Deleted User Stories"
+    @title = "Deleted"
     @user_stories = UserStory.deleted
     render 'index'
   end
 
   def non_estimated_list
-    @title = "Non estimated User Stories"
+    @title = "Non estimated"
     @user_stories = UserStory.non_estimated
     render 'index'
   end
@@ -64,7 +64,7 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.new(params[:user_story])
 
     if @user_story.save
-      redirect_to @user_story, 
+      redirect_to @user_story,
                   flash: {success: 'User Story was successfully created.'}
     else
       render action: "new"
@@ -80,10 +80,10 @@ class UserStoriesController < ApplicationController
                                       params[:minutes].to_i,
                                       params[:seconds].to_i
 
-      redirect_to @user_story, 
+      redirect_to @user_story,
                   flash: {success: 'User Story was successfully updated.'}
     else
-      render action: "edit" 
+      render action: "edit"
     end
   end
 
@@ -111,7 +111,7 @@ class UserStoriesController < ApplicationController
 
   def pause
     @user_story = UserStory.find(params[:id])
-    
+
     # TODO get this into the pause method
     if @user_story.users.include? current_user
       @user_story.pause
