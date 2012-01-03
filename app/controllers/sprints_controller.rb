@@ -47,7 +47,7 @@ class SprintsController < ApplicationController
   def destroy
     @sprint = Sprint.find(params[:id])
     @sprint.destroy
-    
+
     redirect_to sprints_url
   end
 
@@ -55,13 +55,13 @@ class SprintsController < ApplicationController
 
 #    if Sprint.actual_sprint?
 #      self.current_sprint = Sprint.actual_sprint
-#      
+#
 #        redirect_to sprint_planning_path, flash:
 #                      {success: "Sprint #{current_sprint.number} was started." +
 #                      "It is planned to end #{current_sprint.end_date}"} }
 #      end
 #    else
-#      
+#
 #        redirect_to new_sprint_url }
 #        format.json { head :ok }
 #      end
@@ -81,6 +81,8 @@ class SprintsController < ApplicationController
     @user_stories_in_progress = current_sprint.user_stories_in_progress
 
     @page = "current"
+
+    #@current_user_story = UserStory.find(current_user)
   end
 
   def sprint_planning
@@ -88,6 +90,8 @@ class SprintsController < ApplicationController
     @user_stories_in_backlog = UserStory.backlog
 
     @page = "planning"
+
+    @user_story = UserStory.new
   end
 
   private
