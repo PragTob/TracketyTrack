@@ -72,9 +72,17 @@ describe UserStoriesController do
     end
 
     describe "GET show" do
-      it "assigns the requested user_story as @user_story" do
+
+      before :each do
         get :show, id: @user_story.id
+      end
+
+      it "assigns the requested user_story as @user_story" do
         assigns(:user_story).should eq(@user_story)
+      end
+
+      it "assigns a new comment as @comment" do
+        assigns(:comment).should be_a_new Comment
       end
     end
 

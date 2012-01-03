@@ -5,12 +5,12 @@ describe "comments/index.html.erb" do
     assign(:comments, [
       stub_model(Comment,
         :user_story_id => 1,
-        :user_id => 1,
+        :user_id => 2,
         :content => "MyText"
       ),
       stub_model(Comment,
         :user_story_id => 1,
-        :user_id => 1,
+        :user_id => 2,
         :content => "MyText"
       )
     ])
@@ -26,3 +26,4 @@ describe "comments/index.html.erb" do
     assert_select "tr>td", :text => "MyText".to_s, :count => 2
   end
 end
+

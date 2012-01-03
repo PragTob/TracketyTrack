@@ -6,6 +6,7 @@ describe "user_stories/show.html.erb" do
     @user = Factory(:user)
     @user_story.users << @user
     view.stub!(current_user: @user)
+    assign(:comment, Comment.new)
   end
 
   it "renders attributes in <p>" do

@@ -47,6 +47,7 @@ class UserStoriesController < ApplicationController
 
   def show
     @user_story = UserStory.find(params[:id])
+    @comment = Comment.new
   end
 
   def new

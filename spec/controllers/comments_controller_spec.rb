@@ -60,14 +60,23 @@ describe CommentsController do
 
   describe "POST create" do
     describe "with valid params" do
+
+      before :each do
+        @user_story = Factory(:user_story)
+        @user = Factory(:other_user)
+        test_sign_in @user
+      end
+
       it "creates a new Comment" do
         expect {
-          post :create, :comment => valid_attributes
+          post :create, :comment =>
+                          valid_attributes.merge(user_story_id: @user_story.id)
         }.to change(Comment, :count).by(1)
       end
 
       it "assigns a newly created comment as @comment" do
-        post :create, :comment => valid_attributes
+        post :create, :comment =>
+                          valid_attributes.merge(user_story_id: @user_story.id)
         assigns(:comment).should be_a(Comment)
         assigns(:comment).should be_persisted
       end
@@ -75,29 +84,27 @@ describe CommentsController do
       it "sets the current date" do
         time = DateTime.now
         Timecop.freeze time
-        post :create, :comment => valid_attributes
+        post :create, :comment =>
+                          valid_attributes.merge(user_story_id: @user_story.id)
         assigns(:comment).date.to_i.should eq time.to_i
       end
 
       it "sets the current user as author" do
-        p valid_attributes
-        p User.first
-        user = Factory(:other_user)
-        test_sign_in user
-        post :create, :comment => valid_attributes
-        assigns(:comment).user.should eq user
+        post :create, :comment =>
+                          valid_attributes.merge(user_story_id: @user_story.id)
+        assigns(:comment).user.should eq @user
       end
 
       it "assings the comment to the corresponding user story" do
-        user_story = Factory(:user_story)
         post :create, :comment =>
-                            valid_attributes.merge(user_story_id: user_story.id)
-        assigns(:comment).user_story.should eq user_story
+                          valid_attributes.merge(user_story_id: @user_story.id)
+        assigns(:comment).user_story.should eq @user_story
       end
 
-      it "redirects to the created comment" do
-        post :create, :comment => valid_attributes
-        response.should redirect_to(Comment.last)
+      it "redirects to the corresponding user story" do
+        post :create, :comment =>
+                          valid_attributes.merge(user_story_id: @user_story.id)
+        response.should redirect_to(@user_story)
       end
     end
 
