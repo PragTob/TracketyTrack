@@ -1,16 +1,21 @@
-<div class="comment_entry_box span10">
-  <div class="comment_header">
-    <div class="row">
-      <div class="span5">
-        <%= current_user.name%> commented
-      </div>
-      <div class="span5" align="right">
-        <%= distance_of_time_in_words_to_now(comment.date.to_time, true)%> ago
+<div class="row">
+  <div class="span1" align="right">
+    <%= gravatar_for(comment.user, size: 40) %>
+  </div>
+  <div class="span10 comment_entry_box">
+    <div class="comment_header">
+      <div class="row">
+        <div class="span5">
+          <%= comment.user.name %> commented
+        </div>
+        <div class="span5" align="right">
+          <%= distance_of_time_in_words_to_now(comment.date.to_time, true)%> ago
+        </div>
       </div>
     </div>
-  </div>
-  <div class="comment_content_box">
-    <%= comment.content %>
+    <div class="comment_content_box">
+      <%= comment.content %>
+    </div>
   </div>
 </div>
 

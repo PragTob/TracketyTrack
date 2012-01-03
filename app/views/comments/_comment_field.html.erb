@@ -1,11 +1,11 @@
 <%= form_for(@comment) do |comment_form| %>
 
-  <div class="span10">
+  <div class="span11">
     <h3>Comment on User Story</h3>
-    <%= comment_form.text_area :content, class: "span10", rows: 5 %>
+    <%= comment_form.text_area :content, class: "span11", rows: 5 %>
     <%= comment_form.hidden_field :user_story_id, value: @user_story.id%>
   </div>
-  <div class="span10" align="right">
+  <div class="span11" align="right">
     <%= comment_form.submit class: 'btn success' %>
   </div>
 
