@@ -68,7 +68,7 @@ class Project < ActiveRecord::Base
     story_points = [initial_story_points]
     legend_dates = ['initial']
     completed_story_points_per_sprint.each do | number, story_points_of_sprint |
-      story_points << (initial_story_points - story_points_of_sprint)
+      story_points << (story_points.last - story_points_of_sprint)
       legend_dates << number.to_s + ". sprint"
     end
     chart = Gchart.bar(

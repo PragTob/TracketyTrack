@@ -19,5 +19,19 @@ describe UsersHelper do
     end
   end
 
+  describe "form_action_for_user" do
+
+    it "returns label for register button if user is not saved yet" do
+      user = Factory.build(:user)
+      form_action_for_user(user).should eq "Register now"
+    end
+
+    it "returns label for edit button if user is already saved" do
+      user = Factory(:user)
+      form_action_for_user(user).should eq "Edit my profile"
+    end
+
+  end
+
 end
 

@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/jnicklas/turnip.git
+  revision: 3b799c3b2f32e24d577a2eebd32caa8769e90f59
+  specs:
+    turnip (0.2.0)
+      gherkin (>= 2.5)
+      rspec (~> 2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -62,6 +70,8 @@ GEM
       factory_girl (~> 2.3.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
+    gherkin (2.7.1)
+      json (>= 1.4.6)
     googlecharts (1.6.8)
     gravatar_image_tag (1.0.0)
     guard (0.8.8)
@@ -185,4 +195,5 @@ DEPENDENCIES
   therubyracer
   timecop
   turn (~> 0.8.3)
+  turnip!
   uglifier (>= 1.0.3)

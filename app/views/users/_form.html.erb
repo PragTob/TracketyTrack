@@ -28,7 +28,7 @@
     <label>Picture</label>
     <div class="input">
       <p class= "span6">
-        If you want to have a nice picture displayed please go to 
+        If you want to have a nice picture displayed please go to
         <%= link_to "Gravatar", "http://gravatar.com/" %> upload a picture and
         add the email address used here.
       </p>
@@ -54,7 +54,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit form_action_for(@user), :class => 'btn success' %>
+    <%= f.submit form_action_for_user(@user), :class => 'btn success' %>
   </div>
 <% end %>
 
