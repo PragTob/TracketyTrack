@@ -23,6 +23,10 @@
 <p>
   <b>Statistics:</b><br />
   <%= image_tag(@project.burndown_graph) %>
+  <% unless UserStory.non_estimated.empty? %>
+    <br />There are user stories without an estimation.
+    <br />Therefore this graph is not accurate because these stories are not considered.
+  <% end %>
 </p>
 
 <%= button_to 'Edit', edit_project_path(@project),
