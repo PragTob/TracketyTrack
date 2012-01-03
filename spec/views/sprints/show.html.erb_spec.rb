@@ -29,5 +29,16 @@ describe "sprints/show.html.erb" do
     rendered.should match(/no user stories/)
   end
 
+  it "shows the current velocity if the sprint is still running" do
+    render
+    rendered.should match(/Current Velocity/)
+  end
+
+  it "shows the actual velocity if the sprint is completed" do
+    @sprint.stub(end_date: @sprint.start_date + 1)
+    render
+    rendered.should match(/Actual Velocity/)
+  end
+
 end
 

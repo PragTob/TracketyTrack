@@ -17,8 +17,13 @@
 </p>
 
 <p>
-  <b>Current Velocity:</b>
-  <%= @sprint.actual_velocity %> (currently burned story points)
+  <% if @sprint.end_date %>
+    <b>Actual Velocity:</b>
+    <%= @sprint.actual_velocity %>
+  <% else %>
+    <b>Current Velocity:</b>
+    <%= @sprint.actual_velocity %> (currently burned story points)
+  <% end %>
 </p>
 
 <p>
