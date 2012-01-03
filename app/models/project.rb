@@ -76,8 +76,9 @@ class Project < ActiveRecord::Base
                 axis_with_labels: ['x,y'],
                 axis_labels: [legend_dates],
                 axis_range: [nil, [0,initial_story_points,5]],
-                legend: 'Completed Story Points per Sprint',
-                bar_width_and_spacing: {width: 30, spacing: 15})
+                legend: 'Completed Story Points per completed Sprint',
+                bar_width_and_spacing: {width: 30, spacing: 15},
+                width: 1000)
     chart
   end
 
