@@ -107,8 +107,8 @@ class Sprint < ActiveRecord::Base
   def burndown_graph
     story_points = [initial_story_points]
     legend_dates = ['initial']
-    completed_story_points_per_day.each do |date, story_points|
-      story_points << (initial_story_points - story_points)
+    completed_story_points_per_day.each do |date, story_points_of_day|
+      story_points << (story_points.last - story_points_of_day)
       legend_dates << date.to_s
     end
     chart = Gchart.bar(
