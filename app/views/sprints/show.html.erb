@@ -17,8 +17,13 @@
 </p>
 
 <p>
-  <b>Current Velocity:</b>
-  <%= @sprint.actual_velocity %> (currently burned story points)
+  <% if @sprint.end_date %>
+    <b>Actual Velocity:</b>
+    <%= @sprint.actual_velocity %>
+  <% else %>
+    <b>Current Velocity:</b>
+    <%= @sprint.actual_velocity %> (currently burned story points)
+  <% end %>
 </p>
 
 <p>
@@ -30,12 +35,21 @@
   <b>Burndown Chart:</b> <br />
   <%= image_tag(@sprint.burndown_graph)%>
   <% if @sprint.user_stories_estimated != @sprint.user_stories %>
-    <br />Please keep in mind that there are user stories without an estimation.
+    <br />There are user stories without an estimation.
     <br />Therefore this graph is not accurate because these stories are not considered.
   <% end %>
 </p>
 
 <h3>Related User Stories</h3>
+  <% if @sprint.user_stories.empty? %>
+    There are no user stories assigned to this sprint
+  <% else %>
+    <ul>
+      <% @sprint.user_stories.each do | user_story |%>
+        <li><%= link_to user_story.name, user_story %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
 <%= button_to 'Edit', edit_sprint_path(@sprint),
               class: "btn primary", method: :get %>

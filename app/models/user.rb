@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles, uniq: true
   has_many :projects
   has_and_belongs_to_many :user_stories, uniq: true
+  has_many :comments
 
   attr_accessor :password, :password_confirmation
   attr_accessible :name, :email, :description, :password, :password_confirmation

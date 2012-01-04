@@ -49,3 +49,10 @@
 <%= button_to 'All user stories', user_stories_path,
               class: "btn primary", method: :get %>
 
+<% @user_story.comments.each do |comment| %>
+  <%= render partial: 'comments/comment_entry', locals: { comment: comment } %>
+<% end %>
+
+<%= render partial: 'comments/comment_field', locals: { user_story: @user_story,
+                                                        comment: @comment } %>
+

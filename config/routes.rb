@@ -1,6 +1,8 @@
 TracketyTrack::Application.routes.draw do
 
 
+  resources :comments
+
 #  put "sprints/start"
   put "sprints/stop"
 

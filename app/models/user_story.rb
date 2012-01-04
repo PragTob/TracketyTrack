@@ -1,5 +1,6 @@
 class UserStory < ActiveRecord::Base
   has_and_belongs_to_many :users, uniq: true
+  has_many :comments
   belongs_to :sprint
   after_initialize :init
 

@@ -1,39 +1,49 @@
-
-
-
 <ul class="breadcrumb">
   <li<% if @title == "All Stories"%> class="active"<% end %>>
-    <%= link_to 'All Stories', controller: "user_stories",
+    <% title_of_page = 'All (' + UserStory.all.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "index" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "User Stories of the Current Sprint"%> class="active"<% end %>>
-    <%= link_to 'Current Sprint', controller: "user_stories",
+  <li<% if @title == "Current Sprint"%> class="active"<% end %>>
+    <% title_of_page = 'Current Sprint (' +
+      UserStory.current_sprint_stories.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "current_sprint_list" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "Completed User Stories"%> class="active"<% end %>>
-    <%= link_to 'Completed Stories', controller: "user_stories",
+  <li<% if @title == "Completed"%> class="active"<% end %>>
+    <% title_of_page = 'Completed (' +
+      UserStory.completed_stories.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "completed_stories_list" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "Work in Progress User Stories"%> class="active"<% end %>>
-    <%= link_to 'Work in Progress Stories', controller: "user_stories",
+  <li<% if @title == "Work in Progress"%> class="active"<% end %>>
+        <% title_of_page = 'Work in Progress (' +
+      UserStory.work_in_progress_stories.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "work_in_progress_list" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "Backlog User Stories"%> class="active"<% end %>>
-    <%= link_to 'Backlog User Stories', controller: "user_stories",
+  <li<% if @title == "Backlog"%> class="active"<% end %>>
+        <% title_of_page = 'Backlog (' +
+      UserStory.backlog.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "backlog_list" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "Non estimated User Stories"%> class="active"<% end %>>
-    <%= link_to 'Non estimated Stories', controller: "user_stories",
+  <li<% if @title == "Non estimated"%> class="active"<% end %>>
+    <% title_of_page = 'Non estimated (' +
+      UserStory.non_estimated.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "non_estimated_list" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "Deleted User Stories"%> class="active"<% end %>>
-    <%= link_to 'Deleted User Stories', controller: "user_stories",
+  <li<% if @title == "Deleted"%> class="active"<% end %>>
+    <% title_of_page = 'Deleted (' +
+      UserStory.deleted.size.to_s + ')' %>
+    <%= link_to title_of_page, controller: "user_stories",
                                 action: "deleted_list" %>
   </li>
 </ul>

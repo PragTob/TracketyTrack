@@ -10,8 +10,11 @@
   <% when "inactive" %>
     <div class="startbutton"><%= button_to "Start", {controller: 'user_stories', action: 'start', id: user_story.id }, method: "put", class: 'btn success' %></div>
 
-  <% when /completed|suspended/ %>
+  <% when "completed" %>
     <div class="restartbutton"><%= button_to "Restart", {controller: 'user_stories', action: 'start', id: user_story.id }, method: "put", class: 'btn primary' %></div>
+
+  <% when "suspended" %>
+    <div class="continuebutton"><%= button_to "Continue", {controller: 'user_stories', action: 'start', id: user_story.id }, method: "put", class: 'btn primary' %></div>
   <% end %>
 
   <%= render partial: 'user_stories/user_story_information', locals: { user_story: user_story } %>

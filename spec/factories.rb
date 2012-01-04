@@ -57,5 +57,10 @@ FactoryGirl.define do
     sprint.velocity     25
   end
 
+  factory :comment do |comment|
+    comment.content     "This is a nicely implemented user story."
+    comment.date        DateTime.strptime('2004-10-04T04:05:06+01:00', '%Y-%m-%dT%H:%M:%S%z')
+  end
+
 end
 
