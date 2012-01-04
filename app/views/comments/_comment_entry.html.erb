@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span1" align="right">
+  <div class="span1">
     <%= gravatar_for(comment.user, size: 40) %>
   </div>
   <div class="span10 comment_entry_box">
@@ -15,6 +15,9 @@
     </div>
     <div class="comment_content_box">
       <%= comment.content %>
+      <% if current_user == comment.user%>
+          <%= button_to "Delete", comment, confirm: 'Are you sure?', method: :delete, class: "delete_button", id: "delete_button" %>
+      <% end %>
     </div>
   </div>
 </div>

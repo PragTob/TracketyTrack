@@ -170,17 +170,22 @@ describe CommentsController do
   end
 
   describe "DELETE destroy" do
+
+    before :each do
+      @user_story = Factory(:user_story)
+    end
+
     it "destroys the requested comment" do
-      comment = Comment.create! valid_attributes
+      comment = Comment.create! valid_attributes.merge(user_story: @user_story)
       expect {
         delete :destroy, :id => comment.id
       }.to change(Comment, :count).by(-1)
     end
 
-    it "redirects to the comments list" do
-      comment = Comment.create! valid_attributes
+    it "redirects to the corresponding user story" do
+      comment = Comment.create! valid_attributes.merge(user_story: @user_story)
       delete :destroy, :id => comment.id
-      response.should redirect_to(comments_url)
+      response.should redirect_to(@user_story)
     end
   end
 
