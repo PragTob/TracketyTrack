@@ -12,11 +12,12 @@
 #box_in_progress .user_stories_container,
 #box_current_sprint .user_stories_container,
 #box_backlog .user_stories_container {
-  overflow: automatically;
+  clear:both;
   height: 260px;
   width:420px;
   margin-left:10px;
   margin-top:10px;
+  padding-right:15px;
 }
 
 .userstory_box_header {
@@ -101,6 +102,7 @@
 
 #userstory_new_box {
   height:150px;
+  z-index:1;
 }
 #userstory_new_box_content {
   padding:10px;
