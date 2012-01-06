@@ -9,3 +9,8 @@ Feature: User stories
     And I click on "User Stories"
     Then I should see the name of the user story
 
+  Scenario: Creating a user story
+    Given I create a new user story
+    Then I should see a success notification
+    And I should see this user story in the user story overview
+
