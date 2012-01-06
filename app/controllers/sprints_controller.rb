@@ -82,7 +82,7 @@ class SprintsController < ApplicationController
 
     @page = "current"
 
-    #@current_user_story = UserStory.find(current_user)
+    @current_user_stories = @user_stories_current_sprint
   end
 
   def sprint_planning

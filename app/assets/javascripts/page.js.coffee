@@ -12,5 +12,6 @@ $(document).ready(
   () ->
    $(".user_stories_container").lionbars()
    adjustBoxHeight()
+   $("#tabs").tabs()
 )
 
