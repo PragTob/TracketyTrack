@@ -18,7 +18,15 @@ step "I click on :name" do |name|
   click_on name
 end
 
-step "I should see a success notification" do
+step "I see a success notification" do
   find('div .success').should have_content 'success'
+end
+
+step "I am on the root page" do
+  visit "/"
+end
+
+step "I should see the text :text" do |text|
+  page.should have_content text
 end
 

@@ -11,6 +11,6 @@ Feature: User stories
 
   Scenario: Creating a user story
     Given I create a new user story
-    Then I should see a success notification
-    And I should see this user story in the user story overview
+    Then I see a success notification
+    And I see this user story in the user story overview
 
