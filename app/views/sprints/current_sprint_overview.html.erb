@@ -29,3 +29,8 @@
     </div>
  <% end %>
 
+<%= unless @current_user_stories.empty?
+      render partial: 'current_user_stories_box',
+              locals: { user_stories: @current_user_stories }
+    end %>
+

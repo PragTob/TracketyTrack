@@ -310,13 +310,14 @@ describe SprintsController do
       describe "with current sprint" do
 
         before(:each) do
-          @user_story = Factory(:user_story, status: "inactive")
-          @other_user_story = Factory(:user_story, status: "active")
           @sprint = Factory(:sprint)
+          @user = Factory(:user)
+          @user_story = Factory(:user_story, status: UserStory::INACTIVE,
+                                sprint: @sprint)
+          @other_user_story = Factory(:user_story, status: UserStory::ACTIVE,
+                                      sprint: @sprint, users: [@user])
           @project.update_attributes(current_sprint: @sprint)
-          @user_story.update_attributes(sprint: @sprint)
-          @other_user_story.update_attributes(sprint: @sprint)
-          sign_in_a_saved_user
+          test_sign_in(@user)
         end
 
         it "selects all inactive user stories of the current sprint" do
@@ -329,6 +330,10 @@ describe SprintsController do
           assigns(:user_stories_in_progress).should eq [@other_user_story]
         end
 
+        it "selects all active user stories of the current user" do
+          get :current_sprint_overview
+          assigns(:current_user_stories).should eq [@other_user_story]
+        end
       end
 
       describe "without current sprint" do
@@ -338,6 +343,7 @@ describe SprintsController do
           get :current_sprint_overview
           assigns(:user_stories_current_sprint).should eq []
           assigns(:user_stories_in_progress).should eq []
+          assigns(:current_user_stories).should eq []
         end
 
       end

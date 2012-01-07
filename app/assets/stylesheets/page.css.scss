@@ -12,11 +12,11 @@
 #box_in_progress .user_stories_container,
 #box_current_sprint .user_stories_container,
 #box_backlog .user_stories_container {
-  overflow: automatically;
-  height: 260px;
+  clear:both;
   width:420px;
   margin-left:10px;
   margin-top:10px;
+  padding-right:15px;
 }
 
 .userstory_box_header {
@@ -92,13 +92,25 @@
 #userstory_details_box, #userstory_new_box  {
 	position:fixed;
 	width:920px;
-	height:100px;
-	background-color:#efefef;
+	height:150px;
+	background-color:#fff;
 	bottom:0px;
-	border-left:1px solid #CCC;
-	border-right:1px solid #CCC;
+	z-index:1;
 }
 
+.current_user_story_content {
+  height:100px;
+}
+
+#userstory_new_box {
+  height:150px;
+
+}
+#userstory_new_box_content {
+  padding:10px;
+  height:120px;
+  position:relative;
+}
 #userstory_details_box_header,#userstory_new_box_header {
 	height:7px;
 	background-color:#666;
@@ -106,5 +118,36 @@
 #userstory_details_box_header:hover, #userstory_new_box_header:hover {
 	background-color:#06F;
 	cursor:pointer;
+}
+#userstory_button {
+  position:absolute;
+  right:15px;
+  bottom:15px;
+}
+#userstory_new_box_column1, #userstory_new_box_column2, #userstory_new_box_column3 {
+  position:absolute;
+}
+#userstory_new_box_column2 {
+  width:210px;
+  left:250px;
+  top:35px;
+}
+#userstory_new_box_column3 {
+  left:510px;
+  top:35px;
+}
+#userstory_new_box textarea {
+  height:80px;
+  width:220px;
+}
+#userstory_name {
+  margin:10px 0px;
+  width:200px;
+}
+#close-userstory_box {
+  position:absolute;
+  top:12px;
+  right:20px;
+  z-index:2;
 }
 

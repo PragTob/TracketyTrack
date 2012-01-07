@@ -2,10 +2,18 @@ require 'spec_helper'
 
 describe "sprints/current_sprint_overview.html.erb" do
 
-  before :each do
+  before (:each) do
+    @user_story = Factory.build(:user_story)
+    @other_user_story = Factory.build(:user_story, name: "Other Name")
+    @current_user_story = Factory.build(:user_story, name: "Current Story")
+    assign(:user_stories_current_sprint, [@user_story])
+    assign(:user_stories_in_progress, [@other_user_story])
+    assign(:current_user_stories, [@current_user_story])
     view.stub!(signed_in?: true)
     @user = Factory(:user)
     view.stub!(current_user: @user)
+    @current_user_story.users << @user
+    @current_user_story.save
     @project = Factory(:project)
     view.stub!(current_project: @project)
     render
@@ -18,11 +26,26 @@ describe "sprints/current_sprint_overview.html.erb" do
     end
 
     it "shows a notification that there is no current sprint" do
-      rendered.should have_content "There is no current sprint. Please start a new one!"
+      rendered.should match /There is no current sprint. .*Please start a new one!.*/
     end
 
   end
 
+  describe "there is a current sprint" do
+
+    before :each do
+      @current_sprint = Factory(:sprint)
+      @project.current_sprint = @current_sprint
+      @project.save
+      render
+    end
+
+    it "contains one box for the current sprint" do
+      rendered.should match /current sprint/i
+      rendered.should have_selector("#box_current_sprint")
+    end
+
+  end
 
 end
 

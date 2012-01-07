@@ -13,6 +13,9 @@ class NullSprint
     []
   end
 
+  def user_stories_for_user(user)
+    []
+  end
 
 end
 

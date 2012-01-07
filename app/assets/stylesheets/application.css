@@ -6,7 +6,10 @@
  *= require_self
  *= require_tree .
  *= require bootstrap
+ *= require vendor
 */
+
+
 .header-space {
   height:40px;
   margin-bottom:30px;
@@ -27,5 +30,9 @@ form {
 }
 .btn_margin_top {
   margin-top:20px;
+}
+
+h1 a {
+  color:#333;
 }
 

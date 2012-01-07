@@ -1,0 +1,20 @@
+<div id="userstory_details_box">
+  <div id="close-userstory_box">
+    <a class="ui-dialog-titlebar-close ui-corner-all" href="#" role="button">
+      <span class="ui-icon ui-icon-minus ui-state-hover ui-corner-all">close</span>
+    </a>
+  </div>
+  <div id="tabs">
+    <ul>
+    <% user_stories.each_with_index do |user_story, i| %>
+       <li><%= link_to user_story.name, '#tabs-'+(i+1).to_s %></li>
+    <% end %>
+    </ul>
+    <% user_stories.each_with_index do |user_story, i| %>
+       <div id="tabs-<%= (i+1).to_s%>">
+         <%= render partial: 'current_user_story', locals: { user_story: user_story } %>
+       </div>
+    <% end %>
+  </div>
+</div>
+
