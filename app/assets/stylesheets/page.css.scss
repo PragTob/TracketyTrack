@@ -13,7 +13,6 @@
 #box_current_sprint .user_stories_container,
 #box_backlog .user_stories_container {
   clear:both;
-  height: 260px;
   width:420px;
   margin-left:10px;
   margin-top:10px;
@@ -93,16 +92,19 @@
 #userstory_details_box, #userstory_new_box  {
 	position:fixed;
 	width:920px;
-	height:100px;
-	background-color:#efefef;
+	height:150px;
+	background-color:#fff;
 	bottom:0px;
-	border-left:1px solid #CCC;
-	border-right:1px solid #CCC;
+	z-index:1;
+}
+
+.current_user_story_content {
+  height:100px;
 }
 
 #userstory_new_box {
   height:150px;
-  z-index:1;
+
 }
 #userstory_new_box_content {
   padding:10px;
@@ -141,5 +143,11 @@
 #userstory_name {
   margin:10px 0px;
   width:200px;
+}
+#close-userstory_box {
+  position:absolute;
+  top:12px;
+  right:20px;
+  z-index:2;
 }
 

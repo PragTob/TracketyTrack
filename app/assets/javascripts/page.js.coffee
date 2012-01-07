@@ -10,8 +10,8 @@ adjustBoxHeight = ->
 
 $(document).ready(
   () ->
-   $(".user_stories_container").lionbars()
    adjustBoxHeight()
+   $(".user_stories_container").lionbars()
    $("#tabs").tabs()
 )
 
