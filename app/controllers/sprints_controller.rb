@@ -47,27 +47,9 @@ class SprintsController < ApplicationController
   def destroy
     @sprint = Sprint.find(params[:id])
     @sprint.destroy
-    
+
     redirect_to sprints_url
   end
-
-#  def start
-
-#    if Sprint.actual_sprint?
-#      self.current_sprint = Sprint.actual_sprint
-#      
-#        redirect_to sprint_planning_path, flash:
-#                      {success: "Sprint #{current_sprint.number} was started." +
-#                      "It is planned to end #{current_sprint.end_date}"} }
-#      end
-#    else
-#      
-#        redirect_to new_sprint_url }
-#        format.json { head :ok }
-#      end
-#    end
-
-#  end
 
   def stop
     current_sprint.end
