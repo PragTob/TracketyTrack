@@ -79,10 +79,8 @@ class SprintsController < ApplicationController
   def current_sprint_overview
     @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
     @user_stories_in_progress = current_sprint.user_stories_in_progress
-
+    @current_user_stories = current_sprint.user_stories_for_user(current_user)
     @page = "current"
-
-    @current_user_stories = @user_stories_current_sprint
   end
 
   def sprint_planning
