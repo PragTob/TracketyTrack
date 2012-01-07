@@ -1,9 +1,11 @@
 class SprintsController < ApplicationController
   include SprintsHelper
+  include TravisHelper
 
   dashboard_actions = [:current_sprint_overview, :sprint_planning]
   before_filter :authenticate, except: dashboard_actions
   before_filter :redirect_and_login_check, only: dashboard_actions
+  before_filter :travis_repo, only: dashboard_actions
 
   def index
     @sprints = Sprint.all
@@ -82,6 +84,12 @@ class SprintsController < ApplicationController
       redirect_to new_user_path
     else
       authenticate
+    end
+  end
+
+  def travis_repo
+    if current_project.repository_url
+      @travis_repo = travis_repo_from current_project.repository_url
     end
   end
 
