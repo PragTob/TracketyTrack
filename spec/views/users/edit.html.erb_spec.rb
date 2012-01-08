@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "users/edit.html.erb" do
+describe "users/edit" do
   before(:each) do
     @user = Factory(:user)
   end

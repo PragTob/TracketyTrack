@@ -14,10 +14,14 @@ module TravisHelper
   def travis_repo_from repo
     owner_and_name = owner_and_name_from repo
     if owner_and_name
-      travis_repo = Travis::API::Client::Repositories.slug(owner_and_name).fetch
-      if travis_repo
-        owner_and_name
-      else
+      begin
+        if Travis::API::Client::Repositories.slug(owner_and_name).fetch
+          owner_and_name
+        else
+          nil
+        end
+      # no internet connection
+      rescue SocketError
         nil
       end
     end

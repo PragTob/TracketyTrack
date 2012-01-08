@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "user_stories/show.html.erb" do
+describe "user_stories/show" do
   before(:each) do
     @user_story = Factory(:user_story, status: "inactive")
     @user = Factory(:user)

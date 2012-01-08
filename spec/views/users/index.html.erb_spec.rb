@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "users/index.html.erb" do
+describe "users/index" do
   before(:each) do
     @user = Factory(:user)
     assign(:users, [@user])
