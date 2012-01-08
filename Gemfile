@@ -23,6 +23,8 @@ gem 'therubyracer'
 # Twitter bootstrap from anjlab
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 
+gem 'travis-client', git: 'git://github.com/travis-ci/travis-ruby-client.git'
+
 group :development do
   gem 'annotate', '~> 2.4.1.beta1'
   gem 'guard-rspec'
