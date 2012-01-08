@@ -32,6 +32,8 @@ describe TravisHelper do
 
     it "returns owner and name when appropriate" do
       Travis::API::Client::Repositories.stub(fetch: true)
+      Travis::API::Client::Repositories.stub(slug: Travis::API::Client::Repositories)
+
 
       name = travis_repo_from "https://github.com/PragTob/TracketyTrack"
       name.should eq OWNER_AND_NAME
