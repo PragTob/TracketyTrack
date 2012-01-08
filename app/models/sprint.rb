@@ -127,7 +127,7 @@ class Sprint < ActiveRecord::Base
                 axis_labels: [legend_dates],
                 axis_range: [nil, [0,initial_story_points,1]],
                 legend: 'Story points of unfinished user stories',
-                bar_width_and_spacing: {width: 30, spacing: 15},
+                bar_width_and_spacing: {width: 35, spacing: 30},
                 width: 1000)
     chart
   end
