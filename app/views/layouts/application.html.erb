@@ -26,7 +26,10 @@
           </ul>
           <% if signed_in? %>
             <%= form_for(:session, url: signout_path, html: {class: "pull-right"}) do |f| %>
-                <div class="current_account"><%= link_to current_user.name, current_user %></div>
+                <div class="current_account">
+                  <%= link_to mini_gravator_for(current_user) +
+                              " " + current_user.name, current_user %>
+                </div>
                 <%= f.submit "Logout" %>
             <% end %>
           <% else %>
