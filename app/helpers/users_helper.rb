@@ -10,7 +10,7 @@ module UsersHelper
   end
 
   def gravatar_for(user, options = { size: 120 })
-    gravatar_image_tag(user.email.downcase, alt: user.name + "'s picture",
+    gravatar_image_tag(user.email.downcase, alt: user.name,
                                             gravatar: options)
   end
 
