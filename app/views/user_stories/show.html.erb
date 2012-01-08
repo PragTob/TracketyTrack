@@ -1,57 +1,63 @@
-<p>
-  <b>Name:</b>
-  <%= @user_story.name %>
-</p>
+<%= link_to '<< All User Stories', user_stories_path %>
 
-<p>
-  <b>Description:</b>
-  <%= @user_story.description %>
-</p>
+<div id="user_story_container" class="span12">
+  <div id="user_story_users">
+    <% if @user_story.users.empty? %>
+      No user assigned
+    <% else %>
+      <ul class="userlist">
+        <% @user_story.users.each do |user| %>
+          <li><%= gravatar_for(user, size: 20) %> <%= user.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 
-<p>
-  <b>Acceptance criteria:</b>
-  <%= @user_story.acceptance_criteria %>
-</p>
+  <div class="row">
+    <div id="user_story_info" class="span2">
+      <%= render partial: 'story_status', locals: { user_story: @user_story } %>
+      <br />
+      <% unless @user_story.priority.nil? %>
+        <span class="label"><%= @user_story.priority %></span> (Priority)<br />
+      <% end %>
+      <% unless @user_story.estimation.nil? %>
+        <span class="label notice"><%= @user_story.estimation %></span> (Estimation)
+      <% end %>
+    </div>
 
-<p>
-  <b>Priority:</b>
-  <%= @user_story.priority %>
-</p>
+    <div id="user_story_details" class="span7">
+      <h3><%= @user_story.name %></h3>
+      <p>
+        <%= @user_story.description %>
+      </p>
+      <p>
+        <b>Acceptance criteria:</b><br />
+        <%= @user_story.acceptance_criteria %>
+      </p>
+      <p>
+        <b>Work Effort:</b>
+        <%= @user_story.printable_work_effort %>
+      </p>
+      <div id="user_story_options">
+        <% if @user_story.status == UserStory::DELETED %>
+          <%= button_to 'Resurrecet', { controller: :user_stories, action: :resurrect,
+                    id: @user_story.id }, class: "btn success" %>
+        <% else %>
+          <%= button_to 'Delete', @user_story, confirm: 'Are you sure?', method: :delete,
+                      class: "btn danger" %>
+        <% end %>
+        <%= button_to 'Edit', edit_user_story_path(@user_story),
+                  class: "btn", method: :get %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Estimation:</b>
-  <%= @user_story.estimation %>
-</p>
-
-<p>
-  <b>Work Effort:</b>
-  <%= @user_story.printable_work_effort %>
-</p>
-
-<p>
-  <b>Assignees:</b>
-  <% if @user_story.users.empty? %>
-    No user assigned
-  <% else %>
-    <%= @user_story.users.map(&:name).join(', ') %>
+<div id="comments">
+  <% @user_story.comments.each do |comment| %>
+    <%= render partial: 'comments/comment_entry', locals: { comment: comment } %>
   <% end %>
-</p>
-
-<% if @user_story.status == UserStory::DELETED %>
-  <%= button_to 'Resurrecet', { controller: :user_stories, action: :resurrect,
-                id: @user_story.id }, class: "btn success" %>
-<% else %>
-  <%= button_to 'Delete', @user_story, confirm: 'Are you sure?', method: :delete,
-              class: "btn danger" %>
-<% end %>
-<%= button_to 'Edit', edit_user_story_path(@user_story),
-              class: "btn primary", method: :get %>
-<%= button_to 'All user stories', user_stories_path,
-              class: "btn primary", method: :get %>
-
-<% @user_story.comments.each do |comment| %>
-  <%= render partial: 'comments/comment_entry', locals: { comment: comment } %>
-<% end %>
+</div>
 
 <%= render partial: 'comments/comment_field', locals: { user_story: @user_story,
                                                         comment: @comment } %>

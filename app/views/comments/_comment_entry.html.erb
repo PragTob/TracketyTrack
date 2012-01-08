@@ -4,20 +4,18 @@
   </div>
   <div class="span10 comment_entry_box">
     <div class="comment_header">
-      <div class="row">
-        <div class="span5">
-          <%= comment.user.name %> commented
-        </div>
-        <div class="span5" align="right">
-          <%= distance_of_time_in_words_to_now(comment.date.to_time, true)%> ago
-        </div>
+      <div class="span5 comment_name">
+        <%= comment.user.name %> commented
+      </div>
+      <div class="span3 comment_time">
+        <%= distance_of_time_in_words_to_now(comment.date.to_time, true)%> ago
       </div>
     </div>
     <div class="comment_content_box">
-      <%= comment.content %>
       <% if current_user == comment.user%>
           <%= button_to "Delete", comment, confirm: 'Are you sure?', method: :delete, class: "delete_button", id: "delete_button" %>
       <% end %>
+      <%= comment.content %>
     </div>
   </div>
 </div>
