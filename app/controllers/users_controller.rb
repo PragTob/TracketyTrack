@@ -59,10 +59,6 @@ class UsersController < ApplicationController
                 { success: 'The user has been accepted to join your project!' }
   end
 
-  def accept
-    @users = User.find_all_by_accepted(false)
-  end
-
   private
   def only_current_user
     user = User.find(params[:id])
