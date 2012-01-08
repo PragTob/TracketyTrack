@@ -46,6 +46,13 @@ describe TravisHelper do
       name.should eq nil
     end
 
+    it "returns nil when a socket error is raised" do
+      Travis::API::Client::Repositories.stub(:slug).and_raise(SocketError)
+
+      name = travis_repo_from "https://github.com/PragTob/TracketyTrack"
+      name.should eq nil
+    end
+
   end
 
 end
