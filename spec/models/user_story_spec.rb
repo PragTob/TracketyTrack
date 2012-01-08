@@ -332,5 +332,6 @@ end
 #  work_effort         :integer
 #  start_time          :datetime
 #  close_time          :datetime
+#  requesting_feedback :boolean
 #
 
