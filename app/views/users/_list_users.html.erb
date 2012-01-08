@@ -7,8 +7,13 @@
     <th></th>
     <th></th>
   </tr>
+<% if type == :accept
+  users_to_render = @unaccepted_users
+else
+  users_to_render = @users
+end %>
 
-<% @users.each do |user| %>
+<% users_to_render.each do |user| %>
   <tr>
     <td><%= user.name %></td>
     <td><%= user.email %></td>

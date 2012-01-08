@@ -79,10 +79,18 @@ describe UsersController do
     end
 
     describe "GET index" do
+
       it "assigns all users as @users" do
         get :index
         assigns(:users).should eq([@user])
       end
+
+      it "assigns unaccepted user as @unaccepted_users" do
+        unaccepted_user = Factory :other_user, accepted: false
+        get :index
+        assigns(:unaccepted_users).should eq [unaccepted_user]
+      end
+
     end
 
     describe "GET edit" do
@@ -182,38 +190,25 @@ describe UsersController do
 
     end
 
-    describe "accept" do
+  describe "POST accept_user" do
 
     before :each do
         @unaccepted_user = Factory(:unaccepted_user)
       end
 
-      describe "POST accept_user" do
-
-
-
-        it "accepts the user with the given id" do
-          post :accept_user, id: @unaccepted_user.id
-          User.find(@unaccepted_user.id).should be_accepted
-        end
-
-        it "redirects to the accept url" do
-          post :accept_user, id: @unaccepted_user.id
-          response.should redirect_to(accept_url)
-        end
-
-        it "displays a flash message indicating the succesful authorization" do
-          post :accept_user, id: @unaccepted_user.id
-          flash[:success].should =~ /accepted/i
-        end
-
+      it "accepts the user with the given id" do
+        post :accept_user, id: @unaccepted_user.id
+        User.find(@unaccepted_user.id).should be_accepted
       end
 
-      describe "GET accept" do
-        it "assigns the unaccepted user to @user" do
-          get :accept
-          assigns(:users).should == [@unaccepted_user]
-        end
+      it "redirects to the accept url" do
+        post :accept_user, id: @unaccepted_user.id
+        response.should redirect_to(users_url)
+      end
+
+      it "displays a flash message indicating the succesful authorization" do
+        post :accept_user, id: @unaccepted_user.id
+        flash[:success].should =~ /accepted/i
       end
 
     end
