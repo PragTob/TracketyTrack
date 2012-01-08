@@ -78,6 +78,12 @@ class Sprint < ActiveRecord::Base
     end
   end
 
+  def user_stories_for_user(user)
+    user_stories_in_progress.select do |each|
+      each.users.include?(user)
+    end
+  end
+
   def end
     self.end_date = DateTime.now
     self.save

@@ -8,6 +8,11 @@
   margin-bottom:5px;
   position:relative;
   min-height:50px;
+  width:400px;
+}
+
+.draggable_box {
+  cursor:move;
 }
 
 .user_story_box .startbutton,
@@ -30,7 +35,47 @@
   display:block;
 }
 
-.hidden {
-  display:none;
+// User Story Show Page
+#user_story_container {
+  padding:20px;
+  margin:20px 0px;
+  background-color:#efefef;
+  position:relative;
+}
+#user_story_details p {
+  margin-top:10px;
+  margin-bottom:5px;
+  font-size:14px;
+  line-height:20px;
+}
+
+#user_story_info {
+  padding-top:10px;
+}
+
+#user_story_users {
+  position:absolute;
+  top:20px;
+  right:20px;
+  text-align:right;
+}
+#user_story_options {
+  margin:20px 0px;
+}
+#user_story_options .btn {
+  float:left;
+  margin-right:10px;
+}
+ul.userlist {
+
+}
+ul.userlist li {
+  list-style:none;
+  line-height:20px;
+  padding-bottom:5px;
+}
+ul.userlist img {
+  margin-right:5px;
+  float:left;
 }
 

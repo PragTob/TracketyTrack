@@ -9,3 +9,20 @@ Feature: User stories
     And I click on "User Stories"
     Then I should see the name of the user story
 
+  Scenario: Creating a user story
+    Given I create a new user story
+    Then I see a success notification
+    And I see this user story in the user story overview
+
+  Scenario: Adding a comment
+    Given there is a user story
+    And I am on the page of the user story
+    When I add a comment
+    Then the comment is displayed on the user story page
+
+  Scenario: Deleting a comment
+    Given there is a commented user story
+    And I am on the page of the user story
+    When I delete the comment
+    Then the comment is not displayed on the user story page
+

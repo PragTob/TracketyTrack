@@ -179,39 +179,6 @@ describe SprintsController do
 
     end
 
-#    describe "PUT start" do
-
-#      describe "when there is one sprint containing the current date" do
-
-#        before :each do
-#          @sprint = Factory(:sprint, start_date: DateTime.now - 1,
-#                                    end_date: DateTime.now + 1)
-#          @project = Factory(:project)
-#          put :start
-#        end
-
-#        it "sets this sprint as current sprint" do
-#          project = Project.find(@project.id)
-#          project.current_sprint.should eq @sprint
-#        end
-
-#        it "redirects to the sprint planning page" do
-#          response.should redirect_to sprint_planning_path
-#        end
-
-#      end
-
-#      describe "when there is one sprint containing the current date" do
-
-#        it "redirects to the create sprint page" do
-#          put :start
-#          response.should redirect_to new_sprint_url
-#        end
-
-#      end
-
-#    end
-
     describe "PUT stop" do
 
       before :each do
@@ -343,13 +310,14 @@ describe SprintsController do
       describe "with current sprint" do
 
         before(:each) do
-          @user_story = Factory(:user_story, status: "inactive")
-          @other_user_story = Factory(:user_story, status: "active")
           @sprint = Factory(:sprint)
+          @user = Factory(:user)
+          @user_story = Factory(:user_story, status: UserStory::INACTIVE,
+                                sprint: @sprint)
+          @other_user_story = Factory(:user_story, status: UserStory::ACTIVE,
+                                      sprint: @sprint, users: [@user])
           @project.update_attributes(current_sprint: @sprint)
-          @user_story.update_attributes(sprint: @sprint)
-          @other_user_story.update_attributes(sprint: @sprint)
-          sign_in_a_saved_user
+          test_sign_in(@user)
         end
 
         it "selects all inactive user stories of the current sprint" do
@@ -362,6 +330,10 @@ describe SprintsController do
           assigns(:user_stories_in_progress).should eq [@other_user_story]
         end
 
+        it "selects all active user stories of the current user" do
+          get :current_sprint_overview
+          assigns(:current_user_stories).should eq [@other_user_story]
+        end
       end
 
       describe "without current sprint" do
@@ -371,6 +343,7 @@ describe SprintsController do
           get :current_sprint_overview
           assigns(:user_stories_current_sprint).should eq []
           assigns(:user_stories_in_progress).should eq []
+          assigns(:current_user_stories).should eq []
         end
 
       end

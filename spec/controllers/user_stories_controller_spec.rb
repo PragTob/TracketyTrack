@@ -141,7 +141,6 @@ describe UserStoriesController do
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved user_story as @user_story" do
-          # Trigger the behavior that occurs when invalid params are submitted
           UserStory.any_instance.stub(:save).and_return(false)
           post :create, user_story: {}
           assigns(:user_story).should be_a_new(UserStory)

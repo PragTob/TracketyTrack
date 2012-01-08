@@ -1,9 +1,11 @@
 class SprintsController < ApplicationController
   include SprintsHelper
+  include TravisHelper
 
   dashboard_actions = [:current_sprint_overview, :sprint_planning]
   before_filter :authenticate, except: dashboard_actions
   before_filter :redirect_and_login_check, only: dashboard_actions
+  before_filter :travis_repo, only: dashboard_actions
 
   def index
     @sprints = Sprint.all
@@ -47,27 +49,9 @@ class SprintsController < ApplicationController
   def destroy
     @sprint = Sprint.find(params[:id])
     @sprint.destroy
-    
+
     redirect_to sprints_url
   end
-
-#  def start
-
-#    if Sprint.actual_sprint?
-#      self.current_sprint = Sprint.actual_sprint
-#      
-#        redirect_to sprint_planning_path, flash:
-#                      {success: "Sprint #{current_sprint.number} was started." +
-#                      "It is planned to end #{current_sprint.end_date}"} }
-#      end
-#    else
-#      
-#        redirect_to new_sprint_url }
-#        format.json { head :ok }
-#      end
-#    end
-
-#  end
 
   def stop
     current_sprint.end
@@ -79,7 +63,7 @@ class SprintsController < ApplicationController
   def current_sprint_overview
     @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
     @user_stories_in_progress = current_sprint.user_stories_in_progress
-
+    @current_user_stories = current_sprint.user_stories_for_user(current_user)
     @page = "current"
   end
 
@@ -88,6 +72,8 @@ class SprintsController < ApplicationController
     @user_stories_in_backlog = UserStory.backlog
 
     @page = "planning"
+
+    @user_story = UserStory.new
   end
 
   private
@@ -98,6 +84,12 @@ class SprintsController < ApplicationController
       redirect_to new_user_path
     else
       authenticate
+    end
+  end
+
+  def travis_repo
+    if current_project.repository_url
+      @travis_repo = travis_repo_from current_project.repository_url
     end
   end
 

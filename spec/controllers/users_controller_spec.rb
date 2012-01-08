@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe UsersController do
 
-  before :each do
-    @user = Factory(:user)
-  end
-
   def valid_attributes
     Factory.attributes_for(:other_user)
   end
@@ -71,6 +67,7 @@ describe UsersController do
   describe "Actions that need a logged in user" do
 
     before :each do
+      @user = Factory :user
       test_sign_in @user
     end
 

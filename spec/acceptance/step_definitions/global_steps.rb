@@ -10,10 +10,6 @@ step "there is a project" do
   @project = Factory :project
 end
 
-step "there is a user story" do
-  @user_story = Factory(:user_story)
-end
-
 step "I am on the current sprint page" do
   visit current_sprint_path
 end
@@ -22,7 +18,15 @@ step "I click on :name" do |name|
   click_on name
 end
 
-step "I should see the name of the user story" do
-  page.should have_content(@user_story.name)
+step "I see a success notification" do
+  find('div .success').should have_content 'success'
+end
+
+step "I am on the root page" do
+  visit "/"
+end
+
+step "I should see the text :text" do |text|
+  page.should have_content text
 end
 

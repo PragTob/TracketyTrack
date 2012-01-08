@@ -1,6 +1,9 @@
-<div class="user_box span8">
-  <div class="user_details">
-	  <%= gravatar_for @user %>
+<div class="user_box span9">
+  <div class="gravatar_image span3">
+    <%= gravatar_for @user %>
+	</div>
+
+	<div class="user_details span6">
     <h3><%= @user.name %></h3>
     <%= @user.email %>
     <br /><br />
@@ -9,13 +12,14 @@
       <br />
       <%= @user.description %>
     </p>
-  </div>
+
 
 <% if current_user? @user %>
   <%= button_to 'Edit', edit_user_path(@user),
                 class: "btn primary", method: :get %>
 <% end %>
-
+  </div>
+  <div class="clearfix"></div>
 </div>
 <%= link_to 'Show all Users', users_path %>
 

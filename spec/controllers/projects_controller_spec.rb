@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe ProjectsController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Project. As you add validations to Project, be sure to
-  # update the return value of this method accordingly.
   def valid_attributes
     Factory.attributes_for(:project)
   end

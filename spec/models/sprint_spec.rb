@@ -240,6 +240,36 @@ describe Sprint do
 
     end
 
+    describe "current user stories for user" do
+
+      before :each do
+        @user = Factory.build(:user)
+        @user_story = Factory.build(:user_story, sprint: @sprint, users: [@user])
+      end
+
+      it "returns an active user story a user is working on" do
+        @user_story.update_attributes(status: UserStory::ACTIVE)
+        @sprint.user_stories_for_user(@user).should include @user_story
+      end
+
+      it "returns an suspended user story a user is working on" do
+        @user_story.update_attributes(status: UserStory::SUSPENDED)
+        @sprint.user_stories_for_user(@user).should include @user_story
+      end
+
+      it "returns no inactive user story a user is assigned to" do
+       @user_story.update_attributes(status: UserStory::INACTIVE)
+        @sprint.user_stories_for_user(@user).should_not include @user_story
+      end
+
+      it "does not return user stories from other users" do
+        other_user = Factory.build(:user)
+        @user_story.update_attributes(status: UserStory::ACTIVE, users: [other_user])
+        @sprint.user_stories_for_user(@user).should_not include @user_story
+      end
+
+    end
+
   end
 
   it "can stop the sprint when the end date is nil" do

@@ -8,7 +8,10 @@ $(document).ready ->
     false
   $('.draggable_box').draggable
     revert: "invalid",
-    cursor: "move"
+    cursor: "move",
+    helper: "clone",
+    appendTo: "body",
+    opacity: 0.5
   $('#box_current_sprint').droppable
     accept: "#box_backlog .user_story_box"
     drop: (event, ui) ->
@@ -18,7 +21,11 @@ $(document).ready ->
         ui.draggable.remove()
         $('.draggable_box').draggable
           revert: "invalid",
-          cursor: "move"
+          cursor: "move",
+          helper: "clone",
+          appendTo: "body",
+          opacity: 0.5
+        $('#box_current_sprint .user_stories_container').lionbars()
   $('#box_backlog').droppable
     accept: "#box_current_sprint .user_story_box"
     drop: (event, ui) ->
@@ -28,5 +35,9 @@ $(document).ready ->
         ui.draggable.remove()
         $('.draggable_box').draggable
           revert: "invalid",
-          cursor: "move"
+          cursor: "move",
+          helper: "clone",
+          appendTo: "body",
+          opacity: 0.5
+        $('#box_backlog .user_stories_container').lionbars()
 

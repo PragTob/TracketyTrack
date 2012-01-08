@@ -50,7 +50,7 @@ describe "sprints/sprint_planning.html.erb" do
     end
 
     it "shows a notification that there is no current sprint" do
-      rendered.should have_content "There is no current sprint. Please start a new one!"
+      rendered.should match /There is no current sprint. .*Please start a new one!.*/
     end
 
   end
