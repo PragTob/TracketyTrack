@@ -21,6 +21,7 @@ describe UserStory do
   it { should respond_to :sprint }
   it { should respond_to :work_effort }
   it { should respond_to :start_time }
+  it { should respond_to :requesting_feedback? }
   it { should be_valid }
 
   context "when being saved" do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "sprints/edit.html.erb" do
+describe "sprints/edit" do
   before(:each) do
     @sprint = assign(:sprint, stub_model(Sprint,
       :number => 1,

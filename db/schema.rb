@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120102161949) do
+ActiveRecord::Schema.define(:version => 20120108193915) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_story_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20120102161949) do
     t.integer  "work_effort"
     t.datetime "start_time"
     t.datetime "close_time"
+    t.boolean  "requesting_feedback"
   end
 
   create_table "user_stories_users", :force => true do |t|
