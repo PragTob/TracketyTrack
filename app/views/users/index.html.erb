@@ -1,9 +1,8 @@
 <h2>Users</h2>
 
-<h3>Users waiting to be accepted for <%= current_project.title %></h3>
-<% if @unaccepted_users.empty? %>
-  There are currently no unaccepted users <br />
-<% else %>
+
+<% unless @unaccepted_users.empty? %>
+  <h3>Users waiting to be accepted for <%= current_project.title %></h3>
   <%= render partial: "list_users", locals: {type: :accept} %>
 <% end %>
 
