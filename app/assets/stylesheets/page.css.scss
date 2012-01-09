@@ -18,7 +18,16 @@
   margin-top:10px;
   padding-right:15px;
 }
-
+.new_user_label {
+  position:relative;
+  top:8px;
+  left:-4px;
+}
+.current_account img {
+  position:relative;
+  top:5px;
+  left:-3px;
+}
 .userstory_box_header {
   height:40px;
   color:#FFF;
@@ -112,17 +121,10 @@
 }
 #userstory_new_box_content {
   padding:10px;
-  height:120px;
+  height:90px;
   position:relative;
 }
-#userstory_details_box_header,#userstory_new_box_header {
-	height:7px;
-	background-color:#666;
-}
-#userstory_details_box_header:hover, #userstory_new_box_header:hover {
-	background-color:#06F;
-	cursor:pointer;
-}
+
 #userstory_button {
   position:absolute;
   right:15px;
@@ -134,14 +136,14 @@
 #userstory_new_box_column2 {
   width:210px;
   left:250px;
-  top:35px;
+  top:8px;
 }
 #userstory_new_box_column3 {
   left:510px;
-  top:35px;
+  top:8px;
 }
 #userstory_new_box textarea {
-  height:80px;
+  height:75px;
   width:220px;
 }
 #userstory_name {
@@ -171,7 +173,7 @@
 .user_story_box_description {
   width:450px;
   height:45px;
-  overflow:auto;
+  padding-right:15px;
 }
 
 .user_story_box_users {
