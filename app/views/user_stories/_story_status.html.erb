@@ -1,0 +1,13 @@
+<div class="story_status">
+<% case user_story.status %>
+<% when "active" %>
+  <span class="label success"><%= user_story.status %></span>
+<% when "inactive" %>
+  <span class="label"><%= user_story.status %></span>
+<% when "completed" %>
+  <span class="label important"><%= user_story.status %></span>
+<% when "suspended" %>
+  <span class="label warning"><%= user_story.status %></span>
+<% end %>
+</div>
+

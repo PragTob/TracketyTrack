@@ -1,4 +1,51 @@
 <div class="current_user_story_content">
-  <%= user_story.name %>
+  <div class="row">
+    <div class="span3 user_story_box_info">
+      <%= render partial: 'user_stories/story_status', locals: { user_story: user_story } %>
+      <% unless user_story.priority.nil? %>
+        <span class="label"><%= user_story.priority %></span> (Priority)<br />
+      <% end %>
+      <% unless user_story.estimation.nil? %>
+        <span class="label notice"><%= user_story.estimation %></span> (Estimation)
+      <% end %>
+    </div>
+    <div class="span9">
+      <strong>Description</strong>
+      <div class="user_story_box_description">
+        <%= user_story.description %>
+      </div>
+    </div>
+    <div class="span3">
+      <strong>Participants</strong>
+      <div class="user_story_box_users">
+      <% user_story.users.each do |user| %>
+        <div class="user_story_box_gravatar"><%= gravatar_for(user, size: 30) %></div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3 user_story_box_links">
+      <%= link_to 'Show', user_story %> |
+      <%= link_to 'Edit', edit_user_story_path(user_story) %>
+    </div>
+    <div class="span70">
+      <%= button_to "Complete", {controller: 'user_stories', action: 'complete',
+      id: user_story.id }, method: "put", class: 'btn success' %>
+    </div>
+    <div class="span8">
+      <% case user_story.status %>
+      <% when "active" %>
+        <%= button_to "Pause", {controller: 'user_stories', action: 'pause',
+        id: user_story.id}, method: "put", class: 'btn' %>
+      <% when "suspended" %>
+        <%= button_to "Continue", {controller: 'user_stories', action: 'start',
+        id: user_story.id }, method: "put", class: 'btn' %>
+      <% end %>
+    </div>
+    <div class="span2">
+
+    </div>
+  </div>
 </div>
 

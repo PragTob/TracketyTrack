@@ -7,7 +7,7 @@
   <div id="tabs">
     <ul>
     <% user_stories.each_with_index do |user_story, i| %>
-       <li><%= link_to user_story.name, '#tabs-'+(i+1).to_s %></li>
+       <li><%= link_to user_story.short_name, '#tabs-'+(i+1).to_s %></li>
     <% end %>
     </ul>
     <% user_stories.each_with_index do |user_story, i| %>
