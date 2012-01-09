@@ -32,7 +32,12 @@
   <div class="clearfix">
     <%= f.label :velocity %>
     <div class="input">
-      <%= f.number_field :velocity, :class => 'span2' %>
+      <% if @sprint.new_record? and !Sprint.all.empty?
+        value = Sprint.last.actual_velocity.to_s
+      else
+        value = ""
+      end %>
+      <%= f.number_field :velocity, :class => 'span2', :value => value %>
     </div>
   </div>
 
