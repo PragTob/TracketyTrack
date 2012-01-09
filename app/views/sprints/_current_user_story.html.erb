@@ -31,16 +31,16 @@
     </div>
     <div class="span70">
       <%= button_to "Complete", {controller: 'user_stories', action: 'complete',
-      id: user_story.id }, method: "put", class: 'btn success' %>
+      id: user_story.id }, class: 'btn success' %>
     </div>
     <div class="span8">
       <% case user_story.status %>
       <% when "active" %>
         <%= button_to "Pause", {controller: 'user_stories', action: 'pause',
-        id: user_story.id}, method: "put", class: 'btn' %>
+        id: user_story.id}, class: 'btn' %>
       <% when "suspended" %>
         <%= button_to "Continue", {controller: 'user_stories', action: 'start',
-        id: user_story.id }, method: "put", class: 'btn' %>
+        id: user_story.id }, class: 'btn' %>
       <% end %>
     </div>
     <div class="span2">
