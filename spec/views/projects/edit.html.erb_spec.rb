@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "projects/edit.html.erb" do
+describe "projects/edit" do
   before(:each) do
     @project = Factory(:project)
   end

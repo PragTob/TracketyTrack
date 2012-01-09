@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "sprints/current_sprint_overview.html.erb" do
+describe "sprints/current_sprint_overview" do
 
   before (:each) do
     @user_story = Factory.build(:user_story)

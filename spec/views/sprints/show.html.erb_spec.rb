@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "sprints/show.html.erb" do
+describe "sprints/show" do
   before(:each) do
     @user_story = Factory(:user_story)
     @sprint = assign(:sprint, stub_model(Sprint,

@@ -14,6 +14,10 @@ module UsersHelper
                                             gravatar: options)
   end
 
+  def mini_gravator_for(user)
+    gravatar_for(user, { size: 20 })
+  end
+
   def form_action_for_user(user)
     if user.new_record?
       "Register now"

@@ -6,12 +6,13 @@ require File.expand_path('../config/application', __FILE__)
 
 TracketyTrack::Application.load_tasks
 
-namespace :spec do
-  desc "Run all acceptance specs"
-  RSpec::Core::RakeTask.new(:acceptance => 'db:test:prepare') do |t|
-    t.pattern = "**/*.feature"
+if ['test', 'development'].include? ENV["RAILS_ENV"]
+  namespace :spec do
+    desc "Run all acceptance specs"
+    RSpec::Core::RakeTask.new(:acceptance => 'db:test:prepare') do |t|
+      t.pattern = "**/*.feature"
+    end
   end
+  task spec: 'spec:acceptance'
 end
-
-task default: 'spec:acceptance'
 

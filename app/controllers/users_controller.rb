@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :only_current_user, only: [:edit, :update]
   def index
     @users = User.all
+    @unaccepted_users = User.find_all_by_accepted(false)
   end
 
   def show
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
     set_accepted(@user)
 
     if @user.password_valid? && @user.save
-        redirect_to signin_path, 
+        redirect_to signin_path,
                     flash: {success: 'User was successfully created.'}
     else
       render action: "new"
@@ -54,12 +55,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.accept
 
-    redirect_to accept_url, flash:
+    redirect_to users_path, flash:
                 { success: 'The user has been accepted to join your project!' }
-  end
-
-  def accept
-    @users = User.find_all_by_accepted(false)
   end
 
   private

@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'capybara'
 
-describe "user_stories/index.html.erb" do
+describe "user_stories/index" do
 
     before(:each) do
       @user_story = Factory(:user_story, status: "inactive")
