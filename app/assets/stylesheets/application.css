@@ -37,6 +37,13 @@ h1 a {
 }
 
 .new_user_label {
-  margin-top:10px;
+  position:relative;
+  top:8px;
+  left:-4px;
+}
+.current_account img {
+  position:relative;
+  top:5px;
+  left:-3px;
 }
 

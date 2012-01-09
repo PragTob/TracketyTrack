@@ -14,7 +14,14 @@
   <div class="clearfix">
     <%= f.label :number, "Number*" %>
     <div class="input">
-      <%= f.number_field :number, class: 'span2' %>
+      <% if !@sprint.new_record?
+        proposed_number = @sprint.number
+      elsif @sprint.new_record? and !Sprint.all.empty?
+        proposed_number = Sprint.last.number + 1
+      else
+        proposed_number = 1
+      end %>
+      <%= f.number_field :number, :class => 'span2', :value => proposed_number %>
     </div>
   </div>
 <!--  <div class="clearfix">
@@ -32,7 +39,13 @@
   <div class="clearfix">
     <%= f.label :velocity %>
     <div class="input">
-      <%= f.number_field :velocity, class: 'span2' %>
+      <% if @sprint.new_record? and !Sprint.all.empty? and
+      Sprint.last.actual_velocity > 0
+        value = Sprint.last.actual_velocity.to_s
+      else
+        value = ""
+      end %>
+      <%= f.number_field :velocity, :class => 'span2', :value => value %>
     </div>
   </div>
 

@@ -10,12 +10,18 @@ module UsersHelper
   end
 
   def gravatar_for(user, options = { size: 120 })
-    gravatar_image_tag(user.email.downcase, alt: user.name,
+    gravatar_image_tag(user.email.downcase, alt: " ",
                                             gravatar: options)
   end
 
-  def mini_gravator_for(user)
+  def mini_gravatar_for(user)
     gravatar_for(user, { size: 20 })
+  end
+
+  def tooltip_gravatar_for(user, options={})
+    link_to gravatar_for(user, options), user, rel: "twipsy",
+                                           title: user.name,
+                                           class: "tooltip"
   end
 
   def form_action_for_user(user)

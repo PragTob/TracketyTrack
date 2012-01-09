@@ -4,16 +4,16 @@
 
 $(document).ready ->
 
-  $('#userstory_details_box').delegate '.ui-icon-minus', 'click', ->
-    $('#userstory_details_box').animate height: $('.ui-tabs-nav').height(), 1000
-    icon = $('#userstory_details_box .ui-icon-minus')
+  $('#userstory_info_box').delegate '.ui-icon-minus', 'click', ->
+    $('#userstory_info_box').animate height: $('.ui-tabs-nav').height(), 1000
+    icon = $('#userstory_info_box .ui-icon-minus')
     icon.addClass 'ui-icon-plus'
     icon.removeClass 'ui-icon-minus'
     false
 
-  $('#userstory_details_box').delegate '.ui-icon-plus', 'click', ->
-    $('#userstory_details_box').animate height: 150, 1000
-    icon = $('#userstory_details_box .ui-icon-plus')
+  $('#userstory_info_box').delegate '.ui-icon-plus', 'click', ->
+    $('#userstory_info_box').animate height: 150, 1000
+    icon = $('#userstory_info_box .ui-icon-plus')
     icon.addClass 'ui-icon-minus'
     icon.removeClass 'ui-icon-plus'
     false

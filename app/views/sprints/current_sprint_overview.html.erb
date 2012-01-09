@@ -1,7 +1,7 @@
 <%= render 'header' %>
 
  <% if current_project.has_current_sprint? %>
-  <div class="row">
+  <div id="dashboard_box" class="row">
     <div id="box_in_progress" class="span8 userstory_box">
       <%= render partial: 'box_header', locals: { title: "In Progress" } %>
       <div class="user_stories_container">

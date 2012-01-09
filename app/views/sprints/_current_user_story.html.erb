@@ -19,7 +19,9 @@
       <strong>Participants</strong>
       <div class="user_story_box_users">
       <% user_story.users.each do |user| %>
-        <div class="user_story_box_gravatar"><%= gravatar_for(user, size: 30) %></div>
+        <div class="user_story_box_gravatar">
+          <%= link_to tooltip_gravatar_for(user, size: 30), user %>
+        </div>
       <% end %>
       </div>
     </div>
