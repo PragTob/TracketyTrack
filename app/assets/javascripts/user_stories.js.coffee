@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->
-  $('.short_description_link').click ->
+  $('.user_stories_container').delegate '.short_description_link', 'click', ->
     $(this).siblings('.short_description').toggle('slow')
     false
 
