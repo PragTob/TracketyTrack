@@ -1,8 +1,10 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 $(document).ready ->
+
+  # tooltips
+  $('#dashboard_box .tooltip').twipsy(offset: 5)
+  $('#user_story_userlist .tooltip').twipsy(offset: -12)
+  $('#userstory_info_box .tooltip').twipsy(offset: 15)
+
   $('.user_stories_container').delegate '.short_description_link', 'click', ->
     $(this).siblings('.short_description').toggle('slow')
     $(this).siblings('.short_description_link').andSelf().toggle()
