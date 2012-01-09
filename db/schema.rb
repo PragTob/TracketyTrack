@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20120108193915) do
     t.integer  "user_id"
     t.datetime "date"
     t.text     "content"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projects", :force => true do |t|

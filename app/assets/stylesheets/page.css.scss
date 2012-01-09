@@ -71,6 +71,10 @@
 .userstory_box_footer_left { left:0px; background-image:url('/assets/box_footer_left.gif'); }
 .userstory_box_footer_right { right:0px; background-image:url('/assets/box_footer_right.gif'); }
 
+.loader {
+  visibility:hidden;
+}
+
 #userstory_details_box {
 	position:fixed;
 	width:920px;
