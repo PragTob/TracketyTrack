@@ -105,11 +105,13 @@ class Sprint < ActiveRecord::Base
     final_date = DateTime.now.to_date
     final_date = end_date.to_date unless end_date.nil?
     while day_of_sprint <= final_date do
-      story_points_per_day[day_of_sprint.to_s] = 0
+      date = day_of_sprint.strftime("%d.%m.")
+      story_points_per_day[date] = 0
       day_of_sprint += 1
     end
     user_stories_completed.each do |user_story|
-        story_points_per_day[user_story.close_time.to_date.to_s] += user_story.estimation if user_story.estimation
+        completed_date = user_story.close_time.to_date.strftime("%d.%m.")
+        story_points_per_day[completed_date] += user_story.estimation if user_story.estimation
     end
     story_points_per_day
   end
@@ -119,7 +121,7 @@ class Sprint < ActiveRecord::Base
     legend_dates = ['initial']
     completed_story_points_per_day.each do |date, story_points_of_day|
       story_points << (story_points.last - story_points_of_day)
-      legend_dates << date.to_s
+      legend_dates << date
     end
     chart = Gchart.bar(
                 data: story_points,
@@ -127,7 +129,7 @@ class Sprint < ActiveRecord::Base
                 axis_labels: [legend_dates],
                 axis_range: [nil, [0,initial_story_points,1]],
                 legend: 'Story points of unfinished user stories',
-                bar_width_and_spacing: {width: 35, spacing: 30},
+                bar_width_and_spacing: {width: 30, spacing: 15},
                 width: 1000)
     chart
   end
