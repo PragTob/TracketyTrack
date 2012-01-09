@@ -47,7 +47,7 @@ describe "sprints/current_sprint_overview" do
     describe "there is a user story the current user is working on" do
 
       it "displays the current user story details box" do
-        rendered.should have_selector("#userstory_details_box")
+        rendered.should have_selector("#userstory_info_box")
       end
 
     end

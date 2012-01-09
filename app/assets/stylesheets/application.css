@@ -36,3 +36,14 @@ h1 a {
   color:#333;
 }
 
+.new_user_label {
+  position:relative;
+  top:8px;
+  left:-4px;
+}
+.current_account img {
+  position:relative;
+  top:5px;
+  left:-3px;
+}
+

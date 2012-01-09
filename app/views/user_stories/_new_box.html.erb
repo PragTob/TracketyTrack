@@ -1,25 +1,33 @@
-<div id="userstory_new_box">
-  <div id="userstory_new_box_header"></div>
-  <div id="userstory_new_box_content">
-  <%= form_for(@user_story) do |f| %>
+<div id="userstory_info_box">
+  <%= render 'sprints/infobox_close_button'%>
+  <div id="tabs">
+    <ul>
+       <li><%= link_to 'Create a new User Story', '#tabs-1' %></li>
+    </ul>
+    <div id="tabs-1">
+      <div id="userstory_new_box_content">
+      <%= form_for(@user_story) do |f| %>
 
-	  <div id="userstory_new_box_column1">
-	    <h4>New User Story</h4>
-      <%= f.text_field :name, :id => 'userstory_name' %><br />
-      Priority: <%= f.text_field :priority, :class => 'span1' %>
-      Estimation: <%= f.text_field :estimation, :class => 'span1' %>
-    </div>
-    <div id="userstory_new_box_column2">
-      <%= f.text_area :description, :class => 'span4' %>
+        <div id="userstory_new_box_column1">
 
+          <%= f.text_field :name, :id => 'userstory_name' %><br />
+          Priority: <%= f.text_field :priority, :class => 'span1' %>
+          Estimation: <%= f.text_field :estimation, :class => 'span1' %>
+        </div>
+        <div id="userstory_new_box_column2">
+          <%= f.text_area :description, :class => 'span4' %>
+
+        </div>
+        <div id="userstory_new_box_column3">
+          <%= f.text_area :acceptance_criteria, :class => 'span4' %>
+        </div>
+        <div id="userstory_button">
+          <%= f.submit 'Save User Story', class: 'btn success' %>
+        </div>
+      <% end %>
+      </div>
     </div>
-    <div id="userstory_new_box_column3">
-      <%= f.text_area :acceptance_criteria, :class => 'span4' %>
-    </div>
-    <div id="userstory_button">
-      <%= f.submit 'Save User Story', class: 'btn success' %>
-    </div>
-  <% end %>
   </div>
+
 </div>
 

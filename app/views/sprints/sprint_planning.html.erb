@@ -7,10 +7,9 @@
    <%= render partial: 'box_header', locals: { title: "CURRENT SPRINT" } %>
    <% if current_project.has_current_sprint? %>
     <div class="user_stories_container">
-     <% @user_stories_current_sprint.each do |user_story| %>
-       <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: false } %>
-     <% end %>
-     </div>
+      <%= render partial: 'current_sprint_user_stories',
+        locals: { user_stories_current_sprint: @user_stories_current_sprint } %>
+    </div>
     <% else %>
         <div class="user_stories_container">
           <div class="start_sprint">There is no current sprint. <strong>Please start a new one!</strong><br />
@@ -23,9 +22,7 @@
   <div id="box_backlog" class="span8 userstory_box">
     <%= render partial: 'box_header', locals: { title: "BACKLOG" } %>
     <div class="user_stories_container">
-    <% @user_stories_in_backlog.each do |user_story| %>
-      <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: true } %>
-    <% end %>
+      <%= render partial: 'backlog_user_stories', locals: { user_stories_in_backlog: @user_stories_in_backlog } %>
     </div>
     <%= render 'box_footer' %>
   </div>

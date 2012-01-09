@@ -71,13 +71,10 @@
 .userstory_box_footer_left { left:0px; background-image:url('/assets/box_footer_left.gif'); }
 .userstory_box_footer_right { right:0px; background-image:url('/assets/box_footer_right.gif'); }
 
-#userstory_details_box {
-	position:fixed;
-	width:920px;
-	height:100px;
-	background-color:#efefef;
-	bottom:0px;
+.loader {
+  visibility:hidden;
 }
+
 .start_sprint {
   padding-top:50px;
   font-size:16px;
@@ -89,7 +86,7 @@
   right:650px;
 }
 
-#userstory_details_box, #userstory_new_box  {
+#userstory_info_box  {
 	position:fixed;
 	width:920px;
 	height:150px;
@@ -102,23 +99,12 @@
   height:100px;
 }
 
-#userstory_new_box {
-  height:150px;
-
-}
 #userstory_new_box_content {
   padding:10px;
-  height:120px;
+  height:90px;
   position:relative;
 }
-#userstory_details_box_header,#userstory_new_box_header {
-	height:7px;
-	background-color:#666;
-}
-#userstory_details_box_header:hover, #userstory_new_box_header:hover {
-	background-color:#06F;
-	cursor:pointer;
-}
+
 #userstory_button {
   position:absolute;
   right:15px;
@@ -130,14 +116,14 @@
 #userstory_new_box_column2 {
   width:210px;
   left:250px;
-  top:35px;
+  top:8px;
 }
 #userstory_new_box_column3 {
   left:510px;
-  top:35px;
+  top:8px;
 }
-#userstory_new_box textarea {
-  height:80px;
+#userstory_info_box textarea {
+  height:75px;
   width:220px;
 }
 #userstory_name {
@@ -149,6 +135,7 @@
   top:12px;
   right:20px;
   z-index:2;
+  cursor:pointer;
 }
 .user_story_box_info {
   height:70px;
@@ -167,7 +154,7 @@
 .user_story_box_description {
   width:450px;
   height:45px;
-  overflow:auto;
+  padding-right:15px;
 }
 
 .user_story_box_users {
