@@ -171,6 +171,13 @@ describe SprintsController do
         }.to change(Sprint, :count).by(-1)
       end
 
+      it "sets current_sprint to nil" do
+        sprint = Sprint.create! valid_attributes
+        @project.update_attributes(current_sprint: sprint)
+        delete :destroy, :id => sprint.id
+        controller.current_project.current_sprint.should_not eq(sprint)
+      end
+
       it "redirects to the sprints list" do
         sprint = Sprint.create! valid_attributes
         delete :destroy, :id => sprint.id

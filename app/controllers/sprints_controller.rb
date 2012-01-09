@@ -48,9 +48,7 @@ class SprintsController < ApplicationController
 
   def destroy
     @sprint = Sprint.find(params[:id])
-    if self.current_sprint == @sprint
-      self.current_sprint = nil
-    end
+    delete_sprint(@sprint)
     if @sprint.destroy
       redirect_to sprints_url, flash: {notice: 'Sprint was successfully deleted.'}
     end
