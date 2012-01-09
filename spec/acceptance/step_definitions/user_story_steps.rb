@@ -1,4 +1,7 @@
 steps_for :user_story do
+
+  CHANGED_NAME = "changed name"
+
   step "there is a user story" do
     @user_story = Factory(:user_story)
   end
@@ -36,12 +39,10 @@ steps_for :user_story do
   end
 
   step "the comment is displayed on the user story page" do
-    visit user_story_path(@user_story)
     page.should have_content @comment
   end
 
   step "the comment is not displayed on the user story page" do
-    visit user_story_path(@user_story)
     page.should_not have_content @comment
   end
 
@@ -53,6 +54,15 @@ steps_for :user_story do
     @user_story.save
   end
 
+  step "I edit the name of the user story" do
+    visit edit_user_story_path(@user_story)
+    fill_in "Name", with: CHANGED_NAME
+    click_on "Update User story"
+  end
+
+  step "I see the changed name" do
+    page.should have_content CHANGED_NAME
+  end
 
 end
 
