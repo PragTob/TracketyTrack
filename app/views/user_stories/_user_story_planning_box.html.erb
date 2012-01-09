@@ -1,10 +1,4 @@
-<div class="user_story_box">
-  <% if backlog %>
-    <div class="button"><%= button_to "To Current Sprint", {controller: 'user_stories', action: 'assign_sprint', id: user_story.id}, method: "put", class: 'btn success' %></div>
-  <% else %>
-    <div class="button"><%= button_to "To Backlog", {controller: 'user_stories', action: 'unassign_sprint', id: user_story.id}, method: "put", class: 'btn success' %></div>
-  <% end %>
-
+<div class="user_story_box draggable_box" id="userstory-<%= user_story.id %>">
   <%= render partial: 'user_stories/user_story_information', locals: { user_story: user_story } %>
 </div>
 

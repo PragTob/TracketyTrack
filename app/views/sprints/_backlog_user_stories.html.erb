@@ -1,0 +1,4 @@
+<% user_stories_in_backlog.each do |user_story| %>
+  <%= render partial: 'user_stories/user_story_planning_box', locals: { user_story: user_story, backlog: true } %>
+<% end %>
+

@@ -132,12 +132,14 @@ class UserStoriesController < ApplicationController
 
   def assign_sprint
     set_sprint(params[:id], current_sprint)
-    redirect_to sprint_planning_path
+    render partial: 'sprints/current_sprint_user_stories',
+        locals: { user_stories_current_sprint: current_sprint.user_stories }
   end
 
   def unassign_sprint
     set_sprint(params[:id], nil)
-    redirect_to sprint_planning_path
+    render partial: 'sprints/backlog_user_stories',
+        locals: { user_stories_in_backlog: UserStory.backlog }
   end
 
 end

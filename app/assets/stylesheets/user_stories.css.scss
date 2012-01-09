@@ -8,6 +8,11 @@
   margin-bottom:5px;
   position:relative;
   min-height:50px;
+  width:400px;
+}
+
+.draggable_box {
+  cursor:move;
 }
 
 .user_story_box .startbutton,
