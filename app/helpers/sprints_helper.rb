@@ -9,8 +9,8 @@ module SprintsHelper
   end
 
   def delete_sprint(sprint)
-    if self.current_sprint == sprint
-      self.current_project.current_sprint = nil
+    if current_sprint == sprint
+      current_project.current_sprint = nil
     end
   end
 
