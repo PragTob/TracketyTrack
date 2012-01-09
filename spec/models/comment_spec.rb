@@ -24,3 +24,16 @@ describe Comment do
 
 end
 
+# == Schema Information
+#
+# Table name: comments
+#
+#  id            :integer         not null, primary key
+#  user_story_id :integer
+#  user_id       :integer
+#  date          :datetime
+#  content       :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

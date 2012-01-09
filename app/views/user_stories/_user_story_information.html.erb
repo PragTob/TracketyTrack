@@ -1,5 +1,8 @@
 
 <%= link_to user_story.name, '#', class: 'short_description_link' %>
+<% user_story.users.each do |user| %>
+  <%= link_to mini_gravator_for(user), user %>
+<% end %>
 <div class='short_description' style="display: none">
   <%= user_story.short_description %>
 </div>

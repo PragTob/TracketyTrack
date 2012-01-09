@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "user_stories/new.html.erb" do
+describe "user_stories/new" do
   before(:each) do
     @user_story = Factory(:user_story)
     @users = [Factory(:user)]

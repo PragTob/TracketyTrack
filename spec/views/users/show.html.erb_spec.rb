@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "users/show.html.erb" do
+describe "users/show" do
   before(:each) do
     @user = Factory(:user)
     assign(:user, @user)

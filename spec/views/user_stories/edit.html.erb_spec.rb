@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "user_stories/edit.html.erb" do
+describe "user_stories/edit" do
 
   let(:page) { Capybara::Node::Simple.new(rendered) }
 

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe "sprints/index.html.erb" do
+describe "sprints/index" do
+
   before(:each) do
     assign(:sprints, [
       stub_model(Sprint,

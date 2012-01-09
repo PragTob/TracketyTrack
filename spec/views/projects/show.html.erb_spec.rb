@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "projects/show.html.erb" do
+describe "projects/show" do
   before(:each) do
     @project = Factory(:project)
     @sprint = Factory(:sprint, end_date: DateTime.now)

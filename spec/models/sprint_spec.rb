@@ -153,11 +153,11 @@ describe Sprint do
       third_user_story = Factory(:user_story, estimation: 3, sprint: @sprint,
         status: UserStory::COMPLETED, close_time: time + 3)
       first_day = time.to_date
-      date_collection = { first_day.to_s => 0,
-                          (first_day + 1).to_s => 1,
-                          (first_day + 2).to_s => 2,
-                          (first_day + 3).to_s => 3,
-                          (first_day + 4).to_s => 0 }
+      date_collection = { first_day.strftime("%d.%m.") => 0,
+                          (first_day + 1).strftime("%d.%m.") => 1,
+                          (first_day + 2).strftime("%d.%m.") => 2,
+                          (first_day + 3).strftime("%d.%m.") => 3,
+                          (first_day + 4).strftime("%d.%m.") => 0 }
       @sprint.completed_story_points_per_day.should eq date_collection
     end
 

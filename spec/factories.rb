@@ -9,6 +9,7 @@ FactoryGirl.define do
     user_story.status               "inactive"
     user_story.work_effort          0
     user_story.users                []
+    user_story.requesting_feedback  false
   end
 
   factory :user do |user|
