@@ -5,7 +5,7 @@ class UserStoriesController < ApplicationController
   before_filter(only: [:update, :create]) {|c| c.add_users(params)}
 
   def index
-    @title = "All"
+    @title = "All User Stories"
     @user_stories = UserStory.all_open
   end
 
