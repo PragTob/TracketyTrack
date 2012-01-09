@@ -53,13 +53,13 @@
       </div>
     </div>
     <div class="clearfix">
-    <%= f.label :work_effort %>
-    <div class="input">
-      <%= select_tag :days, options_for_select((0..30), { selected: @days }), class: 'span2' %> days
-      <%= select_tag :hours, options_for_select((0...24), { selected: @hours }), class: 'span2' %> :
-      <%= select_tag :minutes, options_for_select((0...60), { selected: @minutes }), class: 'span2' %> :
-      <%= select_tag :seconds, options_for_select((0...60), { selected: @seconds }), class: 'span2' %>
-    </div>
+      <%= f.label :work_effort %>
+      <div class="input">
+        <%= select_tag :days, options_for_select((0..30), { selected: @days }), class: 'span2' %> days
+        <%= select_tag :hours, options_for_select((0...24), { selected: @hours }), class: 'span2' %> :
+        <%= select_tag :minutes, options_for_select((0...60), { selected: @minutes }), class: 'span2' %> :
+        <%= select_tag :seconds, options_for_select((0...60), { selected: @seconds }), class: 'span2' %>
+      </div>
     </div>
   <% end %>
 

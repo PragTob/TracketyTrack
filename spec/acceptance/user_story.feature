@@ -26,3 +26,8 @@ Feature: User stories
     When I delete the comment
     Then the comment is not displayed on the user story page
 
+  Scenario: Editing a user story
+    Given there is a user story
+    When I edit the name of the user story
+    Then I see the changed name
+
