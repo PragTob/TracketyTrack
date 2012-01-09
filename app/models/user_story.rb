@@ -57,6 +57,10 @@ class UserStory < ActiveRecord::Base
     self.description[0..199]
   end
 
+  def short_name
+    self.name[0..40]
+  end
+
   def set_new_work_effort
     self.work_effort += DateTime.now.utc.to_i - self.start_time.to_i
   end
