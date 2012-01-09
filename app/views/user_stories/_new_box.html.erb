@@ -10,16 +10,23 @@
 
         <div id="userstory_new_box_column1">
 
-          <%= f.text_field :name, :id => 'userstory_name' %><br />
+          <%= f.text_field :name, id: 'userstory_name',
+                                  value: 'Name*',
+                                  name: 'Name*',
+                                  class: "input_advice" %><br />
           Priority: <%= f.text_field :priority, :class => 'span1' %>
           Estimation: <%= f.text_field :estimation, :class => 'span1' %>
         </div>
         <div id="userstory_new_box_column2">
-          <%= f.text_area :description, :class => 'span4' %>
+          <%= f.text_area :description, class: 'span4 input_advice',
+                                        value: 'Description',
+                                        name: 'Description' %>
 
         </div>
         <div id="userstory_new_box_column3">
-          <%= f.text_area :acceptance_criteria, :class => 'span4' %>
+          <%= f.text_area :acceptance_criteria, class: 'span4 input_advice',
+                                                value: 'Acceptance Criteria',
+                                                name: 'Acceptance Criteria' %>
         </div>
         <div id="userstory_button">
           <%= f.submit 'Save User Story', class: 'btn success' %>
