@@ -51,9 +51,9 @@ class SprintsController < ApplicationController
     if self.current_sprint == @sprint
       self.current_sprint = nil
     end
-    @sprint.destroy
-
-    redirect_to sprints_url
+    if @sprint.destroy
+      redirect_to sprints_url, flash: {notice: 'Sprint was successfully deleted.'}
+    end
   end
 
   def stop

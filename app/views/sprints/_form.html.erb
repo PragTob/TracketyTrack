@@ -32,7 +32,8 @@
   <div class="clearfix">
     <%= f.label :velocity %>
     <div class="input">
-      <% if @sprint.new_record? and !Sprint.all.empty?
+      <% if @sprint.new_record? and !Sprint.all.empty? and
+      Sprint.last.actual_velocity > 0
         value = Sprint.last.actual_velocity.to_s
       else
         value = ""
