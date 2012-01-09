@@ -1,6 +1,9 @@
 <div class="userstory_box_header">
   <div class="userstory_box_header_left"></div>
-  <div class="userstory_box_header_center"><%= title %></div>
+  <div class="userstory_box_header_center"><%= title %>
+    <%= image_tag "ajax-loader.gif",
+                        class: "loader",
+                        id: "#{title.downcase.gsub(/[ ]/, '-')}-loader"%></div>
   <div class="userstory_box_header_right"></div>
 </div>
 

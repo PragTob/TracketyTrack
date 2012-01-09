@@ -11,8 +11,8 @@ TracketyTrack::Application.routes.draw do
   put "user_stories/start"
   put "user_stories/pause"
   put "user_stories/complete"
-  put "user_stories/assign_sprint"
-  put "user_stories/unassign_sprint"
+  post "user_stories/assign_sprint"
+  post "user_stories/unassign_sprint"
   post "users/accept_user"
   post "user_stories/resurrect"
 

@@ -71,6 +71,10 @@
 .userstory_box_footer_left { left:0px; background-image:url('/assets/box_footer_left.gif'); }
 .userstory_box_footer_right { right:0px; background-image:url('/assets/box_footer_right.gif'); }
 
+.loader {
+  visibility:hidden;
+}
+
 .start_sprint {
   padding-top:50px;
   font-size:16px;
@@ -131,6 +135,7 @@
   top:12px;
   right:20px;
   z-index:2;
+  cursor:pointer;
 }
 .user_story_box_info {
   height:70px;
