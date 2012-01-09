@@ -5,6 +5,7 @@
 $(document).ready ->
   $('.user_stories_container').delegate '.short_description_link', 'click', ->
     $(this).siblings('.short_description').toggle('slow')
+    $(this).siblings('.short_description_link').andSelf().toggle()
     false
 
   $('.draggable_box').draggable
