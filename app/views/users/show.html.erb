@@ -15,7 +15,7 @@
 
 
 <% if current_user? @user %>
-  <div id="user_options">
+  <div class="management_options">
     <%= button_to 'Edit', edit_user_path(@user),
                 class: "btn primary", method: :get %>
     <%= button_to 'Delete', @user,

@@ -8,7 +8,6 @@
     <th>Status</th>
     <th>Priority</th>
     <th>Estimation</th>
-    <th></th>
   </tr>
 
 <% @user_stories.each do |user_story| %>
@@ -17,7 +16,6 @@
     <td><%= user_story.status %></td>
     <td><%= user_story.priority %></td>
     <td><%= user_story.estimation %></td>
-    <td><%= button_to 'Edit', edit_user_story_path(user_story), method: :get, class: "btn" %></td>
   </tr>
 <% end %>
 </table>
