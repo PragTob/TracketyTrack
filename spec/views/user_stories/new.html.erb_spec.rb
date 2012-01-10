@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe "user_stories/new" do
+
   before(:each) do
     @user_story = Factory(:user_story)
     @users = [Factory(:user)]
   end
+
+  let(:page) { Capybara::Node::Simple.new(rendered) }
 
   it "renders new user_story form" do
     render
@@ -18,5 +21,11 @@ describe "user_stories/new" do
       assert_select "select#user_story_users", name: "user_story[users]"
     end
   end
+
+  it "displays a checkbox" do
+    render
+    page.has_unchecked_field?("user_story_requesting_feedback")
+  end
+
 end
 

@@ -49,6 +49,10 @@ class UserStory < ActiveRecord::Base
     self.where status: UserStory::ACTIVE
   end
 
+  def self.requesting_feedback
+    self.where status: OPEN_STATUSES, requesting_feedback: true
+  end
+
   def self. deleted
     self.where status: UserStory::DELETED
   end

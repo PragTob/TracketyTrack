@@ -48,6 +48,15 @@
         <% end %>
         <%= button_to 'Edit', edit_user_story_path(@user_story),
                   class: "btn", method: :get %>
+        <% if @user_story.requesting_feedback %>
+          <%= button_to 'Stop Requesting Feedback', {controller: 'user_stories',
+                        action: 'stop_requesting_feedback', id: @user_story.id },
+                        class: 'btn' %>
+        <% else %>
+          <%= button_to 'Request Feedback', {controller: 'user_stories',
+                        action: 'request_feedback', id: @user_story.id },
+                        class: 'btn' %>
+        <% end %>
       </div>
     </div>
   </div>
