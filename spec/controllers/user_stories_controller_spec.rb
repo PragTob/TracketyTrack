@@ -262,7 +262,6 @@ describe UserStoriesController do
         UserStory.find(@user_story.id).users.should == [@user]
       end
 
-      # TODO fix this shit!!!!!
       it "sets the start date to the current date" do
         UserStory.find(@user_story.id).start_time.to_i.should eq @time.to_i
       end
@@ -371,6 +370,22 @@ describe UserStoriesController do
         response.should redirect_to(user_stories_url)
       end
     end
+
+    describe "POST request_feedback" do
+      it "requests for feedback" do
+        post :request_feedback, id: @user_story.id
+        UserStory.find(@user_story.id).requesting_feedback.should eq true
+      end
+    end
+
+    describe "POST stop_requesting_feedback" do
+      it "stops requesting for feedback" do
+        @user_story.update_attributes(requesting_feedback: true)
+        post :stop_requesting_feedback, id: @user_story.id
+        UserStory.find(@user_story.id).requesting_feedback.should eq false
+      end
+    end
+
   end
 
   describe "No action should be accessible without a logged in user" do

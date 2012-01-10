@@ -136,6 +136,18 @@ class UserStoriesController < ApplicationController
     redirect_to current_sprint_path
   end
 
+  def request_feedback
+    @user_story = UserStory.find(params[:id])
+    @user_story.update_attributes(requesting_feedback: true)
+    redirect_to @user_story
+  end
+
+  def stop_requesting_feedback
+    @user_story = UserStory.find(params[:id])
+    @user_story.update_attributes(requesting_feedback: false)
+    redirect_to @user_story
+  end
+
   def assign_sprint
     set_sprint(params[:id], current_sprint)
     render partial: 'sprints/current_sprint_user_stories',
