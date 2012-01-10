@@ -29,5 +29,13 @@ describe "user_stories/show" do
     rendered.should match("No user assigned")
   end
 
+  it "renders comments even without a user" do
+    @comment = Factory.build :comment
+    @user_story.comments  << @comment
+    render
+    rendered.should match @comment.content
+    rendered.should match /Deleted User/i
+  end
+
 end
 

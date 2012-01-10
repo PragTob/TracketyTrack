@@ -32,14 +32,16 @@
   </div>
   <div class="clearfix">
     <%= f.label :priority %>
-    <div class="input">
-      <%= f.text_field :priority, :class => 'span2' %>
+    <div class="input span6">
+      <%= f.text_field :priority, class: 'span2 input_numeric' %>
+      <div class="numeric_validation_error">Priority has to be numeric!</div>
     </div>
   </div>
   <div class="clearfix">
     <%= f.label :estimation %>
-    <div class="input">
-      <%= f.text_field :estimation, :class => 'span2' %>
+    <div class="input span6">
+      <%= f.text_field :estimation, class: 'span2 input_numeric' %>
+      <div class="numeric_validation_error">Estimation has to be numeric!</div>
     </div>
   </div>
   <% unless @user_story.new_record? %>

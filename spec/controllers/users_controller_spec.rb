@@ -177,15 +177,52 @@ describe UsersController do
 
     describe "DELETE destroy" do
 
-      it "destroys the requested user" do
-        expect {
-          delete :destroy, :id => @user.id
-        }.to change(User, :count).by(-1)
+      before :each do
+        controller.stub(current_project: Factory.build(:project))
       end
 
-      it "redirects to the users list" do
-        delete :destroy, :id => @user.id
-        response.should redirect_to(users_url)
+      describe "destroy yourself" do
+
+        before :each do
+          test_sign_in @user
+        end
+
+        it "destroys the requested user" do
+          expect {
+            delete :destroy, :id => @user.id
+          }.to change(User, :count).by(-1)
+        end
+
+        it "redirects to the root url (so you can register again)" do
+          delete :destroy, :id => @user.id
+          response.should redirect_to(root_url)
+        end
+
+      end
+
+      describe "try to destroy somebody else" do
+
+        before :each do
+          @other_user = Factory :other_user
+          test_sign_in @other_user
+        end
+
+        it "does not destroy the requested user" do
+          expect {
+            delete :destroy, :id => @user.id
+          }.to change(User, :count).by(0)
+        end
+
+        it "renders the show page of the requested user" do
+          delete :destroy, :id => @user.id
+          response.should redirect_to user_url(@user)
+        end
+
+        it "displays an error message" do
+          delete :destroy, :id => @user.id
+          flash[:error].should match /permission/i
+        end
+
       end
 
     end
