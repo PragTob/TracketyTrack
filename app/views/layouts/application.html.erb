@@ -32,7 +32,7 @@
           <% if signed_in? %>
             <%= form_for(:session, url: signout_path, html: {class: "pull-right"}) do |f| %>
                 <div class="current_account">
-                  <%= mini_gravator_for(current_user)%>
+                  <%= mini_gravatar_for(current_user)%>
                   <%= link_to current_user.name, current_user %>
                 </div>
                 <%= f.submit "Logout" %>

@@ -186,14 +186,14 @@ describe SprintsController do
 
     end
 
-    describe "PUT stop" do
+    describe "POST stop" do
 
       before :each do
         @sprint = Factory(:sprint, end_date: DateTime.now - 1)
         @project.current_sprint = @sprint
         @time = DateTime.now
         Timecop.freeze(@time)
-        put :stop
+        post :stop
       end
 
       it "sets the end date of the current sprint to the actual date" do

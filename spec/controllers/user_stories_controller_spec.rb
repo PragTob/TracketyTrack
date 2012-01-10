@@ -247,7 +247,7 @@ describe UserStoriesController do
       end
     end
 
-    describe "PUT start" do
+    describe "POST start" do
       before do
         @user = Factory(:user)
         test_sign_in @user
@@ -256,7 +256,7 @@ describe UserStoriesController do
       before :each do
         @time = DateTime.now
         Timecop.freeze @time
-        put :start, id:  @user_story.id
+        post :start, id:  @user_story.id
       end
 
       it "changes user story status to active" do
@@ -277,7 +277,7 @@ describe UserStoriesController do
       end
     end
 
-    describe "PUT pause" do
+    describe "POST pause" do
 
       before :each do
         @user = Factory(:user)
@@ -293,13 +293,13 @@ describe UserStoriesController do
         end
 
         it "changes user story status to suspended" do
-          put :pause, id: @user_story.id
+          post :pause, id: @user_story.id
           UserStory.find(@user_story.id).status.should == "suspended"
         end
 
         it "updates the work effort" do
           UserStory.any_instance.should_receive(:set_new_work_effort)
-          put :pause, id: @user_story.id
+          post :pause, id: @user_story.id
         end
 
       end
@@ -308,55 +308,55 @@ describe UserStoriesController do
       it "can only be suspended by a user that is working on the story" do
         another_user = Factory(:other_user)
         previous_status = @user_story.status
-        put :pause, id: @user_story.id
+        post :pause, id: @user_story.id
         UserStory.find(@user_story.id).status.should == previous_status
       end
 
       it "redirect to current sprint" do
-        put :pause, id: @user_story.id
+        post :pause, id: @user_story.id
         response.should redirect_to current_sprint_path
       end
     end
 
-    describe "PUT complete" do
+    describe "POST complete" do
 
       before do
         UserStory.any_instance.stub(:set_new_work_effort)
       end
 
       it "changes user story status to completed" do
-        put :complete, id: @user_story.id
+        post :complete, id: @user_story.id
         UserStory.find(@user_story.id).status.should == "completed"
       end
 
       it "updates the work effort" do
         UserStory.any_instance.should_receive(:set_new_work_effort)
-        put :complete, id: @user_story.id
+        post :complete, id: @user_story.id
       end
 
       it "redirects to current sprint" do
-        put :complete, id: @user_story.id
+        post :complete, id: @user_story.id
         response.should redirect_to current_sprint_path
       end
 
     end
 
-    describe "PUT assign_sprint" do
+    describe "POST assign_sprint" do
 
       it "assignes the user story to the current sprint" do
         @sprint = Factory(:sprint)
         @project = Factory(:project, current_sprint: @sprint)
-        put :assign_sprint, id: @user_story.id
+        post :assign_sprint, id: @user_story.id
         UserStory.find(@user_story.id).sprint.should eq @project.current_sprint
       end
 
     end
 
-    describe "PUT unassign_sprint" do
+    describe "POST unassign_sprint" do
       it "unassignes the user story" do
         @sprint = Factory(:sprint)
         @user_story.update_attributes(sprint: @sprint)
-        put :unassign_sprint, id: @user_story.id
+        post :unassign_sprint, id: @user_story.id
         UserStory.find(@user_story.id).sprint.should be_nil
       end
     end

@@ -4,13 +4,13 @@ TracketyTrack::Application.routes.draw do
   resources :comments
 
 #  put "sprints/start"
-  put "sprints/stop"
+  post "sprints/stop"
 
   resources :sprints
 
-  put "user_stories/start"
-  put "user_stories/pause"
-  put "user_stories/complete"
+  post "user_stories/start"
+  post "user_stories/pause"
+  post "user_stories/complete"
   post "user_stories/assign_sprint"
   post "user_stories/unassign_sprint"
   post "users/accept_user"
