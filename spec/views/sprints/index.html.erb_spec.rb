@@ -17,8 +17,7 @@ describe "sprints/index" do
 
   it "renders a list of sprints" do
     render
-    assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => 'Sprint 1', :count => 2
   end
 
 end
