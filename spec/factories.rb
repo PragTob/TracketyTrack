@@ -24,6 +24,7 @@ FactoryGirl.define do
   factory :other_user, class: "user" do |user|
     user.name                   "Bob"
     user.email                  "bobbie@example.com"
+    user.description            "I am different"
     user.password               "12345678"
     user.password_confirmation  "12345678"
     user.accepted               true

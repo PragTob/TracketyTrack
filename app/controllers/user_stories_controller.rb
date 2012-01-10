@@ -57,7 +57,7 @@ class UserStoriesController < ApplicationController
 
   def edit
     @user_story = UserStory.find(params[:id])
-    @users = User.all
+    @users = User.accepted_users
     @days, @hours, @minutes, @seconds = @user_story.split_work_effort
   end
 
