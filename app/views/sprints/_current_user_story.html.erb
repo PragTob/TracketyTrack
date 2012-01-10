@@ -31,19 +31,17 @@
       <%= link_to 'Show', user_story %> |
       <%= link_to 'Edit', edit_user_story_path(user_story) %>
     </div>
-    <div class="span70">
-      <%= button_to "Complete", {controller: 'user_stories', action: 'complete',
-      id: user_story.id }, class: 'btn success' %>
-    </div>
     <div class="span8">
       <% case user_story.status %>
       <% when "active" %>
-        <%= button_to "Pause", {controller: 'user_stories', action: 'pause',
-        id: user_story.id}, class: 'btn' %>
+        <%= render partial: 'user_stories/pause_button',
+                   locals: { user_story: user_story } %>
       <% when "suspended" %>
-        <%= button_to "Continue", {controller: 'user_stories', action: 'start',
-        id: user_story.id }, class: 'btn' %>
+        <%= render partial: 'user_stories/continue_button',
+                   locals: { user_story: user_story } %>
       <% end %>
+      <%= render partial: 'user_stories/complete_button',
+                 locals: { user_story: user_story } %>
     </div>
     <div class="span2">
 
