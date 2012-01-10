@@ -5,8 +5,32 @@ $(document).ready ->
   $('#user_story_userlist .tooltip').twipsy(offset: -12)
   $('#userstory_info_box .tooltip').twipsy(offset: 15)
 
+  #user story buttons
+  $(".pause_button").button({
+    icons: {
+      primary: "ui-icon-pause"
+    },
+    text: false
+  })
+  $(".continue_button").button({
+    icons: {
+      primary: "ui-icon-play"
+    },
+    text: false
+  })
+  $(".complete_button").button({
+    icons: {
+      primary: "ui-icon-check"
+    }
+  })
+  $(".restart_button").button({
+    icons: {
+      primary: "ui-icon-play"
+    }
+  })
+
   $('.user_stories_container').delegate '.short_description_link', 'click', ->
-    $(this).siblings('.short_description').toggle('slow')
+    $(this).parent().parent().find('.short_description').toggle('slow')
     $(this).siblings('.short_description_link').andSelf().toggle()
     false
 

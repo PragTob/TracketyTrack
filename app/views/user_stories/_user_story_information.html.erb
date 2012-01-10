@@ -1,12 +1,10 @@
 
-<%= link_to user_story.name, user_story_path(user_story), target:"_blank" %>
-<% user_story.users.each do |user| %>
-  <%= link_to tooltip_gravatar_for(user, size: 20), user %>
-<% end %>
+<div class="user_story_box_name">
+  <%= link_to user_story.name, user_story_path(user_story), target:"_blank" %>
+</div>
+
 <div class='short_description' style="display: none">
   <%= user_story.short_description %>
+  (<%= link_to "See all", user_story_path(user_story), target:"_blank" %>)
 </div>
-<br />
-<%= link_to 'more...', '#', class: 'short_description_link' %>
-<%= link_to 'less', '#', class: 'short_description_link', style: "display:none" %>
 
