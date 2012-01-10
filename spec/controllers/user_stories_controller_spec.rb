@@ -71,6 +71,14 @@ describe UserStoriesController do
       end
     end
 
+    describe "GET requesting_feedback_list" do
+      it "assigns only the stories requesting feedback" do
+        other_story = Factory :user_story, requesting_feedback: true
+        get :requesting_feedback_list
+        assigns(:user_stories).should eq [other_story]
+      end
+    end
+
     describe "GET show" do
 
       before :each do
@@ -221,19 +229,6 @@ describe UserStoriesController do
       end
 
     end
-
-#    describe "DELETE destroy" do
-#      it "destroys the requested user_story" do
-#        expect {
-#          delete :destroy, id: @user_story.id
-#        }.to change(UserStory, :count).by(-1)
-#      end
-
-#      it "redirects to the user_stories list" do
-#        delete :destroy, id: @user_story.id
-#        response.should redirect_to(user_stories_url)
-#      end
-#    end
 
     describe "DELETE destroy" do
       it "changes the user stories status to deleted" do

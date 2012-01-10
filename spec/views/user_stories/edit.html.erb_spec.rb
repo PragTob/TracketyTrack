@@ -45,5 +45,10 @@ describe "user_stories/edit" do
      page.has_select?("user_story_users", options: @users.map(&:name)).should be true
    end
 
+   it "displays a checkbox" do
+     render
+     page.has_unchecked_field?("user_story_requesting_feedback")
+   end
+
 end
 

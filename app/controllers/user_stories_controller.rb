@@ -45,6 +45,12 @@ class UserStoriesController < ApplicationController
     render 'index'
   end
 
+  def requesting_feedback_list
+    @title = "Requesting Feedback"
+    @user_stories = UserStory.requesting_feedback
+    render 'index'
+  end
+
   def show
     @user_story = UserStory.find(params[:id])
     @comment = Comment.new

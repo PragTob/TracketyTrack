@@ -30,6 +30,8 @@ TracketyTrack::Application.routes.draw do
                               as: :non_estimated_list
   get "/deleted_list",         to: 'user_stories#deleted_list',
                               as: :deleted_list
+  get"/requesting_feedback_list", to: 'user_stories#requesting_feedback_list',
+                                  as: :requesting_feedback_list
 
 
   root to: "sprints#current_sprint_overview"
