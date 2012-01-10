@@ -2,10 +2,12 @@
 <table class="bordered-table zebra-striped">
   <tr>
     <th class="span6">Name</th>
-    <th>Email</th>
+    <th class="span6">Email</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
+    <% if type == :accept %>
+      <th></th>
+      <th></th>
+    <% end %>
   </tr>
 <% if type == :accept
   users_to_render = @unaccepted_users
@@ -15,12 +17,10 @@ end %>
 
 <% users_to_render.each do |user| %>
   <tr>
-    <td><%= user.name %></td>
+    <td><%= link_to user.name, user %></td>
     <td><%= user.email %></td>
     <td><%= user.description %></td>
-    <% if type == :index %>
-      <%= render partial: 'index_buttons', locals: { user: user} %>
-    <% else %>
+    <% if type == :accept %>
       <%= render partial: 'accept_buttons', locals: { user: user} %>
     <% end %>
   </tr>
