@@ -49,3 +49,12 @@ h1 a {
   left:-3px;
 }
 
+.management_options {
+  margin:20px 0px;
+}
+
+.management_options .btn {
+  float:left;
+  margin-right:10px;
+}
+
