@@ -40,9 +40,6 @@ module TravisHelper
         repo_name
       else
         nil
-      rescue
-        puts "WWWOOOAAAHHH ERROR"
-        nil
       end
     rescue SocketError
       logger.error "No internet connection?"
