@@ -1,0 +1,4 @@
+<%= link_to button_tag("Complete", {class: 'complete_button'}),
+                {controller: 'user_stories', action: 'complete',
+                 id: user_story.id }, {:method => :post } %>
+

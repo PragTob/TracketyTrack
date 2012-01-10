@@ -16,20 +16,22 @@
     <% case user_story.status %>
     <% when "active" %>
       <% if user_story.users.include? current_user %>
-        <button class="pause_button"></button>
+        <%= render partial: 'user_stories/pause_button',
+                 locals: { user_story: user_story } %>
       <% end %>
-      <button class="complete_button">Complete</button>
+      <%= render partial: 'user_stories/complete_button',
+                 locals: { user_story: user_story } %>
     <% when "inactive" %>
-      <div class="start_button">
-        <%= button_to "Start", {controller: 'user_stories', action: 'start',
-                                id: user_story.id }, class: 'btn success' %>
-      </div>
+      <%= render partial: 'user_stories/start_button',
+                 locals: { user_story: user_story } %>
     <% when "completed" %>
-      <button class="restart_button">Restart</button>
+      <%= render partial: 'user_stories/restart_button',
+                 locals: { user_story: user_story } %>
     <% when "suspended" %>
-      <button class="continue_button"></button>
-      <button class="complete_button">Complete</button>
-
+      <%= render partial: 'user_stories/continue_button',
+                 locals: { user_story: user_story } %>
+      <%= render partial: 'user_stories/complete_button',
+                 locals: { user_story: user_story } %>
     <% end %>
   </div>
 
@@ -43,24 +45,5 @@
       <%= link_to 'Hide Description', '#' %>
     </div>
   </div>
-  <% case user_story.status %>
-  <% when "active" %>
-    <div class="completebutton"><%= button_to "Complete", {controller: 'user_stories', action: 'complete',
-    id: user_story.id }, class: 'btn success' %></div>
-
-      <div class="pausebutton"><%= button_to "Pause", {controller: 'user_stories', action: 'pause', id: user_story.id}, class: 'btn primary' %></div>
-
-
-  <% when "inactive" %>
-    <div class="startbutton"><%= button_to "Start", {controller: 'user_stories', action: 'start', id: user_story.id }, class: 'btn success' %></div>
-
-  <% when "completed" %>
-    <div class="restartbutton"><%= button_to "Restart", {controller: 'user_stories', action: 'start', id: user_story.id }, class: 'btn primary' %></div>
-
-  <% when "suspended" %>
-    <div class="continuebutton"><%= button_to "Continue", {controller: 'user_stories', action: 'start', id: user_story.id }, class: 'btn primary' %></div>
-  <% end %>
-
-
 </div>
 
