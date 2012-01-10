@@ -63,5 +63,9 @@ FactoryGirl.define do
     comment.date        DateTime.strptime('2004-10-04T04:05:06+01:00', '%Y-%m-%dT%H:%M:%S%z')
   end
 
+  factory :project_settings do |setting|
+    setting.travis_ci_repo  false
+  end
+
 end
 
