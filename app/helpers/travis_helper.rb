@@ -23,6 +23,9 @@ module TravisHelper
       # no internet connection
       rescue SocketError
         nil
+      rescue
+        puts "WWWOOOAAAHHH ERROR"
+        nil
       end
     end
   end
