@@ -8,7 +8,6 @@
     <th>Velocity</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @sprints.each do |sprint| %>
@@ -19,8 +18,6 @@
     <td><%= sprint.velocity %></td>
     <td><%= button_to 'Show', sprint, method: :get, class: "btn" %></td>
     <td><%= button_to 'Edit', edit_sprint_path(sprint), method: :get, class: "btn" %></td>
-    <td><%= button_to 'Delete', sprint,
-              confirm: 'Are you sure?', method: :delete, class: "btn" %></td>
   </tr>
 <% end %>
 </table>
