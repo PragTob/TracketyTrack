@@ -145,6 +145,12 @@ describe UserStoriesController do
             post :create, user_story: { name: "A user story" }
           }.to change(UserStory, :count).by(1)
         end
+
+        it "redirects to the sprint planning path if it comes from there" do
+          controller.request.stub(referrer: sprint_planning_url)
+          post :create, user_story: valid_attributes
+          response.should redirect_to sprint_planning_path
+        end
       end
 
       describe "with invalid params" do
