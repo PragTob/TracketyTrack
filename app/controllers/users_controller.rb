@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   before_filter :only_current_user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all
-    @unaccepted_users = User.find_all_by_accepted(false)
+    @users = User.accepted_users
+    @unaccepted_users = User.unaccepted_users
   end
 
   def show

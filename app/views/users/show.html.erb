@@ -15,8 +15,12 @@
 
 
 <% if current_user? @user %>
-  <%= button_to 'Edit', edit_user_path(@user),
+  <div id="user_options">
+    <%= button_to 'Edit', edit_user_path(@user),
                 class: "btn primary", method: :get %>
+    <%= button_to 'Delete', @user,
+              confirm: 'Are you sure?', method: :delete, class: "btn danger" %>
+  </div>
 <% end %>
   </div>
   <div class="clearfix"></div>

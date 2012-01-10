@@ -13,8 +13,11 @@ TracketyTrack::Application.routes.draw do
   post "user_stories/complete"
   post "user_stories/assign_sprint"
   post "user_stories/unassign_sprint"
-  post "users/accept_user"
   post "user_stories/resurrect"
+  post "user_stories/request_feedback"
+  post "user_stories/stop_requesting_feedback"
+
+  post "users/accept_user"
 
   get "accept_users", to: "users#accept", as: :accept
 
@@ -30,6 +33,8 @@ TracketyTrack::Application.routes.draw do
                               as: :non_estimated_list
   get "/deleted_list",         to: 'user_stories#deleted_list',
                               as: :deleted_list
+  get"/requesting_feedback_list", to: 'user_stories#requesting_feedback_list',
+                                  as: :requesting_feedback_list
 
 
   root to: "sprints#current_sprint_overview"

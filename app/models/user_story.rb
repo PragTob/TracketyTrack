@@ -49,6 +49,10 @@ class UserStory < ActiveRecord::Base
     self.where status: UserStory::ACTIVE
   end
 
+  def self.requesting_feedback
+    self.where status: OPEN_STATUSES, requesting_feedback: true
+  end
+
   def self. deleted
     self.where status: UserStory::DELETED
   end
@@ -58,7 +62,9 @@ class UserStory < ActiveRecord::Base
   end
 
   def short_name
-    self.name[0..40]
+    short = self.name[0..35]
+    short += "..." if self.name.size>36
+    short
   end
 
   def set_new_work_effort

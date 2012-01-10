@@ -71,6 +71,14 @@ describe UserStoriesController do
       end
     end
 
+    describe "GET requesting_feedback_list" do
+      it "assigns only the stories requesting feedback" do
+        other_story = Factory :user_story, requesting_feedback: true
+        get :requesting_feedback_list
+        assigns(:user_stories).should eq [other_story]
+      end
+    end
+
     describe "GET show" do
 
       before :each do
@@ -222,19 +230,6 @@ describe UserStoriesController do
 
     end
 
-#    describe "DELETE destroy" do
-#      it "destroys the requested user_story" do
-#        expect {
-#          delete :destroy, id: @user_story.id
-#        }.to change(UserStory, :count).by(-1)
-#      end
-
-#      it "redirects to the user_stories list" do
-#        delete :destroy, id: @user_story.id
-#        response.should redirect_to(user_stories_url)
-#      end
-#    end
-
     describe "DELETE destroy" do
       it "changes the user stories status to deleted" do
         delete :destroy, id: @user_story.id
@@ -267,7 +262,6 @@ describe UserStoriesController do
         UserStory.find(@user_story.id).users.should == [@user]
       end
 
-      # TODO fix this shit!!!!!
       it "sets the start date to the current date" do
         UserStory.find(@user_story.id).start_time.to_i.should eq @time.to_i
       end
@@ -376,6 +370,22 @@ describe UserStoriesController do
         response.should redirect_to(user_stories_url)
       end
     end
+
+    describe "POST request_feedback" do
+      it "requests for feedback" do
+        post :request_feedback, id: @user_story.id
+        UserStory.find(@user_story.id).requesting_feedback.should eq true
+      end
+    end
+
+    describe "POST stop_requesting_feedback" do
+      it "stops requesting for feedback" do
+        @user_story.update_attributes(requesting_feedback: true)
+        post :stop_requesting_feedback, id: @user_story.id
+        UserStory.find(@user_story.id).requesting_feedback.should eq false
+      end
+    end
+
   end
 
   describe "No action should be accessible without a logged in user" do

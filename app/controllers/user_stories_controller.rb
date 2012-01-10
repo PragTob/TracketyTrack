@@ -45,6 +45,12 @@ class UserStoriesController < ApplicationController
     render 'index'
   end
 
+  def requesting_feedback_list
+    @title = "Requesting Feedback"
+    @user_stories = UserStory.requesting_feedback
+    render 'index'
+  end
+
   def show
     @user_story = UserStory.find(params[:id])
     @comment = Comment.new
@@ -57,7 +63,7 @@ class UserStoriesController < ApplicationController
 
   def edit
     @user_story = UserStory.find(params[:id])
-    @users = User.all
+    @users = User.accepted_users
     @days, @hours, @minutes, @seconds = @user_story.split_work_effort
   end
 
@@ -128,6 +134,18 @@ class UserStoriesController < ApplicationController
     @user_story.complete
 
     redirect_to current_sprint_path
+  end
+
+  def request_feedback
+    @user_story = UserStory.find(params[:id])
+    @user_story.update_attributes(requesting_feedback: true)
+    redirect_to @user_story
+  end
+
+  def stop_requesting_feedback
+    @user_story = UserStory.find(params[:id])
+    @user_story.update_attributes(requesting_feedback: false)
+    redirect_to @user_story
   end
 
   def assign_sprint
