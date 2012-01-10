@@ -1,5 +1,10 @@
 <div class="user_story_box draggable_box" id="userstory-<%= user_story.id %>">
-  <div class="transferbutton ui-corner-all"><span class="ui-icon ui-icon-transfer-e-w"></span></div>
-  <%= render partial: 'user_stories/user_story_information', locals: { user_story: user_story } %>
+  <div class="transferbutton ui-corner-all" id="transfer-<%= user_story.id%>">
+    <span class="ui-icon ui-icon-transfer-e-w"></span>
+  </div>
+  <div class="user_story_planning_box_content">
+    <%= render partial: 'user_stories/user_story_information',
+               locals: { user_story: user_story } %>
+  </div>
 </div>
 
