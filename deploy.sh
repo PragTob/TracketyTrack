@@ -5,4 +5,5 @@ git add .
 git commit -am "Freshly compiled assets for your heroku pleasure"
 git push origin heroku_assets
 git push heroku heroku_assets:master
+heroku run rake db:migrate
 
