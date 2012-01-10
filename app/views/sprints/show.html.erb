@@ -1,3 +1,5 @@
+<%= link_to '<< Sprint Overview', sprints_path%>
+
 <h2>Sprint  <%= @sprint.number %></h2>
 <div id="project_description_text">
   <%= @sprint.description %>
@@ -51,9 +53,7 @@
 <div class="management_options">
   <%= button_to 'Edit', edit_sprint_path(@sprint),
                 class: "btn", method: :get %>
-  <%= button_to 'Sprint Overview', sprints_path,
-                class: "btn", method: :get %>
-   <%= button_to 'Delete', @sprint,
+  <%= button_to 'Delete', @sprint,
                 confirm: 'Are you sure?', method: :delete, class: "btn danger" %>
 </div>
 
