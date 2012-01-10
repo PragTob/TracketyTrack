@@ -1,8 +1,18 @@
+require_relative 'null/deleted_user'
+
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :user_story
 
   validates :date, presence: true
+
+  def user
+    if commenter = super
+      commenter
+    else
+      DeletedUser.new
+    end
+  end
 
 end
 

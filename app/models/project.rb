@@ -1,3 +1,5 @@
+require_relative 'null/null_sprint'
+
 class ProjectValidator < ActiveModel::Validator
   def validate(record)
     if Project.count >= 1
