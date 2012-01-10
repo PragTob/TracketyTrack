@@ -102,6 +102,23 @@ describe User do
 
   end
 
+  describe "collections of users from the class level" do
+
+    before :each do
+      @accepted_user = Factory :user, accepted: true
+      @unaccepted_user = Factory :other_user, accepted: false
+    end
+
+    it "returns accepted users with accepted_users" do
+      User.accepted_users.should eq [@accepted_user]
+    end
+
+    it "returns unaccepted users with unaccepted_users" do
+      User.unaccepted_users.should eq [@unaccepted_user]
+    end
+
+  end
+
   describe "user stories" do
 
     before :each do

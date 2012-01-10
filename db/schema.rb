@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108193915) do
+ActiveRecord::Schema.define(:version => 20120109195145) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_story_id"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(:version => 20120108193915) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "project_settings", :force => true do |t|
+    t.string   "travis_ci_repo"
+    t.datetime "travis_last_updated"
+    t.integer  "project_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "projects", :force => true do |t|

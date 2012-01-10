@@ -1,6 +1,5 @@
 class SprintsController < ApplicationController
   include SprintsHelper
-  include TravisHelper
 
   dashboard_actions = [:current_sprint_overview, :sprint_planning]
   before_filter :authenticate, except: dashboard_actions
@@ -89,10 +88,7 @@ class SprintsController < ApplicationController
   end
 
   def travis_repo
-    if current_project.repository_url
-      @travis_repo = travis_repo_from current_project.repository_url
-    end
+    @travis_repo = current_project.project_settings.travis_ci_repo
   end
-
 end
 

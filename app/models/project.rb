@@ -12,6 +12,13 @@ end
 class Project < ActiveRecord::Base
   include ActiveModel::Validations
 
+  has_one :project_settings
+  after_initialize :init
+
+  def init
+    self.project_settings = ProjectSettings.new unless project_settings
+  end
+
   def current_sprint
     if has_current_sprint?
       Sprint.find(current_sprint_id)

@@ -7,7 +7,8 @@ describe "user_stories/edit" do
   before(:each) do
     @user_story = Factory(:user_story)
     @user = Factory(:user)
-    @users = [@user, Factory(:other_user)]
+    @other_user = Factory(:other_user)
+    @users = [@user, @other_user]
   end
 
   it "renders the edit user_story form" do
@@ -37,6 +38,16 @@ describe "user_stories/edit" do
      render
 
      page.has_select?("user_story_users", selected: @users.map(&:name)).should be true
+   end
+
+   it "displays the users" do
+     render
+     page.has_select?("user_story_users", options: @users.map(&:name)).should be true
+   end
+
+   it "displays a checkbox" do
+     render
+     page.has_unchecked_field?("user_story_requesting_feedback")
    end
 
 end

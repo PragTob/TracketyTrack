@@ -1,22 +1,49 @@
 <div class="user_story_box">
-  <% case user_story.status %>
-  <% when "active" %>
-    <div class="completebutton"><%= button_to "Complete", {controller: 'user_stories', action: 'complete',
-    id: user_story.id }, class: 'btn success' %></div>
-    <% if user_story.users.include? current_user %>
-      <div class="pausebutton"><%= button_to "Pause", {controller: 'user_stories', action: 'pause', id: user_story.id}, class: 'btn primary' %></div>
+  <div class="user_story_box_users">
+    <% user_story.users.each do |user| %>
+      <div class="user_story_box_gravatar">
+        <%= link_to tooltip_gravatar_for(user, size: 20), user %>
+      </div>
     <% end %>
+  </div>
 
-  <% when "inactive" %>
-    <div class="startbutton"><%= button_to "Start", {controller: 'user_stories', action: 'start', id: user_story.id }, class: 'btn success' %></div>
+  <div class="user_story_box_information">
+    <%= render partial: 'user_stories/user_story_information',
+               locals: { user_story: user_story } %>
+  </div>
 
-  <% when "completed" %>
-    <div class="restartbutton"><%= button_to "Restart", {controller: 'user_stories', action: 'start', id: user_story.id }, class: 'btn primary' %></div>
+  <div class="user_story_box_options">
+    <% case user_story.status %>
+    <% when "active" %>
+      <% if user_story.users.include? current_user %>
+        <%= render partial: 'user_stories/pause_button',
+                 locals: { user_story: user_story } %>
+      <% end %>
+      <%= render partial: 'user_stories/complete_button',
+                 locals: { user_story: user_story } %>
+    <% when "inactive" %>
+      <%= render partial: 'user_stories/start_button',
+                 locals: { user_story: user_story } %>
+    <% when "completed" %>
+      <%= render partial: 'user_stories/restart_button',
+                 locals: { user_story: user_story } %>
+    <% when "suspended" %>
+      <%= render partial: 'user_stories/continue_button',
+                 locals: { user_story: user_story } %>
+      <%= render partial: 'user_stories/complete_button',
+                 locals: { user_story: user_story } %>
+    <% end %>
+  </div>
 
-  <% when "suspended" %>
-    <div class="continuebutton"><%= button_to "Continue", {controller: 'user_stories', action: 'start', id: user_story.id }, class: 'btn primary' %></div>
-  <% end %>
-
-  <%= render partial: 'user_stories/user_story_information', locals: { user_story: user_story } %>
+  <div class="expand_link">
+    <div class="short_description_link">
+      <span class="ui-icon ui-icon-carat-1-s"></span>
+      <%= link_to 'Show Description', '#' %>
+    </div>
+    <div class="short_description_link" style="display:none">
+      <span class="ui-icon ui-icon-carat-1-n"></span>
+      <%= link_to 'Hide Description', '#' %>
+    </div>
+  </div>
 </div>
 

@@ -9,6 +9,8 @@ describe "user_stories/show" do
     assign(:comment, Comment.new)
   end
 
+  let(:page) { Capybara::Node::Simple.new(rendered) }
+
   it "renders attributes in <p>" do
     render
     rendered.should match(@user_story.name)
@@ -35,6 +37,17 @@ describe "user_stories/show" do
     render
     rendered.should match @comment.content
     rendered.should match /Deleted User/i
+  end
+
+  it "has a button to request feedback" do
+    render
+    rendered.should match /Request Feedback/i
+  end
+
+  it "has a button to stop requesting feedback when, requesting feedback" do
+    @user_story.requesting_feedback = true
+    render
+    rendered.should match /Stop Requesting Feedback/i
   end
 
 end

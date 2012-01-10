@@ -120,12 +120,18 @@ describe Project do
     end
 
     context "when nil is given" do
-
       it "sets the current_sprint_id to nil" do
         @project.current_sprint = nil
         @project.current_sprint_id.should be_nil
       end
+    end
 
+  end
+
+  describe "project_settings" do
+
+    it "has project settings after being initialized" do
+      Project.new(title: "Title").project_settings.should_not be nil
     end
 
   end

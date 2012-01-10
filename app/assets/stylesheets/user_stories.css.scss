@@ -7,7 +7,7 @@
   padding:7px;
   margin-bottom:5px;
   position:relative;
-  min-height:50px;
+  min-height:65px;
   width:400px;
 }
 
@@ -15,24 +15,75 @@
   cursor:move;
 }
 
-.user_story_box .startbutton,
-.user_story_box .completebutton,
-.user_story_box .restartbutton,
-.user_story_box .continuebutton,
-.user_story_box .button {
+.user_story_box_options {
   position:absolute;
-  top:10px;
-  right:10px;
-  display:block;
+  right:5px;
+  bottom:7px;
+}
+.user_story_box_options a {
+  text-decoration:none;
 }
 
-// TODO: Basti check this and eventually make it more beautiful
-// besides what happens with long user story names?
-.user_story_box .pausebutton {
+.pause_button, .continue_button {
+  width:28px;
+  padding:5px;
+  float:left;
+  margin-right:5px;
+}
+
+.complete_button, .restart_button {
+  width:100px;
+  padding:5px;
+}
+.start_button{
+  width:80px;
+  padding:5px;
+}
+.complete_button .ui-icon, .restart_button .ui-icon, .start_button .ui-icon{
+  float:left;
+}
+
+.short_description_link .ui-icon {
+  float:left;
+  margin-right:5px;
+  margin-top:2px;
+}
+
+.user_story_box_users {
   position:absolute;
   top:10px;
-  right:110px;
-  display:block;
+  right:2px;
+  text-align:right;
+}
+
+.user_story_box_name {
+  font-weight:bold;
+  margin-bottom:8px;
+  width:300px;
+}
+.user_story_box_name a {
+  color:#444;
+}
+.transferbutton {
+  width:16px;
+  height:16px;
+  background-color:#fff;
+  border:1px solid #fff;
+  position:absolute;
+  top:25px;
+  cursor:pointer;
+}
+#box_current_sprint .transferbutton {
+  right:10px;
+}
+.short_description {
+  width:300px;
+  margin-bottom:30px;
+}
+.expand_link {
+  position:absolute;
+  left:10px;
+  bottom:10px;
 }
 
 // User Story Show Page

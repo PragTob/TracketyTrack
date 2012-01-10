@@ -24,6 +24,7 @@ FactoryGirl.define do
   factory :other_user, class: "user" do |user|
     user.name                   "Bob"
     user.email                  "bobbie@example.com"
+    user.description            "I am different"
     user.password               "12345678"
     user.password_confirmation  "12345678"
     user.accepted               true
@@ -61,6 +62,10 @@ FactoryGirl.define do
   factory :comment do |comment|
     comment.content     "This is a nicely implemented user story."
     comment.date        DateTime.strptime('2004-10-04T04:05:06+01:00', '%Y-%m-%dT%H:%M:%S%z')
+  end
+
+  factory :project_settings do |setting|
+    setting.travis_ci_repo  false
   end
 
 end
