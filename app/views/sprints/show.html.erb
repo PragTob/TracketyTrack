@@ -51,8 +51,12 @@
     </ul>
   <% end %>
 
-<%= button_to 'Edit', edit_sprint_path(@sprint),
-              class: "btn primary", method: :get %>
-<%= button_to 'Sprint Overview', sprints_path,
-              class: "btn primary", method: :get %>
+<div class="management_options">
+  <%= button_to 'Edit', edit_sprint_path(@sprint),
+                class: "btn primary", method: :get %>
+  <%= button_to 'Sprint Overview', sprints_path,
+                class: "btn primary", method: :get %>
+   <%= button_to 'Delete', @sprint,
+                confirm: 'Are you sure?', method: :delete, class: "btn danger" %>
+</div>
 

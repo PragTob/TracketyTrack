@@ -14,6 +14,12 @@
 .draggable_box {
   cursor:move;
 }
+#box_backlog .user_story_planning_box_content {
+  position:absolute;
+  top:5px;
+  left:35px;
+}
+
 
 .user_story_box_options {
   position:absolute;
@@ -110,13 +116,7 @@
   right:20px;
   text-align:right;
 }
-#user_story_options {
-  margin:20px 0px;
-}
-#user_story_options .btn {
-  float:left;
-  margin-right:10px;
-}
+
 ul.userlist {
 
 }

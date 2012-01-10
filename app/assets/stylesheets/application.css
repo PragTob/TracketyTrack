@@ -8,7 +8,9 @@
  *= require bootstrap
  *= require vendor
 */
-
+#main {
+  position:relative;
+}
 
 .header-space {
   height:40px;
@@ -45,5 +47,14 @@ h1 a {
   position:relative;
   top:5px;
   left:-3px;
+}
+
+.management_options {
+  margin:20px 0px;
+}
+
+.management_options .btn {
+  float:left;
+  margin-right:10px;
 }
 
