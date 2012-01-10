@@ -58,3 +58,14 @@ h1 a {
   margin-right:10px;
 }
 
+#project_container {
+  padding:25px;
+  background-color:#efefef;
+  width:400px;
+  margin-bottom:25px;
+}
+#project_description {
+  margin:15px 0px;
+  font-style:italic;
+}
+
