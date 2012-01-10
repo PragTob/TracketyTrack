@@ -13,7 +13,7 @@
 
   <div class="clearfix">
     <%= f.label :number, "Number*" %>
-    <div class="input">
+    <div class="input span6">
       <% if !@sprint.new_record?
         proposed_number = @sprint.number
       elsif @sprint.new_record? and !Sprint.all.empty?
@@ -21,7 +21,10 @@
       else
         proposed_number = 1
       end %>
-      <%= f.number_field :number, :class => 'span2', :value => proposed_number %>
+      <%= f.number_field :number, class: 'span2 input_numeric input_advice',
+                                  value: proposed_number,
+                                  title: proposed_number %>
+      <div class="numeric_validation_error">Number has to be numeric!</div>
     </div>
   </div>
 <!--  <div class="clearfix">
@@ -38,14 +41,17 @@
   </div> -->
   <div class="clearfix">
     <%= f.label :velocity %>
-    <div class="input">
+    <div class="input span6">
       <% if @sprint.new_record? and !Sprint.all.empty? and
       Sprint.last.actual_velocity > 0
         value = Sprint.last.actual_velocity.to_s
       else
         value = ""
       end %>
-      <%= f.number_field :velocity, :class => 'span2', :value => value %>
+      <%= f.number_field :velocity, class: 'span2 input_numeric input_advice',
+                                    value: value,
+                                    title: value %>
+      <div class="numeric_validation_error">Velocity has to be numeric!</div>
     </div>
   </div>
 

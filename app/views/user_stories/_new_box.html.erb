@@ -6,27 +6,30 @@
     </ul>
     <div id="tabs-1">
       <div id="userstory_new_box_content">
-      <%= form_for(@user_story) do |f| %>
+      <%= form_for @user_story, :html=> { class: 'input_advice_form' } do |f| %>
 
         <div id="userstory_new_box_column1">
 
           <%= f.text_field :name, id: 'userstory_name',
                                   value: 'Name*',
-                                  name: 'Name*',
-                                  class: "input_advice" %><br />
-          Priority: <%= f.text_field :priority, :class => 'span1' %>
-          Estimation: <%= f.text_field :estimation, :class => 'span1' %>
+                                  title: 'Name*',
+                                  class: 'input_advice' %>
+          <br />
+          Priority: <%= f.text_field :priority, class: 'span1 input_numeric_small' %>
+          Estimation: <%= f.text_field :estimation, class: 'span1 input_numeric_small' %>
         </div>
         <div id="userstory_new_box_column2">
-          <%= f.text_area :description, class: 'span4 input_advice',
-                                        value: 'Description',
-                                        name: 'Description' %>
+          <%= f.text_area :description,
+                          class: 'span4 input_advice',
+                          value: 'Description',
+                          title: 'Description' %>
 
         </div>
         <div id="userstory_new_box_column3">
-          <%= f.text_area :acceptance_criteria, class: 'span4 input_advice',
-                                                value: 'Acceptance Criteria',
-                                                name: 'Acceptance Criteria' %>
+          <%= f.text_area :acceptance_criteria,
+                          class: 'span4 input_advice',
+                          value: 'Acceptance Criteria',
+                          title: 'Acceptance Criteria' %>
         </div>
         <div id="userstory_button">
           <%= f.submit 'Save User Story', class: 'btn success' %>

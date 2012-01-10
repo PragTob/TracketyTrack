@@ -10,18 +10,6 @@ $(document).ready ->
     $(this).siblings('.short_description_link').andSelf().toggle()
     false
 
-  $('.input_advice').focus ->
-    if $(this).val() is '' or $(this).val() is $(this).attr('name')
-      $(this).val('')
-
-  $('.input_advice').blur ->
-    if $(this).val() is ''
-      $(this).val($(this).attr('name'))
-
-  $('.input_advice').submit ->
-    if $(this).val() is '' or $(this).val() is $(this).attr('name')
-      $(this).val('')
-
   $('.draggable_box').draggable
     revert: "invalid",
     cursor: "move",
