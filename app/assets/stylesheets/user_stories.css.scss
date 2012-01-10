@@ -10,32 +10,10 @@
   min-height:65px;
   width:400px;
 }
-//old
+
 .draggable_box {
   cursor:move;
 }
-
-.user_story_box .startbutton,
-.user_story_box .completebutton,
-.user_story_box .restartbutton,
-.user_story_box .continuebutton,
-.user_story_box .button {
-  position:absolute;
-  top:10px;
-  right:10px;
-  display:block;
-    display:none;
-}
-.user_story_box .pausebutton {
-  position:absolute;
-  top:10px;
-  right:110px;
-  display:block;
-  display:none;
-}
-// TODO: Basti check this and eventually make it more beautiful
-// besides what happens with long user story names?
-// old end
 
 .user_story_box_options {
   position:absolute;
@@ -57,7 +35,11 @@
   width:100px;
   padding:5px;
 }
-.complete_button .ui-icon, .restart_button .ui-icon{
+.start_button{
+  width:80px;
+  padding:5px;
+}
+.complete_button .ui-icon, .restart_button .ui-icon, .start_button .ui-icon{
   float:left;
 }
 

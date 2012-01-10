@@ -1,4 +1,4 @@
 <%= link_to button_tag("", {class: 'pause_button'}),
-                {controller: 'user_stories', action: 'pause',
-                 id: user_story.id }, {:method => :post } %>
+            {controller: 'user_stories', action: 'pause',
+            id: user_story.id }, {method: 'post', rel: 'complete-user_story'} %>
 

@@ -1,11 +1,4 @@
-$(document).ready ->
-
-  # tooltips
-  $('#dashboard_box .tooltip').twipsy(offset: 5)
-  $('#user_story_userlist .tooltip').twipsy(offset: -12)
-  $('#userstory_info_box .tooltip').twipsy(offset: 15)
-
-  #user story buttons
+makeJQuserStoryButtons = ->
   $(".pause_button").button({
     icons: {
       primary: "ui-icon-pause"
@@ -28,6 +21,20 @@ $(document).ready ->
       primary: "ui-icon-play"
     }
   })
+  $(".start_button").button({
+    icons: {
+      primary: "ui-icon-play"
+    }
+  })
+
+$(document).ready ->
+  # tooltips
+  $('#dashboard_box .tooltip').twipsy(offset: 5)
+  $('#user_story_userlist .tooltip').twipsy(offset: -12)
+  $('#userstory_info_box .tooltip').twipsy(offset: 15)
+
+  #user story buttons
+  makeJQuserStoryButtons()
 
   $('.user_stories_container').delegate '.short_description_link', 'click', ->
     $(this).parent().parent().find('.short_description').toggle('slow')
