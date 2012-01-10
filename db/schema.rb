@@ -11,30 +11,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108193915) do
+ActiveRecord::Schema.define(:version => 20120109195145) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_story_id"
     t.integer  "user_id"
     t.datetime "date"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "project_settings", :force => true do |t|
+    t.string   "travis_ci_repo"
+    t.datetime "travis_last_updated"
+    t.integer  "project_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "repository_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "current_sprint_id"
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "roles_users", :force => true do |t|
@@ -47,8 +55,8 @@ ActiveRecord::Schema.define(:version => 20120108193915) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "velocity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.text     "description"
   end
 
@@ -58,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20120108193915) do
     t.text     "acceptance_criteria"
     t.integer  "priority"
     t.integer  "estimation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.string   "status"
     t.integer  "sprint_id"
     t.integer  "work_effort"
@@ -77,8 +85,8 @@ ActiveRecord::Schema.define(:version => 20120108193915) do
     t.string   "name"
     t.string   "email"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "accepted"

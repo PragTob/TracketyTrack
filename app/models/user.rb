@@ -37,6 +37,14 @@ class User < ActiveRecord::Base
     save
   end
 
+  def self.accepted_users
+    where(accepted: true)
+  end
+
+  def self.unaccepted_users
+    where(accepted: false)
+  end
+
   def password_valid?
     if password.blank? || !(8..40).include?(password.size)
       self.errors.add :password,
