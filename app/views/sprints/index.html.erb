@@ -10,7 +10,7 @@
 
 <% @sprints.each do |sprint| %>
   <tr>
-    <td><%= link_to sprint.number, sprint %></td>
+    <td><%= link_to 'Sprint '+sprint.number.to_s, sprint %></td>
     <td><%= sprint.start_date %></td>
     <td><%= sprint.end_date %></td>
     <td><%= sprint.velocity %></td>
