@@ -1,6 +1,11 @@
-<h1>Editing project</h1>
+<h2>Edit Project '<%= @project.title %>'</h2>
 
-<%= render 'form' %>
+<div class="row header_space">
+  <div class="span12">
+    <%= render 'form' %>
+  </div>
+  <div class="span2"></div>
+</div>
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Back to Project', @project %>
+

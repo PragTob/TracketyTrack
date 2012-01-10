@@ -58,7 +58,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def short_description
-    self.description[0..199]
+    description[0..199] if description
   end
 
   def short_name

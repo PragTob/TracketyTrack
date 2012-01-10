@@ -1,5 +1,9 @@
+<%= link_to '<< Sprint Overview', sprints_path%>
+
 <h2>Sprint  <%= @sprint.number %></h2>
-<br />
+<div id="project_description_text">
+  <%= @sprint.description %>
+</div>
 
 <p>
   <b>Start date:</b>
@@ -25,17 +29,12 @@
     <%= @sprint.actual_velocity %> (currently burned story points)
   <% end %>
 </p>
-
+<br />
+<h3>Sprint Burndown Chart</h3>
 <p>
-  <b>Description:</b>
-  <%= @sprint.description %>
-</p>
-
-<p>
-  <b>Burndown Chart:</b> <br />
   <%= image_tag(@sprint.burndown_graph)%>
   <% if @sprint.user_stories_estimated != @sprint.user_stories %>
-    <br />There are user stories without an estimation.
+    <br /><span class="label important">Attention!</span>&nbsp;There are user stories without an estimation.
     <br />Therefore this graph is not accurate because these stories are not considered.
   <% end %>
 </p>
@@ -51,8 +50,10 @@
     </ul>
   <% end %>
 
-<%= button_to 'Edit', edit_sprint_path(@sprint),
-              class: "btn primary", method: :get %>
-<%= button_to 'Sprint Overview', sprints_path,
-              class: "btn primary", method: :get %>
+<div class="management_options">
+  <%= button_to 'Edit', edit_sprint_path(@sprint),
+                class: "btn", method: :get %>
+  <%= button_to 'Delete', @sprint,
+                confirm: 'Are you sure?', method: :delete, class: "btn danger" %>
+</div>
 

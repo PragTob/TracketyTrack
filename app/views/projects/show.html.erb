@@ -1,34 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div id="project_container">
+  <h2><%= @project.title %></h2>
+  <div id="project_description_text">
+    <%= @project.description %>
+  </div>
+  <p>
+    <strong>Repository url:</strong>
+    <%= @project.repository_url %>
+  </p>
 
-<p>
-  <b>Titel:</b>
-  <%= @project.title %>
-</p>
+  <%= button_to 'Edit', edit_project_path(@project),
+              class: "btn", method: :get %>
+</div>
 
-<p>
-  <b>Description:</b>
-  <%= @project.description %>
-</p>
-
-<p>
-  <b>Repository url:</b>
-  <%= @project.repository_url %>
-</p>
-
-<p>
-  <b>Average Velocity:</b>
-  <%= @project.average_velocity %>
-</p>
-
-<p>
-  <b>Statistics:</b><br />
+<div id="project_statistics">
+  <h3>Project Statistics</h3>
+  <p>
+    <strong>Average Velocity:</strong>
+    <%= @project.average_velocity %>
+  </p>
+  <br />
+  <h3>Project Burndown Chart</h3>
   <%= image_tag(@project.burndown_graph) %>
   <% unless UserStory.non_estimated.empty? %>
-    <br />There are user stories without an estimation.
+    <br /><span class="label important">Attention!</span>&nbsp;There are user stories without an estimation.
     <br />Therefore this graph is not accurate because these stories are not considered.
   <% end %>
-</p>
-
-<%= button_to 'Edit', edit_project_path(@project),
-              class: "btn primary", method: :get %>
+</div>
 

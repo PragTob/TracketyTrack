@@ -71,8 +71,14 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.new(params[:user_story])
 
     if @user_story.save
-      redirect_to @user_story,
-                  flash: {success: 'User Story was successfully created.'}
+      message = 'User Story was successfully created.'
+
+      # if we come from sprint planning, then we wanna stay at that page
+      if request.referrer == sprint_planning_url
+        redirect_to sprint_planning_path, flash: {success: message}
+      else
+        redirect_to @user_story, flash: {success: message}
+      end
     else
       render action: "new"
     end

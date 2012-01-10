@@ -6,18 +6,14 @@
     <th>Start date</th>
     <th>End date</th>
     <th>Velocity</th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @sprints.each do |sprint| %>
   <tr>
-    <td><%= sprint.number %></td>
+    <td><%= link_to 'Sprint '+sprint.number.to_s, sprint %></td>
     <td><%= sprint.start_date %></td>
     <td><%= sprint.end_date %></td>
     <td><%= sprint.velocity %></td>
-    <td><%= button_to 'Show', sprint, method: :get, class: "btn" %></td>
-    <td><%= button_to 'Edit', edit_sprint_path(sprint), method: :get, class: "btn" %></td>
   </tr>
 <% end %>
 </table>
