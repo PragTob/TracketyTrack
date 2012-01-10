@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   include UsersHelper
 
   before_filter :authenticate, except: [:new, :create]
-  before_filter :only_current_user, only: [:edit, :update]
+  before_filter :only_current_user, only: [:edit, :update, :destroy]
+
   def index
     @users = User.all
     @unaccepted_users = User.find_all_by_accepted(false)
@@ -45,10 +46,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    sign_out
     @user = User.find(params[:id])
     @user.destroy
 
-    redirect_to users_url
+    bye_message = "It is unfortunate, that you don't want to work on /" +
+                  current_project.title + "any more! We will miss you!"
+    redirect_to root_url, notice: bye_message
   end
 
   def accept_user
