@@ -20,6 +20,7 @@ Feature: User stories
     When I add a comment
     Then the comment is displayed on the user story page
 
+  @javascript
   Scenario: Deleting a comment
     Given there is a commented user story
     And I am on the page of the user story
