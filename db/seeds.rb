@@ -60,11 +60,12 @@ user4 = User.create( name: "Flori",
                      password_confirmation: "flori123")
 user4.accept
 
-user5 = User.create( name: "Nico",
-                     email: "nico@example.it",
-                     description: "Random Italian Guy",
-                     password: "nico1234",
-                     password_confirmation: "nico1234")
+user5 = User.create( name: "Example User",
+                     email: "user@example.com",
+                     description: "Random example user",
+                     password: "12345678",
+                     password_confirmation: "12345678")
+user5.accept
 
 # User Story definition
   # User Stories Sprint 3
@@ -105,8 +106,8 @@ user_story3 = UserStory.create( name: "4.f Accuracy of Estimations",
   # User Stories Sprint 2
 (1..5).each do |i|
   UserStory.create( name: "user story #{i}",
-                    priority: Random.rand(1..3),
-                    estimation: Random.rand(1..5),
+                    priority: Random.rand(3) + 1,
+                    estimation: Random.rand(5) + 1,
                     status: "completed",
                     sprint_id: sprint2.id,
                     start_time: DateTime.now - 16 + i,
@@ -116,8 +117,8 @@ end
   # User Stories Sprint 1
 (1..5).each do |i|
   UserStory.create( name: "user story #{i + 5}",
-                    priority: Random.rand(1..3),
-                    estimation: Random.rand(1..5),
+                    priority: Random.rand(3) + 1,
+                    estimation: Random.rand(5) + 1,
                     status: "completed",
                     sprint_id: sprint1.id,
                     start_time: DateTime.now - 30 + i,
