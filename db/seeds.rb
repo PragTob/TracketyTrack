@@ -60,11 +60,12 @@ user4 = User.create( name: "Flori",
                      password_confirmation: "flori123")
 user4.accept
 
-user5 = User.create( name: "Nico",
-                     email: "nico@example.it",
-                     description: "Random Italian Guy",
-                     password: "nico1234",
-                     password_confirmation: "nico1234")
+user5 = User.create( name: "Example User",
+                     email: "user@example.com",
+                     description: "Random example user",
+                     password: "12345678",
+                     password_confirmation: "12345678")
+user5.accept
 
 # User Story definition
   # User Stories Sprint 3
