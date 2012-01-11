@@ -33,7 +33,7 @@ steps_for :user_story do
   end
 
   step "I delete the comment" do
-    pending "Some crazy javascript stuff to press the conformation not working"
+    pending "Need a working login/data with selenium in advance"
     page.evaluate_script("window.confirm = function(msg) { return true; }")
     find(".comment_content_box").click_on 'Delete'
   end
