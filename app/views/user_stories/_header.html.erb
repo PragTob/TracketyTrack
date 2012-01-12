@@ -1,5 +1,5 @@
 <ul class="breadcrumb">
-  <li<% if @title == "All Stories"%> class="active"<% end %>>
+  <li<% if @title == "All User Stories"%> class="active"<% end %>>
     <% title_of_page = 'All (' + UserStory.all.size.to_s + ')' %>
     <%= link_to title_of_page, controller: "user_stories",
                                 action: "index" %>
@@ -20,7 +20,7 @@
   <span class="divider">|</span>
   </li>
   <li<% if @title == "Work in Progress"%> class="active"<% end %>>
-        <% title_of_page = 'Work in Progress (' +
+        <% title_of_page = 'In Progress (' +
       UserStory.work_in_progress_stories.size.to_s + ')' %>
     <%= link_to title_of_page, controller: "user_stories",
                                 action: "work_in_progress_list" %>
@@ -40,8 +40,8 @@
                                 action: "non_estimated_list" %>
   <span class="divider">|</span>
   </li>
-  <li<% if @title == "Requesting Feedback"%> class="active"<% end %>>
-    <% title_of_page = 'Requesting Feedback (' +
+  <li<% if @title == "Need Feedback"%> class="active"<% end %>>
+    <% title_of_page = 'Need Feedback (' +
       UserStory.requesting_feedback.size.to_s + ')' %>
     <%= link_to title_of_page, controller: "user_stories",
                                 action: "requesting_feedback_list" %>

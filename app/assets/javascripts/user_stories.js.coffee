@@ -101,7 +101,7 @@ handleSelection = (list) ->
 $(document).ready ->
   # tooltips
   $('#dashboard_box .tooltip').twipsy(offset: 5)
-  $('#user_story_userlist .tooltip').twipsy(offset: -12)
+  $('#user_story_userlist .tooltip').twipsy(offset: 15)
   $('#userstory_info_box .tooltip').twipsy(offset: 15)
 
   #user story buttons
