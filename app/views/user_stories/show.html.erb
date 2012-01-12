@@ -6,11 +6,11 @@
     <% if @user_story.users.empty? %>
       No user assigned
     <% else %>
-      <ul class="userlist">
-        <% @user_story.users.each do |user| %>
-          <li><%= tooltip_gravatar_for(user, size: 20) %></li>
-        <% end %>
-      </ul>
+      <% @user_story.users.each do |user| %>
+        <div class="user_story_infobox_gravatar">
+          <%= tooltip_gravatar_for(user, size: 30) %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 

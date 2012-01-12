@@ -46,7 +46,7 @@ class UserStoriesController < ApplicationController
   end
 
   def requesting_feedback_list
-    @title = "Requesting Feedback"
+    @title = "Need Feedback"
     @user_stories = UserStory.requesting_feedback
     render 'index'
   end
