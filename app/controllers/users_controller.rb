@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 
   before_filter :authenticate, except: [:new, :create]
   before_filter :only_current_user, only: [:edit, :update, :destroy]
+  before_filter :only_unaccepted, only: [:reject_user]
+
+  NO_PERMISSION = "You don't have the permission to alter the profile of somebody else"
 
   def index
     @users = User.accepted_users
@@ -63,11 +66,22 @@ class UsersController < ApplicationController
                 { success: 'The user has been accepted to join your project!' }
   end
 
+  def reject_user
+    @user = User.find(params[:id])
+    @user.destroy
+
+    redirect_to users_url, flash:{success: "Succesfully rejected #{@user.name}"}
+  end
+
   private
   def only_current_user
     user = User.find(params[:id])
-    error_message = "You don't have the permission to alter the profile of somebody else"
-    redirect_to user, flash:{error: error_message}  unless current_user? user
+    redirect_to user, flash:{error: NO_PERMISSION}  unless current_user? user
+  end
+
+  def only_unaccepted
+    user = User.find(params[:id])
+    redirect_to user, flash:{error: "You can only reject unaccepted users."}  if user.accepted?
   end
 
 end

@@ -18,6 +18,7 @@ TracketyTrack::Application.routes.draw do
   post "user_stories/stop_requesting_feedback"
 
   post "users/accept_user"
+  post "users/reject_user"
 
   get "accept_users", to: "users#accept", as: :accept
 

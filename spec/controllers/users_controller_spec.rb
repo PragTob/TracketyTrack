@@ -189,13 +189,18 @@ describe UsersController do
 
         it "destroys the requested user" do
           expect {
-            delete :destroy, :id => @user.id
+            delete :destroy, id: @user.id
           }.to change(User, :count).by(-1)
         end
 
         it "redirects to the root url (so you can register again)" do
-          delete :destroy, :id => @user.id
+          delete :destroy, id: @user.id
           response.should redirect_to(root_url)
+        end
+
+        it "results in nobody being signed in" do
+          delete :destroy, id: @user.id
+          controller.should_not be_signed_in
         end
 
       end
@@ -209,17 +214,17 @@ describe UsersController do
 
         it "does not destroy the requested user" do
           expect {
-            delete :destroy, :id => @user.id
+            delete :destroy, id: @user.id
           }.to change(User, :count).by(0)
         end
 
         it "renders the show page of the requested user" do
-          delete :destroy, :id => @user.id
+          delete :destroy, id: @user.id
           response.should redirect_to user_url(@user)
         end
 
         it "displays an error message" do
-          delete :destroy, :id => @user.id
+          delete :destroy, id: @user.id
           flash[:error].should match /permission/i
         end
 
@@ -227,9 +232,9 @@ describe UsersController do
 
     end
 
-  describe "POST accept_user" do
+    describe "POST accept_user" do
 
-    before :each do
+      before :each do
         @unaccepted_user = Factory(:unaccepted_user)
       end
 
@@ -246,6 +251,43 @@ describe UsersController do
       it "displays a flash message indicating the succesful authorization" do
         post :accept_user, id: @unaccepted_user.id
         flash[:success].should =~ /accepted/i
+      end
+
+    end
+
+    describe "POST reject_user" do
+
+      before :each do
+        @unaccepted_user = Factory :unaccepted_user
+        @other_user = Factory :other_user
+      end
+
+      it "destroys a user" do
+        expect {
+          post :reject_user, id: @unaccepted_user.id
+        }.to change(User, :count).by(-1)
+      end
+
+      it "the rejected user is inaccessible in the system afterwards" do
+        post :reject_user, id: @unaccepted_user.id
+        User.where(id: @unaccepted_user.id).should be_empty
+      end
+
+      it "does not work for yourself" do
+        expect {
+          post :reject_user, id: @user.id
+        }.to change(User, :count).by(0)
+      end
+
+      it "does not work for other accepted users" do
+        post :reject_user, id: @other_user.id
+        flash[:error].should match /reject unaccepted/i
+      end
+
+      it "does not work for other accepted users" do
+        expect {
+          post :reject_user, id: @other_user.id
+        }.to change(User, :count).by(0)
       end
 
     end

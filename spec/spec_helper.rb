@@ -6,6 +6,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'turnip/capybara'
+require 'capybara/rspec'
 require_relative 'spec_helper_methods'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}

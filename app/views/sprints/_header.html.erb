@@ -3,7 +3,7 @@
     <h1>
       <%= link_to current_project.title, project_path(current_project) %>
       <% if @travis_repo %>
-        <a href="http://travis-ci.org/<%= @travis_repo %>">
+        <a href="http://travis-ci.org/<%= @travis_repo %>" target="_blank">
           <img alt="Build Status" src="https://secure.travis-ci.org/<%= @travis_repo %>.png">
         </a>
       <% end %>
