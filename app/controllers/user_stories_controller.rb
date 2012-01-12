@@ -166,5 +166,21 @@ class UserStoriesController < ApplicationController
         locals: { user_stories_in_backlog: UserStory.backlog }
   end
 
+  def add_user
+    user_story = UserStory.find(params[:id])
+    user_story.users << User.find(params[:user_id])
+    user_story.save
+    render partial: 'sprints/partner_dropdown_list',
+        locals: {user_story: user_story, users: User.accepted_users}
+  end
+
+  def remove_user
+    user_story = UserStory.find(params[:id])
+    user_story.users.delete User.find(params[:user_id])
+    user_story.save
+    render partial: 'sprints/partner_dropdown_list',
+        locals: {user_story: user_story, users: User.accepted_users}
+  end
+
 end
 

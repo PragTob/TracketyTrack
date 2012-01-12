@@ -392,6 +392,41 @@ describe UserStoriesController do
       end
     end
 
+    describe "POST add_user" do
+
+      before :each do
+        @user = Factory(:user)
+        post :add_user, id: @user_story.id, user_id: @user.id
+      end
+
+      it "adds the given user to the user story" do
+        UserStory.find(@user_story.id).users.should include @user
+      end
+
+      it "renders an updated dropdown list" do
+        response.should render_template 'sprints/_partner_dropdown_list'
+      end
+    end
+
+    describe "POST remove_user" do
+
+      before :each do
+        @user = Factory(:user)
+        @user_story.users << @user
+        @user_story.save
+        post :remove_user, id: @user_story.id, user_id: @user.id
+      end
+
+      it "removes the given user from the user story" do
+        UserStory.find(@user_story.id).users.should_not include @user
+      end
+
+      it "renders an updated dropdown list" do
+        response.should render_template 'sprints/_partner_dropdown_list'
+      end
+
+    end
+
   end
 
   describe "No action should be accessible without a logged in user" do

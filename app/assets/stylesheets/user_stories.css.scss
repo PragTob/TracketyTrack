@@ -130,3 +130,33 @@ ul.userlist img {
   float:left;
 }
 
+.dropdown span {
+  float:right;
+}
+
+.dropdown, .dropdown_list {
+  border-style:solid;
+  border-width:1px;
+  border-color: #666;
+  border-radius: 5px;
+}
+
+.dropdown_list {
+  display:none;
+  height: 60px;
+  overflow: auto;
+  z-index:11;
+  margin: 0px;
+  background-color: white;
+  float:left;
+}
+
+.dropdown_list .highlighted {
+  background-color: #666;
+  color: #FFF;
+}
+
+.dropdown_entry span{
+  float:right;
+}
+

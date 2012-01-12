@@ -64,6 +64,9 @@ class SprintsController < ApplicationController
     @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
     @user_stories_in_progress = current_sprint.user_stories_in_progress
     @current_user_stories = current_sprint.user_stories_for_user(current_user)
+    users = User.accepted_users
+    @users = users.to_a
+    @users.delete current_user
     @page = "current"
   end
 

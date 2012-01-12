@@ -59,6 +59,45 @@ postUnassign = (user_story_id, user_story_box) ->
       user_story_box.remove()
       $('#backlog-loader').css visibility:"hidden"
 
+# drop down methods
+
+highlightItem = ->
+  $('.dropdown_entry').mouseenter ->
+    $(this).addClass 'highlighted'
+  $('.dropdown_entry').mouseleave ->
+    $(this).removeClass 'highlighted'
+
+postAddRemoveUser = (postAction, object, list) ->
+  user_story_id = object.parent().attr 'user_story'
+  user_id = object.val()
+  $.post postAction, { id: user_story_id, user_id: user_id }, (result) ->
+    $('dropdown_list').html(result)
+  .error ->
+    alert 'The server is not reachable.'
+    list.toggle('slide', {direction: 'down'}, 'slow').delay(200).queue ->
+      $(this).remove()
+  .complete ->
+    list.toggle('slide', {direction: 'down'}, 'slow').delay(200).queue ->
+      $(this).remove()
+      location.reload()
+
+openDropdownList = (list, object) ->
+  list.position of: object, my: 'left bottom', at: 'left top', offset: '0 80'
+  list.prependTo $('body')
+  list.toggle('slide', {direction: 'down'},'slow')
+
+closeDropdownList = (list) ->
+  list.mouseleave ->
+    list.toggle('slide', {direction: 'down'}, 'slow').delay(200).queue ->
+      $(this).remove()
+
+handleSelection = (list) ->
+  $('.dropdown_entry').click ->
+    if $(this).children('.dropdown_entry .ui-icon-check').length > 0
+      postAddRemoveUser 'user_stories/remove_user', $(this), list
+    else
+      postAddRemoveUser 'user_stories/add_user', $(this), list
+
 $(document).ready ->
   # tooltips
   $('#dashboard_box .tooltip').twipsy(offset: 5)
@@ -103,4 +142,13 @@ $(document).ready ->
     $('#backlog-loader').css visibility:"visible"
     box_id = '#userstory-'+user_story_id
     postUnassign user_story_id, $(box_id)
+
+  # drop down menu for selecting programming partner
+  $('.dropdown .ui-icon').click ->
+    if $('.dropdown_list').css('display') is 'none'
+      list = $(this).parent().siblings('.dropdown_list').clone()
+      openDropdownList list, $(this).parent()
+      highlightItem()
+      handleSelection list
+      closeDropdownList list
 

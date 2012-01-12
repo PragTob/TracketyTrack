@@ -31,7 +31,7 @@
       <%= link_to 'Show', user_story %> |
       <%= link_to 'Edit', edit_user_story_path(user_story) %>
     </div>
-    <div class="span8">
+    <div class="span9">
       <% case user_story.status %>
       <% when "active" %>
         <%= render partial: 'user_stories/pause_button',
@@ -43,8 +43,12 @@
       <%= render partial: 'user_stories/complete_button',
                  locals: { user_story: user_story } %>
     </div>
-    <div class="span2">
-
+    <div class="span3 dropdown">
+      <ul class="dropdown_list span3" user_story="<%=user_story.id%>">
+        <%= render partial: 'partner_dropdown_list',
+                   locals: { user_story: user_story, users: @users } %>
+      </ul>
+      <div>Partner <span class="ui-icon ui-icon-triangle-1-s"/></div>
     </div>
   </div>
 </div>
