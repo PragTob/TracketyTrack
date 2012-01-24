@@ -46,7 +46,7 @@ class UserStoriesController < ApplicationController
   end
 
   def requesting_feedback_list
-    @title = "Requesting Feedback"
+    @title = "Need Feedback"
     @user_stories = UserStory.requesting_feedback
     render 'index'
   end
@@ -164,6 +164,22 @@ class UserStoriesController < ApplicationController
     set_sprint(params[:id], nil)
     render partial: 'sprints/backlog_user_stories',
         locals: { user_stories_in_backlog: UserStory.backlog }
+  end
+
+  def add_user
+    user_story = UserStory.find(params[:id])
+    user_story.users << User.find(params[:user_id])
+    user_story.save
+    render partial: 'sprints/partner_dropdown_list',
+        locals: {user_story: user_story, users: User.accepted_users}
+  end
+
+  def remove_user
+    user_story = UserStory.find(params[:id])
+    user_story.users.delete User.find(params[:user_id])
+    user_story.save
+    render partial: 'sprints/partner_dropdown_list',
+        locals: {user_story: user_story, users: User.accepted_users}
   end
 
 end

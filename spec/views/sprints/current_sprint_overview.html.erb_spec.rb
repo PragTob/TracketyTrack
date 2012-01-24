@@ -13,6 +13,7 @@ describe "sprints/current_sprint_overview" do
     view.stub!(current_user: @user)
     @other_user_story.users << @user
     @other_user_story.save
+    assign(:users, User.accepted_users)
     @project = Factory(:project)
     view.stub!(current_project: @project)
     render

@@ -341,6 +341,14 @@ describe SprintsController do
           get :current_sprint_overview
           assigns(:current_user_stories).should eq [@other_user_story]
         end
+
+        it "assigns all accepted users exept of the current one to @users" do
+          other_user = Factory(:other_user)
+          unaccepted_user = Factory(:unaccepted_user)
+          get :current_sprint_overview
+          assigns(:users).should eq [other_user]
+        end
+
       end
 
       describe "without current sprint" do
