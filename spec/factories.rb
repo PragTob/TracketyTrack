@@ -38,6 +38,14 @@ FactoryGirl.define do
     user.accepted               false
   end
 
+  factory :create_user, class: "user" do |user|
+    user.name                   "User"
+    user.email                  "user@example.com"
+    user.description            "This is the example user."
+    user.password               "Trackety"
+    user.password_confirmation  "Trackety"
+  end
+
   factory :role do |role|
     role.name   "Standard"
   end
