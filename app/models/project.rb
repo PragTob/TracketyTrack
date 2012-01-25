@@ -11,6 +11,7 @@ end
 
 class Project < ActiveRecord::Base
   include ActiveModel::Validations
+  include StatisticsHelper
 
   has_one :project_settings
   after_initialize :init
@@ -80,15 +81,9 @@ class Project < ActiveRecord::Base
       story_points << (story_points.last - story_points_of_sprint)
       legend_dates << number.to_s + ". sprint"
     end
-    chart = Gchart.bar(
-                data: story_points,
-                axis_with_labels: ['x,y'],
-                axis_labels: [legend_dates],
-                axis_range: [nil, [0,initial_story_points,5]],
-                legend: 'Completed Story Points per completed Sprint',
-                bar_width_and_spacing: {width: 30, spacing: 15},
-                width: 1000)
-    chart
+    generate_burndown_chart(story_points,
+                            legend_dates,
+                            "Unfinished Story Points per completed Sprint")
   end
 
   # there shall only be one project atm

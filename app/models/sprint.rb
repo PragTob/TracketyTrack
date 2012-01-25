@@ -35,6 +35,7 @@ class SprintDatesValidator < ActiveModel::Validator
 end
 
 class Sprint < ActiveRecord::Base
+  include StatisticsHelper
   has_many :user_stories, uniq: true
 
   validates :number,  presence: true,
@@ -123,15 +124,9 @@ class Sprint < ActiveRecord::Base
       story_points << (story_points.last - story_points_of_day)
       legend_dates << date
     end
-    chart = Gchart.bar(
-                data: story_points,
-                axis_with_labels: ['x,y'],
-                axis_labels: [legend_dates],
-                axis_range: [nil, [0,initial_story_points,1]],
-                legend: 'Story points of unfinished user stories',
-                bar_width_and_spacing: {width: 30, spacing: 15},
-                width: 1000)
-    chart
+    generate_burndown_chart(story_points,
+                                    legend_dates,
+                                    "Story points of unfinished user stories")
   end
 
   def actual_velocity
