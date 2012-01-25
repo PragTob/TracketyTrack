@@ -124,9 +124,26 @@ class Sprint < ActiveRecord::Base
       story_points << (story_points.last - story_points_of_day)
       legend_dates << date
     end
-    generate_burndown_chart(story_points,
-                                    legend_dates,
-                                    "Story points of unfinished user stories")
+    generate_burn_chart(story_points,
+                        legend_dates,
+                        "Story points of unfinished user stories")
+  end
+
+  def burnup_graph
+    # TODO: add line of total amount of story points to finish
+    story_points = []
+    legend_dates = []
+    completed_story_points_per_day.each do |date, story_points_of_day|
+      if story_points.empty?
+        story_points << story_points_of_day
+      else
+        story_points << (story_points.last + story_points_of_day)
+      end
+      legend_dates << date
+    end
+    generate_burn_chart(story_points,
+                        legend_dates,
+                        "Story points of finished user stories")
   end
 
   def actual_velocity

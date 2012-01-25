@@ -2,7 +2,7 @@ module StatisticsHelper
 
   NUMBER_OF_STEPS = 5
 
-  def generate_burndown_chart(bar_data, legend_data, legend_label)
+  def generate_burn_chart(bar_data, legend_data, legend_label)
     axis_scale = get_axis_scale(bar_data.max)
     chart = Gchart.bar(
                 data: bar_data,
