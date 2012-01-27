@@ -1,6 +1,8 @@
 module StatisticsHelper
 
   NUMBER_OF_STEPS = 5
+  WIDTH_OF_BARS = 30
+  SPACING_BETWEEN_BARS = 15
 
   def generate_burndown_chart(completed_story_points_per_unit, initial_story_points, legend_label)
     story_points = [initial_story_points]
@@ -17,7 +19,9 @@ module StatisticsHelper
                 max_value: axis_scale[1],
                 axis_range: [nil, axis_scale],
                 legend: legend_label,
-                bar_width_and_spacing: {width: 30, spacing: 15},
+                bar_width_and_spacing:
+                  {width: WIDTH_OF_BARS,
+                  spacing: SPACING_BETWEEN_BARS},
                 width: 1000)
     chart
   end
@@ -32,12 +36,31 @@ module StatisticsHelper
     axis_scale
   end
 
-  def generate_burnup_chart
+  def generate_burnup_chart(completed_story_points_per_unit, legend_label, all_story_points_per_day)
+    completed_story_points = []
+    legend_dates = []
+    completed_story_points_per_unit.each do |date, story_points_of_unit|
+      if completed_story_points.empty?
+        completed_story_points << story_points_of_unit
+      else
+        completed_story_points << (completed_story_points.last + story_points_of_unit)
+      end
+      legend_dates << date
+    end
+    axis_scale = get_axis_scale(100)
     chart = "http://chart.apis.google.com/chart?" +
-    "chxl=0:|0|1|2|4|5&chxt=x,y&chbh=30,15,8&cht=bvs&"+
-    "chs=1000x200&chxr=1,0,180,20&" +
-    "chd=t1:10,50,60,80,40|100,110,100,90,80&chds=0,180&" +
-    "chm=D,FF0000,1,0,2,1"
+      # general settings
+      "chbh=" + WIDTH_OF_BARS.to_s + "," + SPACING_BETWEEN_BARS.to_s +
+      "&cht=bvs&chxt=x,y&chs=1000x200" +
+      # data for bars of completed story points
+      "&chd=t1:" + completed_story_points*"," +
+      # data for line of all story points
+      "|80,30,70,90,80" +
+      "&chm=D,FF0000,1,0,2,1" +
+      # label for axis
+      "&chxl=0:|" + legend_dates*"|" +
+      "&chxr=1," + axis_scale*"," +
+      "&chds=0," + axis_scale[1].to_s
     chart
   end
 
