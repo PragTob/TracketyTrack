@@ -2,12 +2,18 @@ module StatisticsHelper
 
   NUMBER_OF_STEPS = 5
 
-  def generate_burn_chart(bar_data, legend_data, legend_label)
-    axis_scale = get_axis_scale(bar_data.max)
+  def generate_burndown_chart(completed_story_points_per_unit, initial_story_points, legend_label)
+    story_points = [initial_story_points]
+    legend_dates = ['initial']
+    completed_story_points_per_unit.each do |date, story_points_of_unit|
+      story_points << (story_points.last - story_points_of_unit)
+      legend_dates << date
+    end
+    axis_scale = get_axis_scale(story_points.max)
     chart = Gchart.bar(
-                data: bar_data,
+                data: story_points,
                 axis_with_labels: ['x,y'],
-                axis_labels: [legend_data],
+                axis_labels: [legend_dates],
                 max_value: axis_scale[1],
                 axis_range: [nil, axis_scale],
                 legend: legend_label,
@@ -24,6 +30,15 @@ module StatisticsHelper
     steps = ((max_y_value).round(-1))/NUMBER_OF_STEPS
     axis_scale << steps
     axis_scale
+  end
+
+  def generate_burnup_chart
+    chart = "http://chart.apis.google.com/chart?" +
+    "chxl=0:|0|1|2|4|5&chxt=x,y&chbh=30,15,8&cht=bvs&"+
+    "chs=1000x200&chxr=1,0,180,20&" +
+    "chd=t1:10,50,60,80,40|100,110,100,90,80&chds=0,180&" +
+    "chm=D,FF0000,1,0,2,1"
+    chart
   end
 
 end
