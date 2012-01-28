@@ -36,32 +36,51 @@ module StatisticsHelper
     axis_scale
   end
 
-  def generate_burnup_chart(completed_story_points_per_unit, legend_label, all_story_points_per_day)
+  def generate_burnup_chart(completed_story_points_per_unit, legend_label, all_story_points_per_unit)
+    puts "oooooooooooooooooooooooo:" + all_story_points_per_unit.to_s
+    axis_scale = get_axis_scale(30)
+    chart = "http://chart.apis.google.com/chart?" +
+      # general settings
+      "chbh=" + WIDTH_OF_BARS.to_s + "," + SPACING_BETWEEN_BARS.to_s +
+      "&cht=bvs&chxt=x,y&chs=1000x200" +
+      # data for bars of completed story points
+      "&chd=t1:" + get_completed_story_points(completed_story_points_per_unit) +
+      # data for line of all story points
+      "|" + get_line_dates(all_story_points_per_unit) +
+      "&chm=D,FF0000,1,0,2,1" +
+      # label for axis
+      "&chxl=0:|" + get_legend_dates(completed_story_points_per_unit) +
+      "&chxr=1," + axis_scale*"," +
+      "&chds=0," + axis_scale[1].to_s
+    chart
+  end
+
+  def get_completed_story_points(completed_story_points_per_unit)
     completed_story_points = []
-    legend_dates = []
     completed_story_points_per_unit.each do |date, story_points_of_unit|
       if completed_story_points.empty?
         completed_story_points << story_points_of_unit
       else
         completed_story_points << (completed_story_points.last + story_points_of_unit)
       end
+    end
+    completed_story_points*","
+  end
+
+  def get_legend_dates(completed_story_points_per_unit)
+    legend_dates = []
+    completed_story_points_per_unit.each do |date, story_points_of_unit|
       legend_dates << date
     end
-    axis_scale = get_axis_scale(100)
-    chart = "http://chart.apis.google.com/chart?" +
-      # general settings
-      "chbh=" + WIDTH_OF_BARS.to_s + "," + SPACING_BETWEEN_BARS.to_s +
-      "&cht=bvs&chxt=x,y&chs=1000x200" +
-      # data for bars of completed story points
-      "&chd=t1:" + completed_story_points*"," +
-      # data for line of all story points
-      "|80,30,70,90,80" +
-      "&chm=D,FF0000,1,0,2,1" +
-      # label for axis
-      "&chxl=0:|" + legend_dates*"|" +
-      "&chxr=1," + axis_scale*"," +
-      "&chds=0," + axis_scale[1].to_s
-    chart
+    legend_dates*"|"
+  end
+
+  def get_line_dates(all_story_points_per_unit)
+    line_dates = []
+    all_story_points_per_unit.each do |date, story_points_of_unit|
+      line_dates << story_points_of_unit
+    end
+    line_dates*","
   end
 
 end

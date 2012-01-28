@@ -124,10 +124,36 @@ class Sprint < ActiveRecord::Base
   end
 
   def burnup_graph
-#    # TODO: add line of total amount of story points to finish
+    # TODO: add line of total amount of story points to finish
     generate_burnup_chart(completed_story_points_per_day,
                         "Story points of finished user stories",
-                        [])
+                        all_story_points_per_day)
+  end
+
+  def all_story_points_per_day
+    day_of_sprint = start_date.to_date
+    story_points_per_day = {}
+    final_date = DateTime.now.to_date
+    final_date = end_date.to_date unless end_date.nil?
+    total_amount_of_story_points = 0
+    user_stories.each do | user_story |
+      if (user_story.estimation) && (user_story.created_at.to_date < day_of_sprint)
+        total_amount_of_story_points += user_story.estimation
+      end
+    end
+    while day_of_sprint <= final_date do
+      date = day_of_sprint.strftime("%d.%m.")
+      story_points_per_day[date] = total_amount_of_story_points
+      user_stories.each do |user_story|
+        if user_story.estimation &&
+        user_story.created_at.to_date.strftime("%d.%m.") == date
+          total_amount_of_story_points += user_story.estimation
+          story_points_per_day[date] = total_amount_of_story_points
+        end
+      end
+      day_of_sprint += 1
+    end
+    story_points_per_day
   end
 
   def actual_velocity
