@@ -21,6 +21,9 @@ If you do so please leave us some feedback in form of a github issue (we don't h
 
 You could also try to set up your own heroku app by cloning/forking this repository and [hooking it up with heroku] (http://devcenter.heroku.com/articles/rails31_heroku_cedar). You should use the heroku_assets branch, as there are all the precompiled assets (somehow heroku auto compile doesn't work anymore with Rails 3.2 at least nor for me).
 
+## Why you got so many issues? / How can I help?
+Most of the issues are features that we thought of when originally developing this web applications - if you feel like being generous go ahead and have a look at the issues list and see if you might want to help implement a feature.
+
 ## Feedback
 We would love to hear from you what you think about TracketyTrack and what we could do to make it an even better user story tracker. We don't have good communication channels right now, so for now please open a github issue or send one of the contributors a message.
 
