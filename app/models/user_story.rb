@@ -80,10 +80,14 @@ class UserStory < ActiveRecord::Base
     user.save
   end
 
-  def pause
-    self.status = SUSPENDED
-    set_new_work_effort
-    save
+  def pause user
+    if users.include? user
+      self.status = SUSPENDED
+      set_new_work_effort
+      save
+    else
+      false
+    end
   end
 
   def complete
