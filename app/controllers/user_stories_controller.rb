@@ -170,16 +170,14 @@ class UserStoriesController < ApplicationController
     user_story = UserStory.find(params[:id])
     user_story.users << User.find(params[:user_id])
     user_story.save
-    render partial: 'sprints/partner_dropdown_list',
-        locals: {user_story: user_story, users: User.accepted_users}
+    redirect_to current_sprint_path
   end
 
   def remove_user
     user_story = UserStory.find(params[:id])
     user_story.users.delete User.find(params[:user_id])
     user_story.save
-    render partial: 'sprints/partner_dropdown_list',
-        locals: {user_story: user_story, users: User.accepted_users}
+    redirect_to current_sprint_path
   end
 
 end

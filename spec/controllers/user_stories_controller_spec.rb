@@ -404,7 +404,7 @@ describe UserStoriesController do
       end
 
       it "renders an updated dropdown list" do
-        response.should render_template 'sprints/_partner_dropdown_list'
+        response.should redirect_to current_sprint_path
       end
     end
 
@@ -422,7 +422,7 @@ describe UserStoriesController do
       end
 
       it "renders an updated dropdown list" do
-        response.should render_template 'sprints/_partner_dropdown_list'
+        response.should redirect_to current_sprint_path
       end
 
     end
