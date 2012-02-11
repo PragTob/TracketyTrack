@@ -346,7 +346,7 @@ describe SprintsController do
           other_user = Factory(:other_user)
           unaccepted_user = Factory(:unaccepted_user)
           get :current_sprint_overview
-          assigns(:users).should eq [other_user]
+          assigns(:partners).should eq [other_user]
         end
 
       end
