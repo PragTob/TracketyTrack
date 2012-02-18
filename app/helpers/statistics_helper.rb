@@ -37,8 +37,7 @@ module StatisticsHelper
   end
 
   def generate_burnup_chart(completed_story_points_per_unit, legend_label, all_story_points_per_unit)
-    puts "oooooooooooooooooooooooo:" + all_story_points_per_unit.to_s
-    axis_scale = get_axis_scale(30)
+    axis_scale = get_axis_scale(all_story_points_per_unit.values.max)
     chart = "http://chart.apis.google.com/chart?" +
       # general settings
       "chbh=" + WIDTH_OF_BARS.to_s + "," + SPACING_BETWEEN_BARS.to_s +
