@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120109195145) do
+ActiveRecord::Schema.define(:version => 20120218222212) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_story_id"
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["user_story_id"], :name => "index_comments_on_user_story_id"
+
   create_table "project_settings", :force => true do |t|
     t.string   "travis_ci_repo"
     t.datetime "travis_last_updated"
@@ -29,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
+
+  add_index "project_settings", ["project_id"], :name => "index_project_settings_on_project_id"
 
   create_table "projects", :force => true do |t|
     t.string   "title"
@@ -49,6 +54,9 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.integer "role_id"
     t.integer "user_id"
   end
+
+  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "sprints", :force => true do |t|
     t.integer  "number"
@@ -76,10 +84,15 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.boolean  "requesting_feedback"
   end
 
+  add_index "user_stories", ["sprint_id"], :name => "index_user_stories_on_sprint_id"
+
   create_table "user_stories_users", :force => true do |t|
     t.integer "user_story_id"
     t.integer "user_id"
   end
+
+  add_index "user_stories_users", ["user_id"], :name => "index_user_stories_users_on_user_id"
+  add_index "user_stories_users", ["user_story_id"], :name => "index_user_stories_users_on_user_story_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

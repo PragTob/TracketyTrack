@@ -294,9 +294,9 @@ describe SprintsController do
           assigns(:user_stories_current_sprint).should eq []
         end
 
-        it "selects all user stories of the product laptop" do
+        it "selects all user stories of the backlog" do
           get :sprint_planning
-          assigns(:user_stories_in_backlog).should eq [@user_story,
+          assigns(:user_stories_in_backlog).should =~ [@user_story,
                                                        @other_user_story]
         end
 
