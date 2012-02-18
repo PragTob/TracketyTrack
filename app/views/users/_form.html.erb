@@ -1,10 +1,10 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
+<%= form_for(user) do |f| %>
+  <% if user.errors.any? %>
     <div class="alert-message block-message error">
-      <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+      <h4><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h4>
 
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -54,7 +54,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit form_action_for_user(@user), :class => 'btn success' %>
+    <%= f.submit form_action_for_user(user), :class => 'btn success' %>
   </div>
 <% end %>
 
