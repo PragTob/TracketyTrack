@@ -1,10 +1,10 @@
-<%= form_for(@user_story) do |f| %>
-  <% if @user_story.errors.any? %>
+<%= form_for(user_story) do |f| %>
+  <% if user_story.errors.any? %>
     <div class="alert-message block-message error">
-      <h4><%= pluralize(@user_story.errors.count, "error") %> prohibited this user_story from being saved:</h4>
+      <h4><%= pluralize(user_story.errors.count, "error") %> prohibited this user_story from being saved:</h4>
 
       <ul>
-      <% @user_story.errors.full_messages.each do |msg| %>
+      <% user_story.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -50,23 +50,23 @@
       <%= f.check_box :requesting_feedback, class: 'span2' %>
     </div>
   </div>
-  <% unless @user_story.new_record? %>
+  <% unless user_story.new_record? %>
     <div class="clearfix">
       <%= f.label :users, "Assignees" %>
       <div class="input">
-        <%= f.select :users, @users.map { |u| [u.name, u.id] },
-        { selected: @user_story.users.map(&:id) },
-        { multiple: true, size: @users.size } %>
+        <%= f.select :users, users.map { |u| [u.name, u.id] },
+        { selected: user_story.users.map(&:id) },
+        { multiple: true, size: users.size } %>
         <p class="help-inline">To deselect items or select multiple items please hold the CTRL key</p>
       </div>
     </div>
     <div class="clearfix">
       <%= f.label :work_effort %>
       <div class="input">
-        <%= select_tag :days, options_for_select((0..30), { selected: @days }), class: 'span2' %> days
-        <%= select_tag :hours, options_for_select((0...24), { selected: @hours }), class: 'span2' %> :
-        <%= select_tag :minutes, options_for_select((0...60), { selected: @minutes }), class: 'span2' %> :
-        <%= select_tag :seconds, options_for_select((0...60), { selected: @seconds }), class: 'span2' %>
+        <%= select_tag :days, options_for_select((0..30), { selected: days }), class: 'span2' %> days
+        <%= select_tag :hours, options_for_select((0...24), { selected: hours }), class: 'span2' %> :
+        <%= select_tag :minutes, options_for_select((0...60), { selected: minutes }), class: 'span2' %> :
+        <%= select_tag :seconds, options_for_select((0...60), { selected: seconds }), class: 'span2' %>
       </div>
     </div>
   <% end %>

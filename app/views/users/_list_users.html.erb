@@ -9,13 +9,8 @@
       <th></th>
     <% end %>
   </tr>
-<% if type == :accept
-  users_to_render = @unaccepted_users
-else
-  users_to_render = @users
-end %>
 
-<% users_to_render.each do |user| %>
+<% users.each do |user| %>
   <tr>
     <td><%= link_to user.name, user %></td>
     <td><%= user.email %></td>

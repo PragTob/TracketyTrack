@@ -1,10 +1,10 @@
-<%= form_for(@project) do |f| %>
-  <% if @project.errors.any? %>
+<%= form_for(project) do |f| %>
+  <% if project.errors.any? %>
     <div class="alert-message block-message error">
-      <h4><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h4>
+      <h4><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h4>
 
       <ul>
-      <% @project.errors.full_messages.each do |msg| %>
+      <% project.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
