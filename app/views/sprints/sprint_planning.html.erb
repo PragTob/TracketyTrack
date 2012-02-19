@@ -1,7 +1,8 @@
-<%= render 'header' %>
+<%= render partial: 'header', locals: {travis_repo: @travis_repo,
+                                       page:        @page} %>
 <div class="row">
    <% if current_project.has_current_sprint? %>
-    <%= render 'sprints/stop_sprint_button' %>
+    <%= render 'stop_sprint_button' %>
   <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
    <%= render partial: 'box_header', locals: { title: "CURRENT SPRINT" } %>
@@ -29,5 +30,5 @@
 
 </div>
 
-<%= render 'user_stories/new_box' %>
+<%= render partial: 'user_stories/new_box', locals: {user_story: @user_story} %>
 

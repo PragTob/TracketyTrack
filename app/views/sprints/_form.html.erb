@@ -1,10 +1,10 @@
-<%= form_for(@sprint) do |f| %>
-  <% if @sprint.errors.any? %>
+<%= form_for(sprint) do |f| %>
+  <% if sprint.errors.any? %>
     <div class="alert-message block-message error">
-      <h4><%= pluralize(@sprint.errors.count, "error") %> prohibited this sprint from being saved:</h4>
+      <h4><%= pluralize(sprint.errors.count, "error") %> prohibited this sprint from being saved:</h4>
 
       <ul>
-      <% @sprint.errors.full_messages.each do |msg| %>
+      <% sprint.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -14,9 +14,9 @@
   <div class="clearfix">
     <%= f.label :number, "Number*" %>
     <div class="input span6">
-      <% if !@sprint.new_record?
-        proposed_number = @sprint.number
-      elsif @sprint.new_record? and !Sprint.all.empty?
+      <% if !sprint.new_record?
+        proposed_number = sprint.number
+      elsif sprint.new_record? and !Sprint.all.empty?
         proposed_number = Sprint.last.number + 1
       else
         proposed_number = 1
@@ -42,7 +42,7 @@
   <div class="clearfix">
     <%= f.label :velocity %>
     <div class="input span6">
-      <% if @sprint.new_record? and !Sprint.all.empty? and
+      <% if sprint.new_record? and !Sprint.all.empty? and
       Sprint.last.actual_velocity > 0
         value = Sprint.last.actual_velocity.to_s
       else
@@ -63,7 +63,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "#{form_action_for_sprint @sprint} Sprint", class: 'btn success' %>
+    <%= f.submit "#{form_action_for_sprint sprint} Sprint", class: 'btn success' %>
   </div>
 <% end %>
 

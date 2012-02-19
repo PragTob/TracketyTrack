@@ -1,4 +1,5 @@
-<%= render 'header' %>
+<%= render partial: 'header', locals: {travis_repo: @travis_repo,
+                                       page:        @page} %>
 
  <% if current_project.has_current_sprint? %>
   <div id="dashboard_box" class="row">
@@ -31,6 +32,6 @@
 
 <%= unless @current_user_stories.empty?
       render partial: 'current_user_stories_box',
-              locals: { user_stories: @current_user_stories }
+              locals: { user_stories: @current_user_stories, partners: @partners }
     end %>
 
