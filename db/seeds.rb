@@ -111,6 +111,7 @@ user_story3 = UserStory.create( name: "4.f Accuracy of Estimations",
                     status: "completed",
                     sprint_id: sprint2.id,
                     start_time: DateTime.now - 16 + i,
+                    created_at: DateTime.now - 16 + Random.rand(5),
                     close_time: DateTime.now - 16 + 2*i)
 end
 
@@ -122,6 +123,7 @@ end
                     status: "completed",
                     sprint_id: sprint1.id,
                     start_time: DateTime.now - 30 + i,
+                    created_at: DateTime.now - 30 + Random.rand(5),
                     close_time: DateTime.now - 30 + 2*i)
 end
 

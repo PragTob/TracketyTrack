@@ -163,6 +163,31 @@ describe Sprint do
 
   end
 
+  describe "#all_story_points_per_day" do
+
+    it "returns a collection of all story points for each day of the sprint" do
+      time = DateTime.now.utc
+      Timecop.freeze(time)
+      @sprint.update_attributes(start_date: time, end_date: time + 4)
+      first_user_story = Factory(:user_story, estimation: 2, sprint: @sprint,
+        created_at: time + 1)
+      second_user_story = Factory(:user_story, estimation: 3, sprint: @sprint,
+        created_at: time + 2)
+      third_user_story = Factory(:user_story, estimation: 4, sprint: @sprint,
+        created_at: time + 3)
+      pre_sprint_created_user_story = Factory(:user_story, estimation: 1,
+        sprint: @sprint, created_at: time - 1)
+      first_day = time.to_date
+      date_collection = { first_day.strftime("%d.%m.") => 1,
+                          (first_day + 1).strftime("%d.%m.") => 3,
+                          (first_day + 2).strftime("%d.%m.") => 6,
+                          (first_day + 3).strftime("%d.%m.") => 10,
+                          (first_day + 4).strftime("%d.%m.") => 10 }
+      @sprint.all_story_points_per_day.should eq date_collection
+    end
+
+  end
+
   describe "#actual_velocity" do
 
     it "returns the number of currently completed story points" do
