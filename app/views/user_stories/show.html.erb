@@ -16,7 +16,7 @@
 
   <div class="row">
     <div id="user_story_info" class="span2">
-      <%= render partial: 'story_status', locals: { user_story: @user_story } %>
+      <%= render 'story_status', user_story: @user_story %>
       <br />
       <% unless @user_story.priority.nil? %>
         <span class="label"><%= @user_story.priority %></span> (Priority)<br />
@@ -65,10 +65,9 @@
 
 <div id="comments">
   <% @user_story.comments.each do |comment| %>
-    <%= render partial: 'comments/comment_entry', locals: { comment: comment } %>
+    <%= render 'comments/comment_entry', comment: comment %>
   <% end %>
 </div>
 
-<%= render partial: 'comments/comment_field', locals: { user_story: @user_story,
-                                                        comment: @comment } %>
+<%= render 'comments/comment_field', user_story: @user_story, comment: @comment %>
 

@@ -1,15 +1,15 @@
-<%= render partial: 'header', locals: {travis_repo: @travis_repo,
-                                       page:        @page} %>
+<%= render 'header', travis_repo: @travis_repo, page: @page %>
+
 <div class="row">
    <% if current_project.has_current_sprint? %>
     <%= render 'stop_sprint_button' %>
   <% end %>
   <div id="box_current_sprint" class="span8 userstory_box">
-   <%= render partial: 'box_header', locals: { title: "CURRENT SPRINT" } %>
+   <%= render 'box_header', title: "CURRENT SPRINT" %>
    <% if current_project.has_current_sprint? %>
     <div class="user_stories_container">
-      <%= render partial: 'current_sprint_user_stories',
-        locals: { user_stories_current_sprint: @user_stories_current_sprint } %>
+      <%= render 'current_sprint_user_stories',
+                  user_stories_current_sprint: @user_stories_current_sprint %>
     </div>
     <% else %>
         <div class="user_stories_container">
@@ -21,14 +21,14 @@
   </div>
 
   <div id="box_backlog" class="span8 userstory_box">
-    <%= render partial: 'box_header', locals: { title: "BACKLOG" } %>
+    <%= render 'box_header', title: "BACKLOG" %>
     <div class="user_stories_container">
-      <%= render partial: 'backlog_user_stories', locals: { user_stories_in_backlog: @user_stories_in_backlog } %>
+      <%= render 'backlog_user_stories', user_stories_in_backlog: @user_stories_in_backlog %>
     </div>
     <%= render 'box_footer' %>
   </div>
 
 </div>
 
-<%= render partial: 'user_stories/new_box', locals: {user_story: @user_story} %>
+<%= render 'user_stories/new_box', user_story: @user_story %>
 

@@ -16,7 +16,7 @@
     <td><%= user.email %></td>
     <td><%= user.description %></td>
     <% if type == :accept %>
-      <%= render partial: 'accept_buttons', locals: { user: user} %>
+      <%= render 'accept_buttons', user: user %>
     <% end %>
   </tr>
 <% end %>

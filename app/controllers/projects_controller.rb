@@ -17,10 +17,10 @@ class ProjectsController < ApplicationController
     @project = Project.new(params[:project])
 
     if @project.save
-      redirect_to new_user_path, 
+      redirect_to new_user_path,
                   flash: { success: 'Project was successfully created.' }
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -28,10 +28,10 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
 
     if @project.update_attributes(params[:project])
-      redirect_to @project, 
+      redirect_to @project,
                   flash: {success: 'Project was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 

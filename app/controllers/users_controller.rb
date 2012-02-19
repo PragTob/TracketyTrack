@@ -33,7 +33,7 @@ class UsersController < ApplicationController
         redirect_to signin_path,
                     flash: {success: 'User was successfully created.'}
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       redirect_to @user,
                     flash: {success: 'User was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 

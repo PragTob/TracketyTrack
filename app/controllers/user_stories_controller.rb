@@ -80,7 +80,7 @@ class UserStoriesController < ApplicationController
         redirect_to @user_story, flash: {success: message}
       end
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -97,7 +97,7 @@ class UserStoriesController < ApplicationController
       redirect_to @user_story,
                   flash: {success: 'User Story was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 

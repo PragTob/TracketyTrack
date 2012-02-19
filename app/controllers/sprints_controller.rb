@@ -31,7 +31,7 @@ class SprintsController < ApplicationController
       redirect_to sprint_planning_path,
                     flash: { success: 'Sprint was successfully created.'}
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -41,7 +41,7 @@ class SprintsController < ApplicationController
     if @sprint.update_attributes(params[:sprint])
       redirect_to @sprint, flash: {success: 'Sprint was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 

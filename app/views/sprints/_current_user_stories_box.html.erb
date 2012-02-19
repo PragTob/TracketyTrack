@@ -8,8 +8,8 @@
     </ul>
     <% user_stories.each_with_index do |user_story, i| %>
        <div id="tabs-<%= (i+1).to_s%>">
-         <%= render partial: 'current_user_story',
-                    locals: { user_story: user_story, partners: partners } %>
+         <%= render 'current_user_story', user_story: user_story,
+                                          partners: partners %>
        </div>
     <% end %>
   </div>
