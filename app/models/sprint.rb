@@ -81,10 +81,6 @@ class Sprint < ActiveRecord::Base
     self.save
   end
 
-  def expired?
-    self.end_date < DateTime.now
-  end
-
   # statistics
 
   def initial_story_points

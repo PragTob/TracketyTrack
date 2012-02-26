@@ -74,15 +74,6 @@ describe Sprint do
 
   end
 
-  describe "#expired?" do
-
-    it "returns true if the end date is older than the current date" do
-      sprint = Factory.build(:sprint, end_date: DateTime.now - 1)
-      sprint.expired?.should be_true
-    end
-
-  end
-
   describe "#initial_story_points" do
 
     it "returns the sum of all story points of the given sprint" do
