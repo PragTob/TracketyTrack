@@ -43,15 +43,6 @@ class Sprint < ActiveRecord::Base
   validates_with SprintDatesValidator
   validates :velocity,  numericality: {greater_than: 0}, allow_nil: true
 
-  def self.actual_sprint?
-    not actual_sprint.nil?
-  end
-
-  def self.actual_sprint
-    time = DateTime.now
-    where("start_date <= ? AND end_date >= ?", time, time).first
-  end
-
   def self.completed_sprints
     all.reject { |sprint| sprint.end_date.nil? }
   end

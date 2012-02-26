@@ -74,33 +74,6 @@ describe Sprint do
 
   end
 
-  describe "#actual_sprint?" do
-
-    it "returns true if a sprint is defined containing the current date" do
-      Factory(:sprint, start_date: DateTime.now, end_date: DateTime.now + 1)
-      Sprint.actual_sprint?.should be_true
-    end
-
-  end
-
-  describe "#actual_sprint" do
-
-    context "when there is one sprint, which contains the current date" do
-      it "returns this sprint" do
-        sprint = Factory(:sprint, start_date: DateTime.now,
-                                  end_date: DateTime.now + 1)
-        Sprint.actual_sprint.should eq sprint
-      end
-    end
-
-    context "when there is no sprint containing the current date" do
-      it "returns nil" do
-        Sprint.actual_sprint.should eq nil
-      end
-    end
-
-  end
-
   describe "#expired?" do
 
     it "returns true if the end date is older than the current date" do
