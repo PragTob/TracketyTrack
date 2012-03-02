@@ -20,12 +20,14 @@
   </p>
   <br />
   <h3>Project Burndown Chart</h3>
-  <%= @project.burndown_graph %>
   <%= image_tag(@project.burndown_graph) %>
   <% unless UserStory.non_estimated.empty? %>
     <br /><span class="label important">Attention!</span>&nbsp;There are user stories without an estimation.
     <br />Therefore this graph is not accurate because these stories are not considered.
   <% end %>
+
+  <h3>Project Burnup Chart</h3>
+  <p><%= image_tag(@project.burnup_graph) %></p>
 
 </div>
 

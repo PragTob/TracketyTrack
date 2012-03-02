@@ -89,6 +89,26 @@ describe Project do
 
   end
 
+  describe "#all_story_points_per_sprint" do
+
+    it "returns a collection of all story points created until end of sprint" do
+      time = DateTime.now
+      first_sprint = Factory.build(:sprint, number: 1, end_date: time)
+      second_sprint = Factory.build(:sprint, number: 2, end_date: time + 2)
+      first_user_story = Factory.build(:user_story,
+                                      created_at: time - 1,
+                                      estimation: 10)
+      second_user_story = Factory.build(:user_story,
+                                        created_at: time + 1,
+                                        estimation: 20)
+      Sprint.stub completed_sprints: [first_sprint, second_sprint]
+      UserStory.stub all: [first_user_story, second_user_story]
+      story_points_collection = {1 => 10, 2 => 30}
+      @project.all_story_points_per_sprint.should eq story_points_collection
+    end
+
+  end
+
   describe "#initial_story_points" do
 
     it "returns the sum of all story points" do

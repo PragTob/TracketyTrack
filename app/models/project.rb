@@ -82,19 +82,23 @@ class Project < ActiveRecord::Base
 
   def burnup_graph
     # TODO: add line of total amount of story points to finish
-#    story_points = []
-#    legend_dates = []
-#    completed_story_points_per_sprint.each do | number, story_points_of_sprint |
-#      if story_points.empty?
-#        story_points << story_points_of_sprint
-#      else
-#        story_points << (story_points.last + story_points_of_sprint)
-#      end
-#      legend_dates << number.to_s + ". sprint"
-#    end
-#    generate_burn_chart(story_points,
-#                        legend_dates,
-#                        "Finished Story Points per completed Sprint")
+    generate_burnup_chart(completed_story_points_per_sprint,
+                        "Finished Story Points per completed Sprint",
+                        all_story_points_per_sprint)
+  end
+
+  def all_story_points_per_sprint
+    story_points_per_sprint = {}
+    Sprint.completed_sprints.each do | sprint |
+      total_amount_of_story_points = 0
+      UserStory.all.each do | user_story |
+        if user_story.estimation && user_story.created_at <= sprint.end_date
+          total_amount_of_story_points += user_story.estimation
+        end
+      end
+      story_points_per_sprint[sprint.number] = total_amount_of_story_points
+    end
+    story_points_per_sprint
   end
 
   # there shall only be one project atm
