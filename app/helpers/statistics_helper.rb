@@ -42,6 +42,7 @@ module StatisticsHelper
       # general settings
       "chbh=" + WIDTH_OF_BARS.to_s + "," + SPACING_BETWEEN_BARS.to_s +
       "&cht=bvs&chxt=x,y&chs=1000x200" +
+      "&chdl=" + legend_label +
       # data for bars of completed story points
       "&chd=t1:" + get_completed_story_points(completed_story_points_per_unit) +
       # data for line of all story points
