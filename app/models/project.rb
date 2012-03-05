@@ -13,6 +13,8 @@ class Project < ActiveRecord::Base
   include ActiveModel::Validations
   include StatisticsHelper
 
+  attr_accessible :title, :description, :repository_url, :current_sprint
+
   has_one :project_settings
   after_initialize :init
 
