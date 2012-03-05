@@ -46,14 +46,6 @@ FactoryGirl.define do
     user.password_confirmation  "Trackety"
   end
 
-  factory :role do |role|
-    role.name   "Standard"
-  end
-
-  factory :other_role, class: "role" do |role|
-    role.name   "Special"
-  end
-
   factory :project do |project|
     project.title           "TheProject"
     project.description     "This is a very awesome project."
