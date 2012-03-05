@@ -43,6 +43,8 @@ class Sprint < ActiveRecord::Base
   validates_with SprintDatesValidator
   validates :velocity,  numericality: {greater_than: 0}, allow_nil: true
 
+  attr_accessible :velocity, :number, :description, :start_date, :end_date
+
   def self.completed_sprints
     all.reject { |sprint| sprint.end_date.nil? }
   end
