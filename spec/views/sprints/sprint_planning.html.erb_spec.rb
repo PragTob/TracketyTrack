@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "sprints/sprint_planning" do
 
   before (:each) do
-    @user_story = Factory.build(:user_story)
-    @other_user_story = Factory.build(:user_story, name: "Other Name")
+    @user_story = Factory(:user_story)
+    @other_user_story = Factory(:user_story, name: "Other Name")
     assign(:user_stories_current_sprint, [@user_story])
     assign(:user_stories_in_backlog, [@other_user_story])
     view.stub!(signed_in?: true)
