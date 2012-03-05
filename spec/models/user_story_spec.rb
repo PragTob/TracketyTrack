@@ -222,7 +222,8 @@ describe UserStory do
 
     it "does not contain user stories with assigned sprint" do
       sprint = Factory(:sprint)
-      @user_story.update_attributes(sprint_id: sprint.id)
+      @user_story.sprint = sprint
+      @user_story.save
       UserStory.backlog.should_not include @user_story
     end
 

@@ -4,6 +4,10 @@ class UserStory < ActiveRecord::Base
   belongs_to :sprint
   after_initialize :init
 
+  attr_accessible :name, :description, :acceptance_criteria, :estimation,
+                  :priority, :requesting_feedback, :users, :status, :sprint,
+                  :work_effort
+
   ACTIVE        = "active"
   INACTIVE      = "inactive"
   COMPLETED     = "completed"
