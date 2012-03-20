@@ -182,5 +182,11 @@ class UserStoriesController < ApplicationController
         locals: {user_story: user_story, users: User.accepted_users}
   end
 
+  def details
+    user_story = UserStory.find(params[:id])
+    render partial: 'details_page',
+        locals: {user_story: user_story, management_allowed: false}
+  end
+
 end
 

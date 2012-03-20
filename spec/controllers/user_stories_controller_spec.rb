@@ -427,6 +427,15 @@ describe UserStoriesController do
 
     end
 
+    describe "GET details" do
+
+      it "renders the details for the requested user story" do
+        get :details, id: @user_story.id
+        response.should render_template '_details_page'
+      end
+
+    end
+
   end
 
   describe "No action should be accessible without a logged in user" do
