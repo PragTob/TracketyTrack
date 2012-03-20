@@ -35,6 +35,12 @@
         <b>Acceptance criteria:</b><br />
         <%= @user_story.acceptance_criteria %>
       </p>
+      <% if @user_story.sprint_id %>
+        <p>
+          <b>belongs to:</b>
+          <%= link_to "Sprint #" + @user_story.sprint_id.to_s, @user_story.sprint %>
+        </p>
+      <% end %>
       <p>
         <b>Work Effort:</b>
         <%= @user_story.printable_work_effort %>
