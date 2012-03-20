@@ -30,6 +30,18 @@
   <% end %>
 </p>
 <br />
+
+<h3>Related User Stories</h3>
+  <% if @sprint.user_stories.empty? %>
+    There are no user stories assigned to this sprint
+  <% else %>
+    <ul>
+      <% @sprint.user_stories.each do | user_story |%>
+        <li><%= link_to user_story.name, user_story %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
 <h3>Sprint Burndown Chart</h3>
 <p>
   <%= image_tag(@sprint.burndown_graph)%>
@@ -42,17 +54,6 @@
 <h3>Sprint Burnup Chart</h3>
 <p><%= image_tag(@sprint.burnup_graph) %></p>
 
-
-<h3>Related User Stories</h3>
-  <% if @sprint.user_stories.empty? %>
-    There are no user stories assigned to this sprint
-  <% else %>
-    <ul>
-      <% @sprint.user_stories.each do | user_story |%>
-        <li><%= link_to user_story.name, user_story %></li>
-      <% end %>
-    </ul>
-  <% end %>
 
 <div class="management_options">
   <%= button_to 'Edit', edit_sprint_path(@sprint),
