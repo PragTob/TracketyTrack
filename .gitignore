@@ -13,5 +13,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# output of static analysis tools
 /coverage
+brakeman.html
 

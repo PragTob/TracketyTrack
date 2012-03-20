@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218222212) do
+ActiveRecord::Schema.define(:version => 20120305171449) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_story_id"
@@ -43,20 +43,6 @@ ActiveRecord::Schema.define(:version => 20120218222212) do
     t.datetime "updated_at",        :null => false
     t.integer  "current_sprint_id"
   end
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "roles_users", :force => true do |t|
-    t.integer "role_id"
-    t.integer "user_id"
-  end
-
-  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
-  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "sprints", :force => true do |t|
     t.integer  "number"
