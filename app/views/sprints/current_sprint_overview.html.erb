@@ -1,12 +1,12 @@
-<%= render 'header' %>
+<%= render 'header', travis_repo: @travis_repo, page: @page %>
 
  <% if current_project.has_current_sprint? %>
   <div id="dashboard_box" class="row">
     <div id="box_in_progress" class="span8 userstory_box">
-      <%= render partial: 'box_header', locals: { title: "In Progress" } %>
+      <%= render 'box_header', title: "In Progress" %>
       <div class="user_stories_container">
       <% @user_stories_in_progress.each do |user_story| %>
-        <%= render partial: 'user_stories/user_story_box', locals: { user_story: user_story } %>
+        <%= render 'user_stories/user_story_box', user_story: user_story %>
       <% end %>
       </div>
       <%= render 'box_footer' %>
@@ -16,7 +16,7 @@
       <%= render partial: 'box_header', locals: { title: "SPRINT Backlog" } %>
       <div class="user_stories_container">
       <% @user_stories_current_sprint.each do |user_story| %>
-        <%= render partial: 'user_stories/user_story_box', locals: { user_story: user_story } %>
+        <%= render 'user_stories/user_story_box', user_story: user_story %>
       <% end %>
       </div>
       <%= render 'box_footer' %>
@@ -29,8 +29,8 @@
     </div>
  <% end %>
 
-<%= unless @current_user_stories.empty?
-      render partial: 'current_user_stories_box',
-              locals: { user_stories: @current_user_stories }
-    end %>
+ <% unless @current_user_stories.empty? %>
+     <%= render 'current_user_stories_box',
+              user_stories: @current_user_stories, partners: @partners %>
+ <% end %>
 

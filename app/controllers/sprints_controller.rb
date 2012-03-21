@@ -1,10 +1,10 @@
 class SprintsController < ApplicationController
   include SprintsHelper
 
-  dashboard_actions = [:current_sprint_overview, :sprint_planning]
-  before_filter :authenticate, except: dashboard_actions
-  before_filter :redirect_and_login_check, only: dashboard_actions
-  before_filter :travis_repo, only: dashboard_actions
+  DASHBOARD_ACTIONS = [:current_sprint_overview, :sprint_planning]
+  before_filter :authenticate, except: DASHBOARD_ACTIONS
+  before_filter :redirect_and_login_check, only: DASHBOARD_ACTIONS
+  before_filter :travis_repo, only: DASHBOARD_ACTIONS
 
   def index
     @sprints = Sprint.all
@@ -31,7 +31,7 @@ class SprintsController < ApplicationController
       redirect_to sprint_planning_path,
                     flash: { success: 'Sprint was successfully created.'}
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -41,7 +41,7 @@ class SprintsController < ApplicationController
     if @sprint.update_attributes(params[:sprint])
       redirect_to @sprint, flash: {success: 'Sprint was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 
@@ -64,9 +64,8 @@ class SprintsController < ApplicationController
     @user_stories_current_sprint = current_sprint.user_stories_not_in_progress
     @user_stories_in_progress = current_sprint.user_stories_in_progress
     @current_user_stories = current_sprint.user_stories_for_user(current_user)
-    users = User.accepted_users
-    @users = users.to_a
-    @users.delete current_user
+    @partners = User.accepted_users.to_a
+    @partners.delete current_user
     @page = "current"
   end
 

@@ -80,28 +80,6 @@ describe User do
 
   end
 
-  describe "Role" do
-    before :all do
-      @role = Factory.build(:role)
-    end
-
-    it "should have empty roles upon creation" do
-      @user.roles.should be_empty
-    end
-
-    it "can have a role assigned" do
-      @user.roles << @role
-      @user.roles.size.should == 1
-      @user.should be_valid
-    end
-
-    it "can have multiple roles assigned" do
-      @user.roles << @role << Factory.build(:other_role)
-      @user.roles.size.should == 2
-    end
-
-  end
-
   describe "collections of users from the class level" do
 
     before :each do

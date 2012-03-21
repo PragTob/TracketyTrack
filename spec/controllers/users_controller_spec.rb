@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController do
 
   def valid_attributes
-    Factory.attributes_for(:other_user)
+    Factory.attributes_for(:create_user)
   end
 
   describe "GET new" do
@@ -34,13 +34,14 @@ describe UsersController do
       end
 
       it "creates the first user authorized" do
-        post :create, user: Factory.attributes_for(:unaccepted_user)
+        User.all.size.should eq 0
+        post :create, user: valid_attributes
         User.first.should be_accepted
       end
 
       it "creates all non first users as not authorized" do
         Factory :other_user
-        post :create, user: Factory.attributes_for(:unaccepted_user)
+        post :create, user: valid_attributes
         assigns(:user).should_not be_accepted
       end
 

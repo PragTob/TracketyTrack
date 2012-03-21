@@ -2,7 +2,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(params[:comment])
-    @comment.date = DateTime.now
     @comment.user = current_user
 
     if @comment.save
@@ -20,6 +19,6 @@ class CommentsController < ApplicationController
 
     redirect_to user_story
   end
-  
+
 end
 

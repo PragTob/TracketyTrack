@@ -30,14 +30,6 @@
   <% end %>
 </p>
 <br />
-<h3>Sprint Burndown Chart</h3>
-<p>
-  <%= image_tag(@sprint.burndown_graph)%>
-  <% if @sprint.user_stories_estimated != @sprint.user_stories %>
-    <br /><span class="label important">Attention!</span>&nbsp;There are user stories without an estimation.
-    <br />Therefore this graph is not accurate because these stories are not considered.
-  <% end %>
-</p>
 
 <h3>Related User Stories</h3>
   <% if @sprint.user_stories.empty? %>
@@ -49,6 +41,19 @@
       <% end %>
     </ul>
   <% end %>
+
+<h3>Sprint Burndown Chart</h3>
+<p>
+  <%= image_tag(@sprint.burndown_graph)%>
+  <% if @sprint.user_stories_estimated != @sprint.user_stories %>
+    <br /><span class="label important">Attention!</span>&nbsp;There are user stories without an estimation.
+    <br />Therefore this graph is not accurate because these stories are not considered.
+  <% end %>
+</p>
+
+<h3>Sprint Burnup Chart</h3>
+<p><%= image_tag(@sprint.burnup_graph) %></p>
+
 
 <div class="management_options">
   <%= button_to 'Edit', edit_sprint_path(@sprint),

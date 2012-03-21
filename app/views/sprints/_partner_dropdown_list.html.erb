@@ -1,6 +1,6 @@
-<% users.each do |user| %>
-  <li class="dropdown_entry" value="<%=user.id%>"><%=mini_gravatar_for user%> <%= user.name %>
-    <% if user_story.users.include? user %>
+<% partners.each do |partner| %>
+  <li class="dropdown_entry" value="<%=partner.id%>"><%=mini_gravatar_for partner%> <%= partner.name %>
+    <% if user_story.users.include? partner %>
       <span class='ui-icon ui-icon-check'/>
     <% end %>
   </li>

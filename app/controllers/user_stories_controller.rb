@@ -80,7 +80,7 @@ class UserStoriesController < ApplicationController
         redirect_to @user_story, flash: {success: message}
       end
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -89,14 +89,15 @@ class UserStoriesController < ApplicationController
     @users = User.all
 
     if @user_story.update_attributes(params[:user_story])
-      @user_story.combine_work_effort params[:days].to_i, params[:hours].to_i,
+      @user_story.combine_work_effort params[:days].to_i,
+                                      params[:hours].to_i,
                                       params[:minutes].to_i,
                                       params[:seconds].to_i
 
       redirect_to @user_story,
                   flash: {success: 'User Story was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 
@@ -104,14 +105,16 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.find(params[:id])
     @user_story.delete
 
-    redirect_to user_stories_url, flash: {success: "User Story succesfully deleted" }
+    redirect_to user_stories_url,
+                flash: {success: "User Story succesfully deleted" }
   end
 
   def resurrect
     @user_story = UserStory.find(params[:id])
     @user_story.resurrect
 
-    redirect_to user_stories_url, flash: {success: "User Story succesfully resurrected" }
+    redirect_to user_stories_url,
+                flash: {success: "User Story succesfully resurrected" }
   end
 
   def start
@@ -125,13 +128,12 @@ class UserStoriesController < ApplicationController
   def pause
     @user_story = UserStory.find(params[:id])
 
-    # TODO get this into the pause method
-    if @user_story.users.include? current_user
-      @user_story.pause
-
+    if @user_story.pause current_user
       redirect_to current_sprint_path
     else
-      redirect_to current_sprint_path
+      redirect_to current_sprint_path,
+                  flash: {error: "You can not pause a user story you are not \
+                                  assigned to!"}
     end
   end
 
@@ -170,16 +172,14 @@ class UserStoriesController < ApplicationController
     user_story = UserStory.find(params[:id])
     user_story.users << User.find(params[:user_id])
     user_story.save
-    render partial: 'sprints/partner_dropdown_list',
-        locals: {user_story: user_story, users: User.accepted_users}
+    redirect_to current_sprint_path
   end
 
   def remove_user
     user_story = UserStory.find(params[:id])
     user_story.users.delete User.find(params[:user_id])
     user_story.save
-    render partial: 'sprints/partner_dropdown_list',
-        locals: {user_story: user_story, users: User.accepted_users}
+    redirect_to current_sprint_path
   end
 
   def details

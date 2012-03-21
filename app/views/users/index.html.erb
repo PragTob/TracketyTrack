@@ -3,10 +3,10 @@
 
 <% unless @unaccepted_users.empty? %>
   <h3>Users waiting to be accepted for <%= current_project.title %></h3>
-  <%= render partial: "list_users", locals: {type: :accept} %>
+  <%= render 'list_users', type: :accept, users: @unaccepted_users %>
 <% end %>
 
 <h3>All Users</h3>
 
-<%= render partial: "list_users", locals: {type: :index} %>
+<%= render 'list_users', type: :index, users: @users %>
 

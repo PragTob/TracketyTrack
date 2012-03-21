@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120109195145) do
+ActiveRecord::Schema.define(:version => 20120305171449) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_story_id"
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["user_story_id"], :name => "index_comments_on_user_story_id"
+
   create_table "project_settings", :force => true do |t|
     t.string   "travis_ci_repo"
     t.datetime "travis_last_updated"
@@ -30,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.datetime "updated_at",          :null => false
   end
 
+  add_index "project_settings", ["project_id"], :name => "index_project_settings_on_project_id"
+
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -37,17 +42,6 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.integer  "current_sprint_id"
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "roles_users", :force => true do |t|
-    t.integer "role_id"
-    t.integer "user_id"
   end
 
   create_table "sprints", :force => true do |t|
@@ -76,10 +70,15 @@ ActiveRecord::Schema.define(:version => 20120109195145) do
     t.boolean  "requesting_feedback"
   end
 
+  add_index "user_stories", ["sprint_id"], :name => "index_user_stories_on_sprint_id"
+
   create_table "user_stories_users", :force => true do |t|
     t.integer "user_story_id"
     t.integer "user_id"
   end
+
+  add_index "user_stories_users", ["user_id"], :name => "index_user_stories_users_on_user_id"
+  add_index "user_stories_users", ["user_story_id"], :name => "index_user_stories_users_on_user_story_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -2,19 +2,19 @@
   <div class="span10">
     <h1>
       <%= link_to current_project.title, project_path(current_project) %>
-      <% if @travis_repo %>
-        <a href="http://travis-ci.org/<%= @travis_repo %>" target="_blank">
-          <img alt="Build Status" src="https://secure.travis-ci.org/<%= @travis_repo %>.png">
+      <% if travis_repo %>
+        <a href="http://travis-ci.org/<%= travis_repo %>" target="_blank">
+          <img alt="Build Status" src="https://secure.travis-ci.org/<%= travis_repo %>.png">
         </a>
       <% end %>
     </h1>
   </div>
   <div class="span5 offset1">
     <ul class="pills">
-      <li<% if @page == "current"%> class="active"<% end %>>
+      <li<% if page == "current"%> class="active"<% end %>>
         <%= link_to 'Current Sprint', :controller => "sprints", :action => "current_sprint_overview" %>
       </li>
-      <li<% if @page == "planning"%> class="active"<% end %>>
+      <li<% if page == "planning"%> class="active"<% end %>>
         <%= link_to 'Sprint Planning', :controller => "sprints", :action => "sprint_planning" %>
       </li>
     </ul>

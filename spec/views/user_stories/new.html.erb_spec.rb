@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "user_stories/new" do
 
   before(:each) do
-    @user_story = Factory(:user_story)
+    @user_story = UserStory.new
     @users = [Factory(:user)]
   end
 
@@ -18,7 +18,6 @@ describe "user_stories/new" do
       assert_select "textarea#user_story_acceptance_criteria", name: "user_story[acceptance_criteria]"
       assert_select "input#user_story_priority", name: "user_story[priority]"
       assert_select "input#user_story_estimation", name: "user_story[estimation]"
-      assert_select "select#user_story_users", name: "user_story[users]"
     end
   end
 

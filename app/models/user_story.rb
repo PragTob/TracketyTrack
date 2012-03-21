@@ -4,6 +4,10 @@ class UserStory < ActiveRecord::Base
   belongs_to :sprint
   after_initialize :init
 
+  attr_accessible :name, :description, :acceptance_criteria, :estimation,
+                  :priority, :requesting_feedback, :users, :status, :sprint,
+                  :work_effort
+
   ACTIVE        = "active"
   INACTIVE      = "inactive"
   COMPLETED     = "completed"
@@ -80,10 +84,14 @@ class UserStory < ActiveRecord::Base
     user.save
   end
 
-  def pause
-    self.status = SUSPENDED
-    set_new_work_effort
-    save
+  def pause user
+    if users.include? user
+      self.status = SUSPENDED
+      set_new_work_effort
+      save
+    else
+      false
+    end
   end
 
   def complete

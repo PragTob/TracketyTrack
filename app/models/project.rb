@@ -11,6 +11,9 @@ end
 
 class Project < ActiveRecord::Base
   include ActiveModel::Validations
+  include StatisticsHelper
+
+  attr_accessible :title, :description, :repository_url, :current_sprint
 
   has_one :project_settings
   after_initialize :init
@@ -74,21 +77,30 @@ class Project < ActiveRecord::Base
   end
 
   def burndown_graph
-    story_points = [initial_story_points]
-    legend_dates = ['initial']
-    completed_story_points_per_sprint.each do | number, story_points_of_sprint |
-      story_points << (story_points.last - story_points_of_sprint)
-      legend_dates << number.to_s + ". sprint"
+    generate_burndown_chart(completed_story_points_per_sprint,
+                        initial_story_points,
+                        "Unfinished Story Points per completed Sprint")
+  end
+
+  def burnup_graph
+    # TODO: add line of total amount of story points to finish
+    generate_burnup_chart(completed_story_points_per_sprint,
+                        "Finished Story Points per completed Sprint",
+                        all_story_points_per_sprint)
+  end
+
+  def all_story_points_per_sprint
+    story_points_per_sprint = {}
+    Sprint.completed_sprints.each do | sprint |
+      total_amount_of_story_points = 0
+      UserStory.all.each do | user_story |
+        if user_story.estimation && user_story.created_at <= sprint.end_date
+          total_amount_of_story_points += user_story.estimation
+        end
+      end
+      story_points_per_sprint[sprint.number] = total_amount_of_story_points
     end
-    chart = Gchart.bar(
-                data: story_points,
-                axis_with_labels: ['x,y'],
-                axis_labels: [legend_dates],
-                axis_range: [nil, [0,initial_story_points,5]],
-                legend: 'Completed Story Points per completed Sprint',
-                bar_width_and_spacing: {width: 30, spacing: 15},
-                width: 1000)
-    chart
+    story_points_per_sprint
   end
 
   # there shall only be one project atm

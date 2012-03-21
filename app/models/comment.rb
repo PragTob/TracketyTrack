@@ -4,7 +4,14 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :user_story
 
+  attr_accessible :date, :content, :user_story_id, :user_story
+
   validates :date, presence: true
+  after_initialize :init
+
+  def init
+    self.date = DateTime.now
+  end
 
   def user
     if commenter = super

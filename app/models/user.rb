@@ -1,7 +1,6 @@
 require 'digest'
 
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :roles, uniq: true
   has_many :projects
   has_and_belongs_to_many :user_stories, uniq: true
   has_many :comments
@@ -63,22 +62,22 @@ class User < ActiveRecord::Base
 
   private
 
-    def encrypt_password
-      self.salt = make_salt if new_record?
-      self.encrypted_password = encrypt(password) unless password.blank?
-    end
+  def encrypt_password
+    self.salt = make_salt if new_record?
+    self.encrypted_password = encrypt(password) unless password.blank?
+  end
 
-    def encrypt(string)
-      secure_hash("#{salt}--#{string}")
-    end
+  def encrypt(string)
+    secure_hash("#{salt}--#{string}")
+  end
 
-    def make_salt
-      secure_hash("#{Time.now.utc}--#{password}")
-    end
+  def make_salt
+    secure_hash("#{Time.now.utc}--#{password}")
+  end
 
-    def secure_hash(string)
-      Digest::SHA2.hexdigest(string)
-    end
+  def secure_hash(string)
+    Digest::SHA2.hexdigest(string)
+  end
 end
 # == Schema Information
 #

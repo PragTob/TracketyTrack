@@ -5,7 +5,8 @@ class UsersController < ApplicationController
   before_filter :only_current_user, only: [:edit, :update, :destroy]
   before_filter :only_unaccepted, only: [:reject_user]
 
-  NO_PERMISSION = "You don't have the permission to alter the profile of somebody else"
+  NO_PERMISSION = "You don't have the permission to alter the profile of \
+                   somebody else"
 
   def index
     @users = User.accepted_users
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
         redirect_to signin_path,
                     flash: {success: 'User was successfully created.'}
     else
-      render action: "new"
+      render "new"
     end
   end
 
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
       redirect_to @user,
                     flash: {success: 'User was successfully updated.'}
     else
-      render action: "edit"
+      render "edit"
     end
   end
 
@@ -53,8 +54,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
 
-    bye_message = "It is unfortunate, that you don't want to work on /" +
-                  current_project.title + "any more! We will miss you!"
+    bye_message = "It is unfortunate, that you don't want to work on " +
+                  current_project.title + " any more! We will miss you!"
     redirect_to root_url, notice: bye_message
   end
 
@@ -81,7 +82,9 @@ class UsersController < ApplicationController
 
   def only_unaccepted
     user = User.find(params[:id])
-    redirect_to user, flash:{error: "You can only reject unaccepted users."}  if user.accepted?
+    if user.accepted?
+      redirect_to user, flash:{error: "You can only reject unaccepted users."}
+    end
   end
 
 end

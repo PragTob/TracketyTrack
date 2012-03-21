@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "sprints/current_sprint_overview" do
 
   before (:each) do
-    @user_story = Factory.build(:user_story)
-    @other_user_story = Factory.build(:user_story, name: "Other Name")
+    @user_story = Factory(:user_story)
+    @other_user_story = Factory(:user_story, name: "Other Name")
     assign(:user_stories_current_sprint, [@user_story])
     assign(:user_stories_in_progress, [@other_user_story])
     assign(:current_user_stories, [@other_user_story])
@@ -13,7 +13,7 @@ describe "sprints/current_sprint_overview" do
     view.stub!(current_user: @user)
     @other_user_story.users << @user
     @other_user_story.save
-    assign(:users, User.accepted_users)
+    assign(:partners, User.accepted_users)
     @project = Factory(:project)
     view.stub!(current_project: @project)
     render

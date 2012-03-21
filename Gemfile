@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.0.rc2'
+gem 'rails', '~> 3.2.0'
 
 # PostgreSQL
 gem 'pg'
@@ -26,7 +26,7 @@ gem 'therubyracer'
 # Twitter bootstrap from anjlab
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
 
-gem 'travis-client', git: 'git://github.com/travis-ci/travis-ruby-client.git'
+gem 'travis-client'
 
 group :development do
   gem 'annotate', '~> 2.4.1.beta1'
@@ -39,7 +39,6 @@ group :test, :development do
 end
 
 group :test do
-  gem 'turn', '~> 0.8.3', :require => false
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'simplecov'

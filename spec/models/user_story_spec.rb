@@ -47,7 +47,69 @@ describe UserStory do
     it {should_not be_valid}
   end
 
-  describe "actions" do
+  describe "life time actions (Start, Pause, Complete)" do
+
+    before :each do
+        @time = DateTime.now
+        Timecop.freeze(@time)
+        @user = Factory.build :user
+        @user_story.start @user
+      end
+
+    describe "start" do
+
+      it "sets the status to active" do
+        @user_story.status.should eq UserStory::ACTIVE
+      end
+
+      it "sets the start time to now" do
+        @user_story.start_time.to_i.should eq @time.to_i
+      end
+
+      it "sets the user of the user story to the one who started it" do
+        @user_story.users.should be_include @user
+      end
+
+      it "adds the user story to the list of user stories of a user" do
+        @user.user_stories.should be_include @user_story
+      end
+
+      describe "pause" do
+        it "sets the status to suspended" do
+          @user_story.pause @user
+          @user_story.status.should eq UserStory::SUSPENDED
+        end
+
+        it "returns false when the user is not working on the story" do
+          @user_story.pause(Factory.build :other_user).should eq false
+        end
+      end
+
+    end
+
+    describe "complete" do
+
+      before :each do
+        # complete doesn't need a user working on the story to complete it
+        # good or bad?
+        @close_time = DateTime.now
+        Timecop.freeze @close_time
+        @user_story.complete
+      end
+
+      it "sets the status to complete" do
+        @user_story.status.should eq UserStory::COMPLETED
+      end
+
+      it "sets the close time correctly" do
+        @user_story.close_time.to_i.should eq @close_time.to_i
+      end
+
+    end
+
+  end
+
+  describe "delete and ressurcet actions" do
 
     describe "delete" do
 
@@ -160,7 +222,8 @@ describe UserStory do
 
     it "does not contain user stories with assigned sprint" do
       sprint = Factory(:sprint)
-      @user_story.update_attributes(sprint_id: sprint.id)
+      @user_story.sprint = sprint
+      @user_story.save
       UserStory.backlog.should_not include @user_story
     end
 

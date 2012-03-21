@@ -74,42 +74,6 @@ describe Sprint do
 
   end
 
-  describe "#actual_sprint?" do
-
-    it "returns true if a sprint is defined containing the current date" do
-      Factory(:sprint, start_date: DateTime.now, end_date: DateTime.now + 1)
-      Sprint.actual_sprint?.should be_true
-    end
-
-  end
-
-  describe "#actual_sprint" do
-
-    context "when there is one sprint, which contains the current date" do
-      it "returns this sprint" do
-        sprint = Factory(:sprint, start_date: DateTime.now,
-                                  end_date: DateTime.now + 1)
-        Sprint.actual_sprint.should eq sprint
-      end
-    end
-
-    context "when there is no sprint containing the current date" do
-      it "returns nil" do
-        Sprint.actual_sprint.should eq nil
-      end
-    end
-
-  end
-
-  describe "#expired?" do
-
-    it "returns true if the end date is older than the current date" do
-      sprint = Factory.build(:sprint, end_date: DateTime.now - 1)
-      sprint.expired?.should be_true
-    end
-
-  end
-
   describe "#initial_story_points" do
 
     it "returns the sum of all story points of the given sprint" do
@@ -159,6 +123,31 @@ describe Sprint do
                           (first_day + 3).strftime("%d.%m.") => 3,
                           (first_day + 4).strftime("%d.%m.") => 0 }
       @sprint.completed_story_points_per_day.should eq date_collection
+    end
+
+  end
+
+  describe "#all_story_points_per_day" do
+
+    it "returns a collection of all story points for each day of the sprint" do
+      time = DateTime.now.utc
+      Timecop.freeze(time)
+      @sprint.update_attributes(start_date: time, end_date: time + 4)
+      first_user_story = Factory(:user_story, estimation: 2, sprint: @sprint,
+        created_at: time + 1)
+      second_user_story = Factory(:user_story, estimation: 3, sprint: @sprint,
+        created_at: time + 2)
+      third_user_story = Factory(:user_story, estimation: 4, sprint: @sprint,
+        created_at: time + 3)
+      pre_sprint_created_user_story = Factory(:user_story, estimation: 1,
+        sprint: @sprint, created_at: time - 1)
+      first_day = time.to_date
+      date_collection = { first_day.strftime("%d.%m.") => 1,
+                          (first_day + 1).strftime("%d.%m.") => 3,
+                          (first_day + 2).strftime("%d.%m.") => 6,
+                          (first_day + 3).strftime("%d.%m.") => 10,
+                          (first_day + 4).strftime("%d.%m.") => 10 }
+      @sprint.all_story_points_per_day.should eq date_collection
     end
 
   end
