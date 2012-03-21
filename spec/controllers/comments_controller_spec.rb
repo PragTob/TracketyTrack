@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CommentsController do
 
   def valid_attributes
-    Factory.attributes_for(:comment)
+    FactoryGirl.attributes_for(:comment)
   end
 
   describe "POST create" do

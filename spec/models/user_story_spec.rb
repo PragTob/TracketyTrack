@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 def add_users_to_story
-  @user_story.users << Factory.build(:user) << Factory.build(:other_user)
+  @user_story.users << FactoryGirl.build(:user) << FactoryGirl.build(:other_user)
 end
 
 describe UserStory do
   before :each do
-    @user_story = Factory.build(:user_story)
+    @user_story = FactoryGirl.build(:user_story)
   end
 
   subject{@user_story}
@@ -39,7 +39,7 @@ describe UserStory do
   end
 
   it "is invalid without a work effort" do
-    Factory.build(:user_story, work_effort: nil).should_not be_valid
+    FactoryGirl.build(:user_story, work_effort: nil).should_not be_valid
   end
 
   context "with a status unlike inactive, active, suspended or completed" do
@@ -52,7 +52,7 @@ describe UserStory do
     before :each do
         @time = DateTime.now
         Timecop.freeze(@time)
-        @user = Factory.build :user
+        @user = FactoryGirl.build :user
         @user_story.start @user
       end
 
@@ -81,7 +81,7 @@ describe UserStory do
         end
 
         it "returns false when the user is not working on the story" do
-          @user_story.pause(Factory.build :other_user).should eq false
+          @user_story.pause(FactoryGirl.build :other_user).should eq false
         end
       end
 

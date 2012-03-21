@@ -10,7 +10,7 @@ describe UserStoriesController do
     end
 
     def valid_attributes
-      Factory.attributes_for(:user_story)
+      FactoryGirl.attributes_for(:user_story)
     end
 
     describe "GET index" do

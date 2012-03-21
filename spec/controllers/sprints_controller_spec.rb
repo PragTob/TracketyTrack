@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SprintsController do
 
   def valid_attributes
-    Factory.attributes_for(:sprint)
+    FactoryGirl.attributes_for(:sprint)
   end
 
   describe "you need to be logged in for all sprint actions" do

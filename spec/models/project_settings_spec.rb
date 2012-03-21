@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ProjectSettings do
 
   before :each do
-    @project_settings = Factory.build :project_settings
+    @project_settings = FactoryGirl.build :project_settings
   end
 
   subject {@project_settings}
@@ -12,7 +12,7 @@ describe ProjectSettings do
   describe "Travis" do
 
     before :each do
-        @project = Factory.build :project
+        @project = FactoryGirl.build :project
         @project_settings.project = @project
       end
 

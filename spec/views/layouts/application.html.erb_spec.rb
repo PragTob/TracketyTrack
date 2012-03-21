@@ -27,7 +27,7 @@ describe "layouts/application" do
   describe "logged in" do
 
     before :each do
-      @user = Factory.build :user
+      @user = FactoryGirl.build :user
       view.stub!(current_user: @user)
       view.stub!(signed_in?: true)
     end
