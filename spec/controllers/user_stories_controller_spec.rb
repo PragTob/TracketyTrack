@@ -304,11 +304,10 @@ describe UserStoriesController do
 
       end
 
-
       it "can only be suspended by a user that is working on the story" do
         another_user = Factory(:other_user)
         previous_status = @user_story.status
-        post :pause, id: @user_story.id
+        post :pause, id: @user_story.id, user: another_user
         UserStory.find(@user_story.id).status.should == previous_status
       end
 

@@ -48,7 +48,7 @@ describe Sprint do
   context "with overlapping dates" do
 
     before (:each) do
-        @sprint2 = Factory(:sprint, number: 2)
+      @sprint2 = Factory(:sprint, number: 2)
     end
     context "when the new start date lies within an other sprint" do
 
@@ -78,9 +78,9 @@ describe Sprint do
 
     it "returns the sum of all story points of the given sprint" do
       @sprint.save
-      first_user_story = Factory(:user_story, estimation: 1, sprint: @sprint)
-      second_user_story = Factory(:user_story, estimation: 2, sprint: @sprint)
-      third_user_story = Factory(:user_story, estimation: 3, sprint: @sprint)
+      Factory(:user_story, estimation: 1, sprint: @sprint)
+      Factory(:user_story, estimation: 2, sprint: @sprint)
+      Factory(:user_story, estimation: 3, sprint: @sprint)
       @sprint.initial_story_points.should eq 6
     end
 
