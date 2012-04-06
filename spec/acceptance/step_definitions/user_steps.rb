@@ -1,7 +1,7 @@
 steps_for :user do
 
   step "I enter my user data" do
-    @user = Factory.build :user
+    @user = FactoryGirl.build :user
     fill_in 'Name', with: @user.name
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password

@@ -18,6 +18,7 @@ TracketyTrack::Application.routes.draw do
   post "user_stories/stop_requesting_feedback"
   post "user_stories/add_user"
   post "user_stories/remove_user"
+  get "user_stories/details"
 
   post "users/accept_user"
   post "users/reject_user"

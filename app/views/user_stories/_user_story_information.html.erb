@@ -1,10 +1,12 @@
 
 <div class="user_story_box_name">
-  <%= link_to user_story.name, user_story_path(user_story) %>
+  <%= link_to user_story.name, '#', class: 'detail_information',
+                                    id: 'name-details-' + user_story.id.to_s %>
 </div>
 
 <div class='short_description' style="display: none">
   <%= user_story.short_description %>
-  (<%= link_to "See all", user_story_path(user_story) %>)
+  (<%= link_to "See all", '#', class: 'detail_information',
+                                id: 'all-details-' + user_story.id.to_s %>)
 </div>
 

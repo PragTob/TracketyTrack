@@ -5,7 +5,7 @@ describe SprintsHelper do
   describe "form_action_for" do
 
     it 'returns "Start" when sprint is a new record' do
-      sprint = Factory.build(:sprint)
+      sprint = FactoryGirl.build(:sprint)
       form_action_for_sprint(sprint).should eq "Start"
     end
 

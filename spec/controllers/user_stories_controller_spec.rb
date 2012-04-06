@@ -10,7 +10,7 @@ describe UserStoriesController do
     end
 
     def valid_attributes
-      Factory.attributes_for(:user_story)
+      FactoryGirl.attributes_for(:user_story)
     end
 
     describe "GET index" do
@@ -422,6 +422,15 @@ describe UserStoriesController do
 
       it "renders an updated dropdown list" do
         response.should redirect_to current_sprint_path
+      end
+
+    end
+
+    describe "GET details" do
+
+      it "renders the details for the requested user story" do
+        get :details, id: @user_story.id
+        response.should render_template '_details_page'
       end
 
     end

@@ -11,7 +11,7 @@ steps_for :user_story do
   end
 
   step "I create a new user story" do
-    @user_story = Factory.build(:user_story)
+    @user_story = FactoryGirl.build(:user_story)
     visit new_user_story_path
     fill_in 'Name', with: @user_story.name
     click_on 'Create User story'
@@ -47,8 +47,8 @@ steps_for :user_story do
   end
 
   step "there is a commented user story" do
-    @user_story = Factory.build :user_story
-    @comment = Factory.build :comment
+    @user_story = FactoryGirl.build :user_story
+    @comment = FactoryGirl.build :comment
     @comment.user = User.first
     @user_story.comments << @comment
     @user_story.save

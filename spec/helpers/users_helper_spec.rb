@@ -4,7 +4,7 @@ describe UsersHelper do
 
   describe "set_accepted" do
     before :each do
-      @unaccepted = Factory.build :unaccepted_user
+      @unaccepted = FactoryGirl.build :unaccepted_user
     end
 
     it "sets accepted to true when the user is the first user" do
@@ -22,7 +22,7 @@ describe UsersHelper do
   describe "form_action_for_user" do
 
     it "returns label for register button if user is not saved yet" do
-      user = Factory.build(:user)
+      user = FactoryGirl.build(:user)
       form_action_for_user(user).should eq "Register now"
     end
 

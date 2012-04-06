@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Sprint do
 
   before :each do
-    @sprint = Factory.build(:sprint)
+    @sprint = FactoryGirl.build(:sprint)
   end
 
   subject{@sprint}
@@ -200,13 +200,13 @@ describe Sprint do
     describe "in progress" do
 
       it "returns an active user story" do
-        user_story = Factory.build(:user_story, status: UserStory::ACTIVE)
+        user_story = FactoryGirl.build(:user_story, status: UserStory::ACTIVE)
         @sprint.user_stories << user_story
         @sprint.user_stories_in_progress.should include user_story
       end
 
       it "returns a suspended user story" do
-        user_story = Factory.build(:user_story, status: UserStory::SUSPENDED)
+        user_story = FactoryGirl.build(:user_story, status: UserStory::SUSPENDED)
         @sprint.user_stories << user_story
         @sprint.user_stories_in_progress.should include user_story
       end
@@ -216,13 +216,13 @@ describe Sprint do
     describe "not in progress" do
 
       it "returns a completed user story" do
-        user_story = Factory.build(:user_story, status: UserStory::COMPLETED)
+        user_story = FactoryGirl.build(:user_story, status: UserStory::COMPLETED)
         @sprint.user_stories << user_story
         @sprint.user_stories_not_in_progress.should include user_story
       end
 
       it "returns an inactive user story" do
-        user_story = Factory.build(:user_story, status: UserStory::INACTIVE)
+        user_story = FactoryGirl.build(:user_story, status: UserStory::INACTIVE)
         @sprint.user_stories << user_story
         @sprint.user_stories_not_in_progress.should include user_story
       end
@@ -232,8 +232,8 @@ describe Sprint do
     describe "current user stories for user" do
 
       before :each do
-        @user = Factory.build(:user)
-        @user_story = Factory.build(:user_story, sprint: @sprint, users: [@user])
+        @user = FactoryGirl.build(:user)
+        @user_story = FactoryGirl.build(:user_story, sprint: @sprint, users: [@user])
       end
 
       it "returns an active user story a user is working on" do
@@ -252,7 +252,7 @@ describe Sprint do
       end
 
       it "does not return user stories from other users" do
-        other_user = Factory.build(:user)
+        other_user = FactoryGirl.build(:user)
         @user_story.update_attributes(status: UserStory::ACTIVE, users: [other_user])
         @sprint.user_stories_for_user(@user).should_not include @user_story
       end

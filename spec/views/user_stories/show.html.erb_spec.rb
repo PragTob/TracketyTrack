@@ -32,7 +32,7 @@ describe "user_stories/show" do
   end
 
   it "renders comments even without a user" do
-    @comment = Factory.build :comment
+    @comment = FactoryGirl.build :comment
     @user_story.comments  << @comment
     render
     rendered.should match @comment.content

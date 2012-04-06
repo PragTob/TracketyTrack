@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Project do
   before :all do
-    @valid_attributes = Factory.attributes_for(:project)
+    @valid_attributes = FactoryGirl.attributes_for(:project)
   end
 
   before :each do
-    @project = Factory.build(:project)
-    @user = Factory.build(:user)
+    @project = FactoryGirl.build(:project)
+    @user = FactoryGirl.build(:user)
   end
 
   subject{@project}
@@ -23,7 +23,7 @@ describe Project do
   end
 
   it "exists only maximum one project at a time" do
-    Factory.create(:project)
+    FactoryGirl.create(:project)
 
     lambda{Project.create(@valid_attributes)}.should change{
       Project.all.size
@@ -31,9 +31,9 @@ describe Project do
   end
 
   it "raises an error when trying to create a second project" do
-    Factory.create(:project)
+    FactoryGirl.create(:project)
 
-    lambda{Factory.create(:project, title: "bla")}.should raise_error
+    lambda{FactoryGirl.create(:project, title: "bla")}.should raise_error
   end
 
   describe "#current_sprint" do
@@ -48,7 +48,7 @@ describe Project do
     context "when current_sprint_id is set" do
       it "returns the curent sprint" do
         @project.current_sprint_id = 1
-        sprint = Factory.build(:sprint)
+        sprint = FactoryGirl.build(:sprint)
         Sprint.stub(:find).with(@project.current_sprint_id).and_return(sprint)
         @project.current_sprint.should be sprint
       end
@@ -60,8 +60,8 @@ describe Project do
 
     it "returns the average of all velocities (for completed sprints)" do
       time = DateTime.now
-      first_sprint = Factory.build(:sprint, number: 1, end_date: time)
-      second_sprint = Factory.build(:sprint, number: 2, end_date: time)
+      first_sprint = FactoryGirl.build(:sprint, number: 1, end_date: time)
+      second_sprint = FactoryGirl.build(:sprint, number: 2, end_date: time)
       first_sprint.stub(actual_velocity: 10)
       second_sprint.stub(actual_velocity: 30)
       Sprint.stub all: [first_sprint, second_sprint]
@@ -78,8 +78,8 @@ describe Project do
 
     it "returns a collection of all burnt down story points per sprint" do
       time = DateTime.now
-      first_sprint = Factory.build(:sprint, number: 1, end_date: time)
-      second_sprint = Factory.build(:sprint, number: 2, end_date: time)
+      first_sprint = FactoryGirl.build(:sprint, number: 1, end_date: time)
+      second_sprint = FactoryGirl.build(:sprint, number: 2, end_date: time)
       first_sprint.stub(actual_velocity: 10)
       second_sprint.stub(actual_velocity: 30)
       Sprint.stub all: [first_sprint, second_sprint]
@@ -93,12 +93,12 @@ describe Project do
 
     it "returns a collection of all story points created until end of sprint" do
       time = DateTime.now
-      first_sprint = Factory.build(:sprint, number: 1, end_date: time)
-      second_sprint = Factory.build(:sprint, number: 2, end_date: time + 2)
-      first_user_story = Factory.build(:user_story,
+      first_sprint = FactoryGirl.build(:sprint, number: 1, end_date: time)
+      second_sprint = FactoryGirl.build(:sprint, number: 2, end_date: time + 2)
+      first_user_story = FactoryGirl.build(:user_story,
                                       created_at: time - 1,
                                       estimation: 10)
-      second_user_story = Factory.build(:user_story,
+      second_user_story = FactoryGirl.build(:user_story,
                                         created_at: time + 1,
                                         estimation: 20)
       Sprint.stub completed_sprints: [first_sprint, second_sprint]
@@ -112,14 +112,14 @@ describe Project do
   describe "#initial_story_points" do
 
     it "returns the sum of all story points" do
-      user_story = Factory.build(:user_story, estimation: 5)
+      user_story = FactoryGirl.build(:user_story, estimation: 5)
       UserStory.stub(:all).and_return([user_story, user_story])
       @project.initial_story_points.should eq 10
     end
 
     it "does not consider user stories without estimation" do
-      user_story = Factory.build(:user_story, estimation: 5)
-      user_story_without_estimation = Factory.build(:user_story, estimation: nil)
+      user_story = FactoryGirl.build(:user_story, estimation: 5)
+      user_story_without_estimation = FactoryGirl.build(:user_story, estimation: nil)
       UserStory.stub(all: [user_story, user_story_without_estimation])
       @project.initial_story_points.should eq 5
     end
@@ -132,7 +132,7 @@ describe Project do
     context "when sprint id is given" do
 
         it "sets current_sprint_id to id of the given sprint" do
-          sprint = Factory.build(:sprint, id: 1)
+          sprint = FactoryGirl.build(:sprint, id: 1)
           @project.current_sprint = sprint
           @project.current_sprint_id.should eq sprint.id
         end

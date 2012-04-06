@@ -5,7 +5,7 @@ describe "users/index" do
     @user = Factory(:user)
     assign(:users, [@user])
     @unaccepted_user = Factory(:other_user, accepted: false)
-    project = Factory.build(:project)
+    project = FactoryGirl.build(:project)
     view.stub!(current_project: project)
   end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ProjectsController do
 
   def valid_attributes
-    Factory.attributes_for(:project)
+    FactoryGirl.attributes_for(:project)
   end
 
   def create_project

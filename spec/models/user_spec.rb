@@ -4,11 +4,11 @@ require 'spec_helper'
 describe User do
 
   before :all do
-    @attr = Factory.attributes_for(:user)
+    @attr = FactoryGirl.attributes_for(:user)
   end
 
   before(:each) do
-    @user = Factory.build(:user)
+    @user = FactoryGirl.build(:user)
   end
 
   subject{@user}
@@ -100,7 +100,7 @@ describe User do
   describe "user stories" do
 
     before :each do
-      @user_story = Factory.build(:user_story)
+      @user_story = FactoryGirl.build(:user_story)
       @user.user_stories << @user_story
     end
 
@@ -122,29 +122,29 @@ describe User do
   describe "Password validation" do
 
     it "is invalid without a password" do
-      Factory.build(:user, password: "").password_valid?.should be false
+      FactoryGirl.build(:user, password: "").password_valid?.should be false
     end
 
     it "is invalid without a password confirmation" do
-      Factory.build(:user, password_confirmation: "").password_valid?.should be false
+      FactoryGirl.build(:user, password_confirmation: "").password_valid?.should be false
     end
 
     it "is invalid if password and validation don't match" do
-      Factory.build(:user,
+      FactoryGirl.build(:user,
                     password: "12345678",
                     password_confirmation: "12345679").password_valid?.should be false
     end
 
     it "is invalid if the password is shorter then 8 characters" do
       shortie = "a" * 7
-      Factory.build(:user,
+      FactoryGirl.build(:user,
                     password: shortie,
                     password_confirmation: shortie).password_valid?.should be false
     end
 
     it "rejects long passwords" do
       longie = "a" * 41
-      Factory.build(:user,
+      FactoryGirl.build(:user,
                     password: longie,
                     password_confirmation: longie).password_valid?.should be false
     end
@@ -156,7 +156,7 @@ describe User do
       end
 
       it "should be true if the passwords match" do
-        @saved_user.has_password?(Factory.attributes_for(:user)[:password]).should be_true
+        @saved_user.has_password?(FactoryGirl.attributes_for(:user)[:password]).should be_true
       end
 
       it "should be false if the passwords don't match" do

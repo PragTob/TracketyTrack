@@ -152,3 +152,12 @@ $(document).ready ->
       handleSelection list
       closeDropdownList list
 
+  # render js pop-up for user story details
+  $('.detail_information').click ->
+    user_story_id = $(this).attr('id').split('-')[2]
+    tag = $("<div></div>")
+    $.get 'user_stories/details', {id: user_story_id}, (result) ->
+      tag.html(result).dialog({modal: true, width: 742, zIndex: 900 }).dialog('open')
+      $('#user_story_userlist .tooltip').twipsy(offset: 15)
+    false
+

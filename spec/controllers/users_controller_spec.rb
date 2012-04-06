@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController do
 
   def valid_attributes
-    Factory.attributes_for(:create_user)
+    FactoryGirl.attributes_for(:create_user)
   end
 
   describe "GET new" do
@@ -179,7 +179,7 @@ describe UsersController do
     describe "DELETE destroy" do
 
       before :each do
-        controller.stub(current_project: Factory.build(:project))
+        controller.stub(current_project: FactoryGirl.build(:project))
       end
 
       describe "destroy yourself" do

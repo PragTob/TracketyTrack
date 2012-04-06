@@ -1,73 +1,8 @@
 <%= link_to '<< All User Stories', user_stories_path %> |
 <%= link_to 'Tracker', current_sprint_path %>
 
-<div id="user_story_container" class="span12">
-  <div id="user_story_userlist">
-    <% if @user_story.users.empty? %>
-      No user assigned
-    <% else %>
-      <% @user_story.users.each do |user| %>
-        <div class="user_story_infobox_gravatar">
-          <%= tooltip_gravatar_for(user, size: 30) %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="row">
-    <div id="user_story_info" class="span2">
-      <%= render 'story_status', user_story: @user_story %>
-      <br />
-      <% unless @user_story.priority.nil? %>
-        <span class="label"><%= @user_story.priority %></span> (Priority)<br />
-      <% end %>
-      <% unless @user_story.estimation.nil? %>
-        <span class="label notice"><%= @user_story.estimation %></span> (Estimation)
-      <% end %>
-    </div>
-
-    <div id="user_story_details" class="span7">
-      <h3><%= @user_story.name %></h3>
-      <p>
-        <%= @user_story.description %>
-      </p>
-      <p>
-        <b>Acceptance criteria:</b><br />
-        <%= @user_story.acceptance_criteria %>
-      </p>
-      <% if @user_story.sprint_id %>
-        <p>
-          <b>belongs to:</b>
-          <%= link_to "Sprint #" + @user_story.sprint_id.to_s, @user_story.sprint %>
-        </p>
-      <% end %>
-      <p>
-        <b>Work Effort:</b>
-        <%= @user_story.printable_work_effort %>
-      </p>
-      <div class="management_options">
-        <%= button_to 'Edit', edit_user_story_path(@user_story),
-                  class: "btn", method: :get %>
-        <% if @user_story.requesting_feedback %>
-          <%= button_to 'Stop Requesting Feedback', {controller: 'user_stories',
-                        action: 'stop_requesting_feedback', id: @user_story.id },
-                        class: 'btn' %>
-        <% else %>
-          <%= button_to 'Request Feedback', {controller: 'user_stories',
-                        action: 'request_feedback', id: @user_story.id },
-                        class: 'btn' %>
-        <% end %>
-        <% if @user_story.status == UserStory::DELETED %>
-          <%= button_to 'Resurrecet', { controller: :user_stories, action: :resurrect,
-                    id: @user_story.id }, class: "btn success" %>
-        <% else %>
-          <%= button_to 'Delete', @user_story, confirm: 'Are you sure?', method: :delete,
-                      class: "btn danger" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render partial: 'details_page', locals: { user_story: @user_story,
+                                                   management_allowed: true } %>
 
 <div id="comments">
   <% @user_story.comments.each do |comment| %>

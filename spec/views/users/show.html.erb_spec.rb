@@ -20,7 +20,7 @@ describe "users/show" do
   end
 
   it "has no edit link when the user is not the current user" do
-    view.stub! current_user: Factory.build(:other_user)
+    view.stub! current_user: FactoryGirl.build(:other_user)
     render
     rendered.should_not match /edit/i
   end
