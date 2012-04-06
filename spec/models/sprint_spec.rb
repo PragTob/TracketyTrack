@@ -26,7 +26,7 @@ describe Sprint do
   end
 
   context "when number is already taken" do
-    before { @sprint2 = Factory(:sprint) }
+    before { @sprint2 = FactoryGirl.create(:sprint) }
     it { should_not be_valid }
   end
 
@@ -48,57 +48,50 @@ describe Sprint do
   context "with overlapping dates" do
 
     before (:each) do
-      @sprint2 = Factory(:sprint, number: 2)
+      @sprint2 = FactoryGirl.create(:sprint, number: 2)
     end
-    context "when the new start date lies within an other sprint" do
 
+    context "when the new start date lies within an other sprint" do
       before do
         @sprint.start_date = @sprint2.start_date + 1
         @sprint.end_date = @sprint2.end_date + 1
+        @sprint.should_not be_valid
       end
-
-      it { should_not be_valid }
-
     end
 
     context "when the new end date lies within an other sprint" do
-
       before do
         @sprint.start_date = @sprint2.start_date - 1
         @sprint.end_date = @sprint2.end_date - 1
+        @sprint.should_not be_valid
       end
-
-      it { should_not be_valid }
-
     end
 
   end
 
   describe "#initial_story_points" do
-
     it "returns the sum of all story points of the given sprint" do
-      @sprint.save
-      Factory(:user_story, estimation: 1, sprint: @sprint)
-      Factory(:user_story, estimation: 2, sprint: @sprint)
-      Factory(:user_story, estimation: 3, sprint: @sprint)
+      user_stories = []
+      (1..3).each do |i|
+        user_stories << FactoryGirl.build(:user_story, estimation: i)
+      end
+      @sprint.stub user_stories: user_stories
+
       @sprint.initial_story_points.should eq 6
     end
-
-
-
   end
 
   describe "#user_stories_estimated" do
 
     it "returns the user stories with estimation" do
-      @sprint.save
-      user_story = Factory(:user_story, estimation: 1, sprint: @sprint)
+      user_story = FactoryGirl.build(:user_story, estimation: 1)
+      @sprint.stub user_stories: [user_story]
       @sprint.user_stories_estimated.should eq [user_story]
     end
 
     it "does not contain the user stories without estimation" do
-      @sprint.save
-      user_story = Factory(:user_story, estimation: nil, sprint: @sprint)
+      user_story = FactoryGirl.build(:user_story, estimation: nil)
+      @sprint.stub user_stories: [user_story]
       @sprint.user_stories_estimated.should_not include user_story
     end
 
@@ -110,11 +103,11 @@ describe Sprint do
       time = DateTime.now.utc
       Timecop.freeze(time)
       @sprint.update_attributes(start_date: time, end_date: time + 4)
-      first_user_story = Factory(:user_story, estimation: 1, sprint: @sprint,
+      FactoryGirl.create(:user_story, estimation: 1, sprint: @sprint,
         status: UserStory::COMPLETED, close_time: time + 1)
-      second_user_story = Factory(:user_story, estimation: 2, sprint: @sprint,
+      FactoryGirl.create(:user_story, estimation: 2, sprint: @sprint,
         status: UserStory::COMPLETED, close_time: time + 2)
-      third_user_story = Factory(:user_story, estimation: 3, sprint: @sprint,
+      FactoryGirl.create(:user_story, estimation: 3, sprint: @sprint,
         status: UserStory::COMPLETED, close_time: time + 3)
       first_day = time.to_date
       date_collection = { first_day.strftime("%d.%m.") => 0,
@@ -133,15 +126,15 @@ describe Sprint do
       time = DateTime.now.utc
       Timecop.freeze(time)
       @sprint.update_attributes(start_date: time, end_date: time + 4)
-      first_user_story = Factory(:user_story, estimation: 2, sprint: @sprint,
-        created_at: time + 1)
-      second_user_story = Factory(:user_story, estimation: 3, sprint: @sprint,
-        created_at: time + 2)
-      third_user_story = Factory(:user_story, estimation: 4, sprint: @sprint,
-        created_at: time + 3)
-      pre_sprint_created_user_story = Factory(:user_story, estimation: 1,
-        sprint: @sprint, created_at: time - 1)
+      user_stories = []
+      (1..3).each do |i|
+        user_stories << FactoryGirl.build(:user_story, estimation: i +1,
+                                          created_at: time + i)
+      end
+      user_stories << FactoryGirl.build(:user_story, estimation: 1,
+                                        created_at: time - 1)
       first_day = time.to_date
+      @sprint.stub user_stories: user_stories
       date_collection = { first_day.strftime("%d.%m.") => 1,
                           (first_day + 1).strftime("%d.%m.") => 3,
                           (first_day + 2).strftime("%d.%m.") => 6,
@@ -155,25 +148,25 @@ describe Sprint do
   describe "#actual_velocity" do
 
     it "returns the number of currently completed story points" do
-      first_user_story = Factory(:user_story, estimation: 5,
+      FactoryGirl.create(:user_story, estimation: 5,
                 sprint: @sprint, status: UserStory::COMPLETED)
-      second_user_story = Factory(:user_story, estimation: 7,
+      FactoryGirl.create(:user_story, estimation: 7,
                 sprint: @sprint, status: UserStory::COMPLETED)
       @sprint.actual_velocity.should eq 12
     end
 
     it "does not consider incomplete user stories" do
-      first_user_story = Factory(:user_story, estimation: 5,
+      FactoryGirl.create(:user_story, estimation: 5,
                 sprint: @sprint, status: UserStory::COMPLETED)
-      second_user_story = Factory(:user_story, estimation: 7,
+      FactoryGirl.create(:user_story, estimation: 7,
                 sprint: @sprint, status: UserStory::ACTIVE)
       @sprint.actual_velocity.should eq 5
     end
 
     it "does not consider user stories without estimation" do
-      first_user_story = Factory(:user_story, estimation: 5,
+      FactoryGirl.create(:user_story, estimation: 5,
                 sprint: @sprint, status: UserStory::COMPLETED)
-      second_user_story = Factory(:user_story, estimation: nil,
+      FactoryGirl.create(:user_story, estimation: nil,
                 sprint: @sprint, status: UserStory::COMPLETED)
       @sprint.actual_velocity.should eq 5
     end
@@ -184,7 +177,7 @@ describe Sprint do
 
     it "returns all completed sprints" do
       @sprint.update_attributes(end_date: DateTime.now)
-      another_sprint = Factory(:sprint, number: 2, end_date: nil)
+      another_sprint = FactoryGirl.build(:sprint, number: 2, end_date: nil)
       Sprint.completed_sprints.should eq [@sprint]
     end
 
@@ -262,7 +255,7 @@ describe Sprint do
   end
 
   it "can stop the sprint when the end date is nil" do
-    sprint = Factory :sprint, end_date: nil
+    sprint = FactoryGirl.build :sprint, end_date: nil
     time = DateTime.now
     Timecop.freeze time
     sprint.end
