@@ -24,7 +24,7 @@ gem 'gravatar_image_tag'
 gem 'therubyracer'
 
 # Twitter bootstrap from anjlab
-gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails'
+gem 'anjlab-bootstrap-rails', '~> 1.4', :require => 'bootstrap-rails'
 
 gem 'travis-client'
 
