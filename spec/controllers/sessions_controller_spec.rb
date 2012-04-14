@@ -28,7 +28,7 @@ describe SessionsController do
       describe "and accepted" do
 
         before(:each) do
-          @user = Factory(:user)
+          @user = FactoryGirl.create(:user)
           @attr = { :email => @user.email, :password => @user.password }
         end
 
@@ -47,7 +47,7 @@ describe SessionsController do
       describe "and not accepted" do
 
         before(:each) do
-          @user = Factory(:unaccepted_user)
+          @user = FactoryGirl.create(:unaccepted_user)
           @attr = { :email => @user.email, :password => @user.password }
         end
 
@@ -67,7 +67,7 @@ describe SessionsController do
     describe "DELETE 'destroy'" do
 
       it "should sign a user out" do
-        test_sign_in(Factory(:user))
+        test_sign_in(FactoryGirl.create(:user))
         delete :destroy
         controller.should_not be_signed_in
         controller.current_user.should be_nil

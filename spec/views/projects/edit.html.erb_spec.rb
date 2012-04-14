@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "projects/edit" do
   before(:each) do
-    @project = Factory(:project)
+    @project = FactoryGirl.create(:project)
   end
 
   it "renders the edit project form" do

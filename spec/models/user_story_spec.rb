@@ -216,12 +216,12 @@ describe UserStory do
   describe "#backlog" do
 
     it "returns all user stories without assigned sprint" do
-      user_story = Factory(:user_story, sprint: nil)
+      user_story = FactoryGirl.create(:user_story, sprint: nil)
       UserStory.backlog.should eq [user_story]
     end
 
     it "does not contain user stories with assigned sprint" do
-      sprint = Factory(:sprint)
+      sprint = FactoryGirl.create(:sprint)
       @user_story.sprint = sprint
       @user_story.save
       UserStory.backlog.should_not include @user_story
@@ -232,28 +232,28 @@ describe UserStory do
   describe "#current_sprint_stories" do
 
     it "returns all user stories of the current sprint" do
-      sprint = Factory(:sprint)
-      project = Factory(:project, current_sprint: sprint)
+      sprint = FactoryGirl.create(:sprint)
+      project = FactoryGirl.create(:project, current_sprint: sprint)
       @user_story.update_attributes(sprint: sprint)
       UserStory.current_sprint_stories.should eq [@user_story]
     end
 
     it "does not contain user stories that are not assigned to a sprint" do
-      sprint = Factory(:sprint)
-      project = Factory(:project, current_sprint: sprint)
+      sprint = FactoryGirl.create(:sprint)
+      project = FactoryGirl.create(:project, current_sprint: sprint)
       UserStory.current_sprint_stories.should_not include @user_story
     end
 
     it "does not contain user stories that are assigned to an other sprint than the current one" do
-      current_sprint = Factory(:sprint)
-      project = Factory(:project, current_sprint: current_sprint)
+      current_sprint = FactoryGirl.create(:sprint)
+      project = FactoryGirl.create(:project, current_sprint: current_sprint)
       another_sprint = Sprint.create(number: 2)
       @user_story.update_attributes(sprint: another_sprint)
       UserStory.current_sprint_stories.should_not include @user_story
     end
 
     it "returns empty collection if there is no current sprint" do
-      project = Factory(:project)
+      project = FactoryGirl.create(:project)
       UserStory.current_sprint_stories.should eq []
     end
 
@@ -350,7 +350,7 @@ describe UserStory do
 
     it "also contains multiple user stories" do
       @user_story.save
-      other_story = Factory :user_story, name: "blaaa"
+      other_story = FactoryGirl.create :user_story, name: "blaaa"
       UserStory.all_open.should eq [@user_story, other_story]
     end
 
@@ -369,7 +369,7 @@ describe UserStory do
     end
 
     it "doesn't have duplicated users" do
-      user = Factory :user
+      user = FactoryGirl.create :user
       @user_story.users << user << user
       @user_story.users.size.should be 1
     end

@@ -4,7 +4,7 @@ describe UserStoriesHelper do
 
   describe "set_sprint" do
     it "sets the sprint to the given value" do
-      @user_story = Factory(:user_story)
+      @user_story = FactoryGirl.create(:user_story)
       @sprint = FactoryGirl.build(:sprint)
       set_sprint(@user_story.id, @sprint)
       UserStory.find(@user_story.id).sprint.should eq @sprint
@@ -14,7 +14,7 @@ describe UserStoriesHelper do
   describe "add_users" do
 
     before :each do
-      @user = Factory :user
+      @user = FactoryGirl.create :user
       @params = { user_story: {} }
     end
 

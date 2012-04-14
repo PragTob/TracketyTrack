@@ -3,14 +3,14 @@ require 'spec_helper'
 describe "sprints/sprint_planning" do
 
   before (:each) do
-    @user_story = Factory(:user_story)
-    @other_user_story = Factory(:user_story, name: "Other Name")
+    @user_story = FactoryGirl.create(:user_story)
+    @other_user_story = FactoryGirl.create(:user_story, name: "Other Name")
     assign(:user_stories_current_sprint, [@user_story])
     assign(:user_stories_in_backlog, [@other_user_story])
     view.stub!(signed_in?: true)
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     view.stub!(current_user: @user)
-    @project = Factory(:project)
+    @project = FactoryGirl.create(:project)
     view.stub!(current_project: @project)
     render
   end
@@ -58,7 +58,7 @@ describe "sprints/sprint_planning" do
   describe "when there is a current sprint" do
 
     it "shows a 'Stop Sprint' button" do
-      @project.current_sprint = Factory(:sprint)
+      @project.current_sprint = FactoryGirl.create(:sprint)
       render
       rendered.should have_button("Stop Sprint")
     end

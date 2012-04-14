@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CurrentHelper do
 
   before :each do
-    @project = Factory(:project)
+    @project = FactoryGirl.create(:project)
   end
 
   it "returns the current project" do
@@ -13,7 +13,7 @@ describe CurrentHelper do
   describe "current sprint" do
 
     before :each do
-      @sprint = Factory(:sprint)
+      @sprint = FactoryGirl.create(:sprint)
       @project.current_sprint = @sprint
     end
 
@@ -31,7 +31,7 @@ describe CurrentHelper do
 
 
   it "sets the current sprint" do
-    @sprint = Factory(:sprint)
+    @sprint = FactoryGirl.create(:sprint)
     self.current_sprint = @sprint
     current_sprint.should eq @sprint
   end

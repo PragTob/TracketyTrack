@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe "user_stories/show" do
   before(:each) do
-    @user_story = Factory(:user_story, status: "inactive")
-    @user = Factory(:user)
+    @user_story = FactoryGirl.create(:user_story, status: "inactive")
+    @user = FactoryGirl.create(:user)
     @user_story.users << @user
     view.stub!(current_user: @user)
     assign(:comment, Comment.new)

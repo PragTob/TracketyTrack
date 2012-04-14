@@ -40,7 +40,7 @@ describe User do
   end
 
   context "when email is already taken by an other user" do
-    before{Factory(:user)}
+    before{FactoryGirl.create(:user)}
     it{should_not be_valid}
   end
 
@@ -73,7 +73,7 @@ describe User do
     end
 
     it "can be accepted by calling accept" do
-      @unaccepted_user = Factory :unaccepted_user
+      @unaccepted_user = FactoryGirl.create :unaccepted_user
       @unaccepted_user.accept
       @unaccepted_user.should be_accepted
     end
@@ -83,8 +83,8 @@ describe User do
   describe "collections of users from the class level" do
 
     before :each do
-      @accepted_user = Factory :user, accepted: true
-      @unaccepted_user = Factory :other_user, accepted: false
+      @accepted_user = FactoryGirl.create :user, accepted: true
+      @unaccepted_user = FactoryGirl.create :other_user, accepted: false
     end
 
     it "returns accepted users with accepted_users" do
@@ -152,7 +152,7 @@ describe User do
     describe "an already saved user" do
 
       before :each do
-        @saved_user = Factory(:user)
+        @saved_user = FactoryGirl.create(:user)
       end
 
       it "should be true if the passwords match" do

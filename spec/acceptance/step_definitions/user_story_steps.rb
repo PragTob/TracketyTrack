@@ -3,7 +3,7 @@ steps_for :user_story do
   CHANGED_NAME = "changed name"
 
   step "there is a user story" do
-    @user_story = Factory(:user_story)
+    @user_story = FactoryGirl.create(:user_story)
   end
 
   step "I should see the name of the user story" do

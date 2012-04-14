@@ -40,7 +40,7 @@ describe UsersController do
       end
 
       it "creates all non first users as not authorized" do
-        Factory :other_user
+        FactoryGirl.create :other_user
         post :create, user: valid_attributes
         assigns(:user).should_not be_accepted
       end
@@ -68,7 +68,7 @@ describe UsersController do
   describe "Actions that need a logged in user" do
 
     before :each do
-      @user = Factory :user
+      @user = FactoryGirl.create :user
       test_sign_in @user
     end
 
@@ -87,7 +87,7 @@ describe UsersController do
       end
 
       it "assigns unaccepted user as @unaccepted_users" do
-        unaccepted_user = Factory :other_user, accepted: false
+        unaccepted_user = FactoryGirl.create :other_user, accepted: false
         get :index
         assigns(:unaccepted_users).should eq [unaccepted_user]
       end
@@ -103,7 +103,7 @@ describe UsersController do
       describe "if the user tries to edit another user" do
 
         before :each do
-          @other_user = Factory :other_user
+          @other_user = FactoryGirl.create :other_user
           get :edit, id: @other_user.id
         end
 
@@ -156,7 +156,7 @@ describe UsersController do
 
       describe "when the edit is for the not currently logged in user" do
         before :each do
-          @other_user = Factory :other_user
+          @other_user = FactoryGirl.create :other_user
           attributes = valid_attributes.merge(name: "never change!!!")
           put :update, id: @other_user.id, user: attributes
         end
@@ -209,7 +209,7 @@ describe UsersController do
       describe "try to destroy somebody else" do
 
         before :each do
-          @other_user = Factory :other_user
+          @other_user = FactoryGirl.create :other_user
           test_sign_in @other_user
         end
 
@@ -236,7 +236,7 @@ describe UsersController do
     describe "POST accept_user" do
 
       before :each do
-        @unaccepted_user = Factory(:unaccepted_user)
+        @unaccepted_user = FactoryGirl.create(:unaccepted_user)
       end
 
       it "accepts the user with the given id" do
@@ -259,8 +259,8 @@ describe UsersController do
     describe "POST reject_user" do
 
       before :each do
-        @unaccepted_user = Factory :unaccepted_user
-        @other_user = Factory :other_user
+        @unaccepted_user = FactoryGirl.create :unaccepted_user
+        @other_user = FactoryGirl.create :other_user
       end
 
       it "destroys a user" do

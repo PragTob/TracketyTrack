@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "users/index" do
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     assign(:users, [@user])
-    @unaccepted_user = Factory(:other_user, accepted: false)
+    @unaccepted_user = FactoryGirl.create(:other_user, accepted: false)
     project = FactoryGirl.build(:project)
     view.stub!(current_project: project)
   end

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe "user_stories/index" do
 
     before(:each) do
-      @user_story = Factory(:user_story, status: "inactive")
-      @another_user_story = Factory(:user_story, status: "active")
-      @project = Factory(:project)
+      @user_story = FactoryGirl.create(:user_story, status: "inactive")
+      @another_user_story = FactoryGirl.create(:user_story, status: "active")
+      @project = FactoryGirl.create(:project)
       view.stub!(current_project: @project)
     end
 

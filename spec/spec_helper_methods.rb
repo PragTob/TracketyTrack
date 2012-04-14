@@ -8,6 +8,6 @@ def sign_in_a_user
 end
 
 def sign_in_a_saved_user
-  user = Factory :user
+  user = FactoryGirl.create :user
   test_sign_in user
 end

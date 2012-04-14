@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe "projects/show" do
   before(:each) do
-    @project = Factory(:project)
-    @sprint = Factory(:sprint, end_date: DateTime.now)
+    @project = FactoryGirl.create(:project)
+    @sprint = FactoryGirl.create(:sprint, end_date: DateTime.now)
     @sprint.stub(actual_velocity: 100)
   end
 

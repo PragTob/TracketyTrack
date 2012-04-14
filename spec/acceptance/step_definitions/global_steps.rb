@@ -1,5 +1,5 @@
 step "I am logged in" do
-  @user = Factory :user
+  @user = FactoryGirl.create :user
   visit signin_path
   fill_in 'Email', with: @user.email
   fill_in 'Password', with: @user.password
@@ -7,7 +7,7 @@ step "I am logged in" do
 end
 
 step "there is a project" do
-  @project = Factory :project
+  @project = FactoryGirl.create :project
 end
 
 step "I am on the current sprint page" do

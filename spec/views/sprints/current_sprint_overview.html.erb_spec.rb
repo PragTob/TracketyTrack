@@ -3,18 +3,18 @@ require 'spec_helper'
 describe "sprints/current_sprint_overview" do
 
   before (:each) do
-    @user_story = Factory(:user_story)
-    @other_user_story = Factory(:user_story, name: "Other Name")
+    @user_story = FactoryGirl.create(:user_story)
+    @other_user_story = FactoryGirl.create(:user_story, name: "Other Name")
     assign(:user_stories_current_sprint, [@user_story])
     assign(:user_stories_in_progress, [@other_user_story])
     assign(:current_user_stories, [@other_user_story])
     view.stub!(signed_in?: true)
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     view.stub!(current_user: @user)
     @other_user_story.users << @user
     @other_user_story.save
     assign(:partners, User.accepted_users)
-    @project = Factory(:project)
+    @project = FactoryGirl.create(:project)
     view.stub!(current_project: @project)
     render
   end
@@ -34,7 +34,7 @@ describe "sprints/current_sprint_overview" do
   describe "there is a current sprint" do
 
     before :each do
-      @current_sprint = Factory(:sprint)
+      @current_sprint = FactoryGirl.create(:sprint)
       @project.current_sprint = @current_sprint
       @project.save
       render

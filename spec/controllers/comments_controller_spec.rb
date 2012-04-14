@@ -10,8 +10,8 @@ describe CommentsController do
     describe "with valid params" do
 
       before :each do
-        @user_story = Factory(:user_story)
-        @user = Factory(:other_user)
+        @user_story = FactoryGirl.create(:user_story)
+        @user = FactoryGirl.create(:other_user)
         test_sign_in @user
       end
 
@@ -60,7 +60,7 @@ describe CommentsController do
       
       before :each do
         # lil hack since request.referrer isn't set
-        @user_story = Factory :user_story
+        @user_story = FactoryGirl.create :user_story
         controller.request.stub(referrer: user_story_path(@user_story))
       end
       
@@ -81,7 +81,7 @@ describe CommentsController do
   describe "DELETE destroy" do
 
     before :each do
-      @user_story = Factory(:user_story)
+      @user_story = FactoryGirl.create(:user_story)
     end
 
     it "destroys the requested comment" do

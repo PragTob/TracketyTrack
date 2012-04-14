@@ -5,9 +5,9 @@ describe "user_stories/edit" do
   let(:page) { Capybara::Node::Simple.new(rendered) }
 
   before(:each) do
-    @user_story = Factory(:user_story)
-    @user = Factory(:user)
-    @other_user = Factory(:other_user)
+    @user_story = FactoryGirl.create(:user_story)
+    @user = FactoryGirl.create(:user)
+    @other_user = FactoryGirl.create(:other_user)
     @users = [@user, @other_user]
   end
 

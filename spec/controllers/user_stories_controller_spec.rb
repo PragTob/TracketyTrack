@@ -5,7 +5,7 @@ describe UserStoriesController do
   describe "all actions need a logged in user" do
 
     before :each do
-      @user_story = Factory(:user_story, status: "inactive")
+      @user_story = FactoryGirl.create(:user_story, status: "inactive")
       sign_in_a_user
     end
 
@@ -22,9 +22,9 @@ describe UserStoriesController do
 
     describe "GET current_sprint_list" do
       it "assigns only the user stories of the current sprint to @user_stories" do
-        @current_sprint = Factory(:sprint)
-        @project = Factory(:project, current_sprint: @current_sprint)
-        @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
+        @current_sprint = FactoryGirl.create(:sprint)
+        @project = FactoryGirl.create(:project, current_sprint: @current_sprint)
+        @other_user_story = FactoryGirl.create(:user_story, sprint_id: @current_sprint.id)
         get :current_sprint_list
         assigns(:user_stories).should eq([@other_user_story])
       end
@@ -32,7 +32,7 @@ describe UserStoriesController do
 
     describe "GET completed_stories_list" do
       it "assigns only the completed user stories to @user_stories" do
-        @other_user_story = Factory(:user_story, status: UserStory::COMPLETED)
+        @other_user_story = FactoryGirl.create(:user_story, status: UserStory::COMPLETED)
         get :completed_stories_list
         assigns(:user_stories).should eq([@other_user_story])
       end
@@ -40,7 +40,7 @@ describe UserStoriesController do
 
     describe "GET work_in_progress_list" do
       it "assigns only the WiP user stories to @user_stories" do
-        @other_user_story = Factory(:user_story, status: UserStory::ACTIVE)
+        @other_user_story = FactoryGirl.create(:user_story, status: UserStory::ACTIVE)
         get :work_in_progress_list
         assigns(:user_stories).should eq([@other_user_story])
       end
@@ -48,8 +48,8 @@ describe UserStoriesController do
 
     describe "GET backlog_list" do
       it "assigns only the user stories without sprint to @user_stories" do
-        @current_sprint = Factory(:sprint)
-        @other_user_story = Factory(:user_story, sprint_id: @current_sprint.id)
+        @current_sprint = FactoryGirl.create(:sprint)
+        @other_user_story = FactoryGirl.create(:user_story, sprint_id: @current_sprint.id)
         get :backlog_list
         assigns(:user_stories).should eq([@user_story])
       end
@@ -57,7 +57,7 @@ describe UserStoriesController do
 
     describe "GET non_estimated_list" do
       it "assigns only the user stories without estimation to @user_stories" do
-        @other_user_story = Factory(:user_story, estimation: nil)
+        @other_user_story = FactoryGirl.create(:user_story, estimation: nil)
         get :non_estimated_list
         assigns(:user_stories).should eq([@other_user_story])
       end
@@ -65,7 +65,7 @@ describe UserStoriesController do
 
     describe "GET deleted_list" do
       it "assigns only the deleted stories" do
-        other_story = Factory :user_story, status: UserStory::DELETED
+        other_story = FactoryGirl.create :user_story, status: UserStory::DELETED
         get :deleted_list
         assigns(:user_stories).should eq [other_story]
       end
@@ -73,7 +73,7 @@ describe UserStoriesController do
 
     describe "GET requesting_feedback_list" do
       it "assigns only the stories requesting feedback" do
-        other_story = Factory :user_story, requesting_feedback: true
+        other_story = FactoryGirl.create :user_story, requesting_feedback: true
         get :requesting_feedback_list
         assigns(:user_stories).should eq [other_story]
       end
@@ -192,7 +192,7 @@ describe UserStoriesController do
         end
 
         it "updates the assigned user" do
-          users = [Factory(:user)]
+          users = [FactoryGirl.create(:user)]
           put :update, id: @user_story.id,
                        user_story: { name: "Bla", users: users },
                        days: "0", hours: "0", minutes: "0", seconds: "30"
@@ -206,7 +206,7 @@ describe UserStoriesController do
         end
 
         it "correctly unassigns users if no users are supplied" do
-          users = [Factory(:user)]
+          users = [FactoryGirl.create(:user)]
           @user_story.users << users
           @user_story.save
 
@@ -250,7 +250,7 @@ describe UserStoriesController do
 
     describe "POST start" do
       before do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         test_sign_in @user
       end
 
@@ -280,7 +280,7 @@ describe UserStoriesController do
     describe "POST pause" do
 
       before :each do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         test_sign_in @user
       end
 
@@ -305,7 +305,7 @@ describe UserStoriesController do
       end
 
       it "can only be suspended by a user that is working on the story" do
-        another_user = Factory(:other_user)
+        another_user = FactoryGirl.create(:other_user)
         previous_status = @user_story.status
         post :pause, id: @user_story.id, user: another_user
         UserStory.find(@user_story.id).status.should == previous_status
@@ -343,8 +343,8 @@ describe UserStoriesController do
     describe "POST assign_sprint" do
 
       it "assignes the user story to the current sprint" do
-        @sprint = Factory(:sprint)
-        @project = Factory(:project, current_sprint: @sprint)
+        @sprint = FactoryGirl.create(:sprint)
+        @project = FactoryGirl.create(:project, current_sprint: @sprint)
         post :assign_sprint, id: @user_story.id
         UserStory.find(@user_story.id).sprint.should eq @project.current_sprint
       end
@@ -353,7 +353,7 @@ describe UserStoriesController do
 
     describe "POST unassign_sprint" do
       it "unassignes the user story" do
-        @sprint = Factory(:sprint)
+        @sprint = FactoryGirl.create(:sprint)
         @user_story.update_attributes(sprint: @sprint)
         post :unassign_sprint, id: @user_story.id
         UserStory.find(@user_story.id).sprint.should be_nil
@@ -363,7 +363,7 @@ describe UserStoriesController do
     describe "POST resurrect" do
 
       before :each do
-        @other = Factory :user_story, status: UserStory::DELETED
+        @other = FactoryGirl.create :user_story, status: UserStory::DELETED
         post :resurrect, id: @other.id
       end
 
@@ -394,7 +394,7 @@ describe UserStoriesController do
     describe "POST add_user" do
 
       before :each do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         post :add_user, id: @user_story.id, user_id: @user.id
       end
 
@@ -410,7 +410,7 @@ describe UserStoriesController do
     describe "POST remove_user" do
 
       before :each do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         @user_story.users << @user
         @user_story.save
         post :remove_user, id: @user_story.id, user_id: @user.id

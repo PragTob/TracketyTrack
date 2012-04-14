@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "users/new" do
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   it "renders new user form" do

@@ -4,7 +4,7 @@ describe "user_stories/new" do
 
   before(:each) do
     @user_story = UserStory.new
-    @users = [Factory(:user)]
+    @users = [FactoryGirl.create(:user)]
   end
 
   let(:page) { Capybara::Node::Simple.new(rendered) }

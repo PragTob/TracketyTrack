@@ -10,7 +10,7 @@ describe SprintsHelper do
     end
 
     it 'returns "Edit" when sprint is not a new record (is edited)' do
-      sprint = Factory(:sprint)
+      sprint = FactoryGirl.create(:sprint)
       form_action_for_sprint(sprint).should eq "Edit"
     end
 

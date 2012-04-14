@@ -7,7 +7,7 @@ describe ProjectsController do
   end
 
   def create_project
-    @project = Factory :project
+    @project = FactoryGirl.create :project
   end
 
   describe "GET show" do

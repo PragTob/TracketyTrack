@@ -13,7 +13,7 @@ describe UsersHelper do
     end
 
     it "sets accepted to false when the user is not the first user" do
-      Factory :user
+      FactoryGirl.create :user
       set_accepted @unaccepted
       @unaccepted.should_not be_accepted
     end
@@ -27,7 +27,7 @@ describe UsersHelper do
     end
 
     it "returns label for edit button if user is already saved" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       form_action_for_user(user).should eq "Edit my profile"
     end
 

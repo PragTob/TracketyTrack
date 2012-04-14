@@ -10,7 +10,7 @@ describe SprintsController do
 
     before :each do
       sign_in_a_user
-      @project = Factory(:project)
+      @project = FactoryGirl.create(:project)
     end
 
     describe "GET index" do
@@ -189,7 +189,7 @@ describe SprintsController do
     describe "POST stop" do
 
       before :each do
-        @sprint = Factory(:sprint, end_date: DateTime.now - 1)
+        @sprint = FactoryGirl.create(:sprint, end_date: DateTime.now - 1)
         @project.current_sprint = @sprint
         @time = DateTime.now
         Timecop.freeze(@time)
@@ -254,21 +254,21 @@ describe SprintsController do
   describe "Sprint dashboard actions" do
 
     before (:each) do
-      @project = Factory(:project)
+      @project = FactoryGirl.create(:project)
     end
 
     describe "GET 'sprint_planning'" do
 
       before(:each) do
-         @user_story = Factory(:user_story, status: "inactive")
-         @other_user_story = Factory(:user_story, status: "inactive")
+         @user_story = FactoryGirl.create(:user_story, status: "inactive")
+         @other_user_story = FactoryGirl.create(:user_story, status: "inactive")
          sign_in_a_saved_user
       end
 
       describe "with current sprint" do
 
         before(:each) do
-          @sprint = Factory(:sprint)
+          @sprint = FactoryGirl.create(:sprint)
           @project.update_attributes(current_sprint: @sprint)
           @project.save
           @user_story.update_attributes(sprint: @sprint)
@@ -317,11 +317,11 @@ describe SprintsController do
       describe "with current sprint" do
 
         before(:each) do
-          @sprint = Factory(:sprint)
-          @user = Factory(:user)
-          @user_story = Factory(:user_story, status: UserStory::INACTIVE,
+          @sprint = FactoryGirl.create(:sprint)
+          @user = FactoryGirl.create(:user)
+          @user_story = FactoryGirl.create(:user_story, status: UserStory::INACTIVE,
                                 sprint: @sprint)
-          @other_user_story = Factory(:user_story, status: UserStory::ACTIVE,
+          @other_user_story = FactoryGirl.create(:user_story, status: UserStory::ACTIVE,
                                       sprint: @sprint, users: [@user])
           @project.update_attributes(current_sprint: @sprint)
           test_sign_in(@user)
@@ -343,8 +343,8 @@ describe SprintsController do
         end
 
         it "assigns all accepted users exept of the current one to @users" do
-          other_user = Factory(:other_user)
-          unaccepted_user = Factory(:unaccepted_user)
+          other_user = FactoryGirl.create(:other_user)
+          unaccepted_user = FactoryGirl.create(:unaccepted_user)
           get :current_sprint_overview
           assigns(:partners).should eq [other_user]
         end
@@ -396,7 +396,7 @@ describe SprintsController do
       describe "when user is not signed in" do
 
         it "redirects to the sign_in page" do
-          Factory :user
+          FactoryGirl.create :user
           controller.should_not be_signed_in
           get :current_sprint_overview
           response.should redirect_to signin_path

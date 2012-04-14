@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "sprints/show" do
   before(:each) do
-    @user_story = Factory(:user_story)
+    @user_story = FactoryGirl.create(:user_story)
     @sprint = assign(:sprint, stub_model(Sprint,
       number: 1,
       velocity: 1,
