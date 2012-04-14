@@ -126,7 +126,7 @@ end
                     status: "completed")
                     
   story.created_at = DateTime.now - 30 + Random.rand(5)
-  assign_attributes_to_user_story story, sprint2.id, DateTime.now - 30 + i, DateTime.now - 30 + 2*i
+  assign_attributes_to_user_story story, sprint1.id, DateTime.now - 30 + i, DateTime.now - 30 + 2*i
 end
 
 # Comment definition
