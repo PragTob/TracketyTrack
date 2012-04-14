@@ -112,7 +112,8 @@ user_story3 = UserStory.create( name: "4.f Accuracy of Estimations",
 (1..5).each do |i|
   story = UserStory.new( name: "user story #{i}",
                     priority: Random.rand(3) + 1,
-                    estimation: Random.rand(5) + 1)
+                    estimation: Random.rand(5) + 1,
+                    status: "completed")
                     
   story.created_at = DateTime.now - 16 + Random.rand(5)
   assign_attributes_to_user_story story, sprint2.id, DateTime.now - 16 + i, DateTime.now - 16 + 2*i
