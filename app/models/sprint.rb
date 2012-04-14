@@ -56,14 +56,11 @@ class Sprint < ActiveRecord::Base
   end
 
   def user_stories_completed
-    user_stories.select do |each|
-      each.status == "completed"
-    end
+    user_stories.select {|each| each.status == "completed"}
   end
 
   def user_stories_estimated
-    estimated = user_stories.reject { |user_story| user_story.estimation.nil? }
-    estimated
+    user_stories.reject { |user_story| user_story.estimation.nil? }
   end
 
   def user_stories_in_progress
@@ -73,9 +70,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def user_stories_for_user(user)
-    user_stories_in_progress.select do |each|
-      each.users.include?(user)
-    end
+    user_stories_in_progress.select {|each| each.users.include?(user)}
   end
 
   def end
