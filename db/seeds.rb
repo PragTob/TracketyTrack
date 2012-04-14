@@ -7,6 +7,13 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
+def assign_attributes_to_user_story(user_story, sprint_id, start_time, close_time)
+  user_story.sprint_id = sprint_id
+  user_story.start_time = start_time
+  user_story.close_time = close_time
+  user_story.save
+end
+
 
 # Sprint definition
 sprint1 = Sprint.create( number: 1,
@@ -26,10 +33,11 @@ sprint3 = Sprint.create( number: 3,
 
 
 # Project definition
-project = Project.create( title: "Demo Project",
+project = Project.new( title: "Demo Project",
                           description: "Demo Project is a simple tool for keeping track of user stories and their status. One main feature is the support for PairProgramming.",
-                          repository_url: "https://github.com/PragTob/TracketyTrack",
-                          current_sprint_id: sprint3.id)
+                          repository_url: "https://github.com/PragTob/TracketyTrack")
+project.current_sprint_id = sprint3.id
+project.save
 
 # User definition
 user1 = User.create( name: "Tobi",
@@ -69,30 +77,27 @@ user5.accept
 
 # User Story definition
   # User Stories Sprint 3
-user_story1 = UserStory.create( name: "1.o Add User Story Box in Sprint Planning Mode",
+user_story1 = UserStory.new( name: "1.o Add User Story Box in Sprint Planning Mode",
                                 description: "Add user story box in sprint planning mode is used to create a new user story on the sprint planning page.",
                                 acceptance_criteria: "A user of the system can create a new user story on the sprint planning page.",
                                 priority: 2,
                                 estimation: 2,
                                 status: "completed",
-                                sprint_id: sprint3.id,
                                 work_effort: 7200,
-                                start_time: DateTime.now - 2,
-                                close_time: DateTime.now - 1,
                                 requesting_feedback: true)
 
 user_story1.users << user2
+assign_attributes_to_user_story(user_story1, sprint3.id, DateTime.now - 2, DateTime.now - 1)
 
-user_story2 = UserStory.create( name: "1.p JavaScript Pop-Up for more Details",
+user_story2 = UserStory.new( name: "1.p JavaScript Pop-Up for more Details",
                                 description: "JavaScript pop-up for more details is used to show the details of a user story without leaving the current page.",
                                 acceptance_criteria: "A user of the system can view all details of a user story by clicking on its name without leaving the current page.",
                                 priority: 1,
                                 estimation: 4,
-                                status: "active",
-                                sprint_id: sprint3.id,
-                                start_time: DateTime.now - 2)
+                                status: "active")
 
 user_story2.users << user4
+assign_attributes_to_user_story(user_story2, sprint3.id, DateTime.now - 2, nil)
 
 user_story3 = UserStory.create( name: "4.f Accuracy of Estimations",
                                 description: "Accuracy of estimations of previous sprints can support the planning process for future sprints and reveal flaws.",
@@ -105,31 +110,28 @@ user_story3 = UserStory.create( name: "4.f Accuracy of Estimations",
 
   # User Stories Sprint 2
 (1..5).each do |i|
-  UserStory.create( name: "user story #{i}",
+  story = UserStory.new( name: "user story #{i}",
                     priority: Random.rand(3) + 1,
-                    estimation: Random.rand(5) + 1,
-                    status: "completed",
-                    sprint_id: sprint2.id,
-                    start_time: DateTime.now - 16 + i,
-                    created_at: DateTime.now - 16 + Random.rand(5),
-                    close_time: DateTime.now - 16 + 2*i)
+                    estimation: Random.rand(5) + 1)
+                    
+  story.created_at = DateTime.now - 16 + Random.rand(5)
+  assign_attributes_to_user_story story, sprint2.id, DateTime.now - 16 + i, DateTime.now - 16 + 2*i
 end
 
   # User Stories Sprint 1
 (1..5).each do |i|
-  UserStory.create( name: "user story #{i + 5}",
+  story = UserStory.new( name: "user story #{i + 5}",
                     priority: Random.rand(3) + 1,
                     estimation: Random.rand(5) + 1,
-                    status: "completed",
-                    sprint_id: sprint1.id,
-                    start_time: DateTime.now - 30 + i,
-                    created_at: DateTime.now - 30 + Random.rand(5),
-                    close_time: DateTime.now - 30 + 2*i)
+                    status: "completed")
+                    
+  story.created_at = DateTime.now - 30 + Random.rand(5)
+  assign_attributes_to_user_story story, sprint2.id, DateTime.now - 30 + i, DateTime.now - 30 + 2*i
 end
 
 # Comment definition
-comment1 = Comment.create( user_story_id: user_story1.id,
-                           user_id: user1.id,
+comment1 = Comment.new( user_story_id: user_story1.id,
                            date: DateTime.now - 1,
                            content: "Looks good. Keep on going!")
-
+comment1.user = user1
+comment1.save
