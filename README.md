@@ -1,4 +1,4 @@
-## TracketyTrack [![Build Status](https://secure.travis-ci.org/PragTob/TracketyTrack.png)](http://travis-ci.org/PragTob/TracketyTrack)
+## TracketyTrack [![Build Status](https://secure.travis-ci.org/PragTob/TracketyTrack.png)](http://travis-ci.org/PragTob/TracketyTrack) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/PragTob/TracketyTrack)
 TracketyTrack is a simple tool for keeping track of user stories and their status. It can particularly be used as tracker for small agile projects. One main feature is the support for PairProgramming. The name was inspired by [hacketyhack] (hackety-hack.com).
 
 It is designed with small teams (such as students working on a project) in mind that want to keep track of their progress but can not have a "real" storyboard with sticky notes etc. as students usually don't have an office. We want to allow to user to do as much as possible and not put too many restrictions on what is possible and what is not, since we don't want to build a tool that gets in the way of a user. For instance you may create a user story with just a name, if that is what you wish.
