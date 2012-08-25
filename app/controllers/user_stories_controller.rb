@@ -89,11 +89,7 @@ class UserStoriesController < ApplicationController
     @users = User.all
 
     if @user_story.update_attributes(params[:user_story])
-      @user_story.combine_work_effort params[:days].to_i,
-                                      params[:hours].to_i,
-                                      params[:minutes].to_i,
-                                      params[:seconds].to_i
-
+      @user_story.combine_work_effort Duration.new(params)
       redirect_to @user_story,
                   flash: {success: 'User Story was successfully updated.'}
     else

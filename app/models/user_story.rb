@@ -122,8 +122,8 @@ class UserStory < ActiveRecord::Base
     end
   end
 
-  def combine_work_effort days, hours, minutes, seconds
-    self.work_effort = days * 86400 + hours * 3600 + minutes * 60 + seconds
+  def combine_work_effort(duration)
+    self.work_effort = duration.to_i
     save
   end
 
