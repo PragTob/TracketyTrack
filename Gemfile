@@ -29,6 +29,7 @@ gem 'anjlab-bootstrap-rails', '~> 1.4', :require => 'bootstrap-rails'
 gem 'travis-client'
 # time durations
 gem 'ruby-duration'
+gem 'devise'
 
 group :development do
   gem 'annotate', '~> 2.4.1.beta1'
