@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-# TODO: demonstrate better tests tomorrow
 describe User do
 
   before :all do
@@ -161,34 +160,6 @@ describe User do
 
       it "should be false if the passwords don't match" do
         @saved_user.has_password?("invalid").should be_false
-      end
-
-
-      it "should have an encrypted password attribute" do
-        @saved_user.should respond_to(:encrypted_password)
-      end
-
-      it "should set the encrypted password" do
-        @saved_user.encrypted_password.should_not be_blank
-      end
-
-      describe "authenticate method" do
-
-        it "should return nil on email/password mismatch" do
-          wrong_password_user = User.authenticate(@attr[:email], "wrongpass")
-          wrong_password_user.should be_nil
-        end
-
-        it "should return nil for an email address with no user" do
-          nonexistent_user = User.authenticate("bar@foo.com", @attr[:password])
-          nonexistent_user.should be_nil
-        end
-
-        it "should return the user on email/password match" do
-          matching_user = User.authenticate(@attr[:email], @attr[:password])
-          matching_user.should == @saved_user
-        end
-
       end
 
     end
