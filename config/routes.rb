@@ -1,6 +1,8 @@
 TracketyTrack::Application.routes.draw do
 
 
+  devise_for :users
+
   resources :comments
 
 #  put "sprints/start"
