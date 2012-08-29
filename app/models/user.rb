@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :user_stories, uniq: true
   has_many :comments
 
-  attr_accessible :name, :email, :description,
+  attr_accessible :name, :email, :description
 
   validates :name,  presence: true
   validates :email, presence: true,
