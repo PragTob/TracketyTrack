@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20120305171449) do
     t.integer  "user_id"
     t.datetime "date"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20120305171449) do
     t.string   "title"
     t.text     "description"
     t.string   "repository_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "current_sprint_id"
   end
 
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20120305171449) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "velocity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.text     "description"
   end
 
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(:version => 20120305171449) do
     t.text     "acceptance_criteria"
     t.integer  "priority"
     t.integer  "estimation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.string   "status"
     t.integer  "sprint_id"
     t.integer  "work_effort"
@@ -84,8 +84,8 @@ ActiveRecord::Schema.define(:version => 20120305171449) do
     t.string   "name"
     t.string   "email"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "accepted"

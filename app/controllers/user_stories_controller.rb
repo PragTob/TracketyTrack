@@ -89,11 +89,7 @@ class UserStoriesController < ApplicationController
     @users = User.all
 
     if @user_story.update_attributes(params[:user_story])
-      @user_story.combine_work_effort params[:days].to_i,
-                                      params[:hours].to_i,
-                                      params[:minutes].to_i,
-                                      params[:seconds].to_i
-
+      @user_story.combine_work_effort Duration.new(params)
       redirect_to @user_story,
                   flash: {success: 'User Story was successfully updated.'}
     else
@@ -169,16 +165,16 @@ class UserStoriesController < ApplicationController
   end
 
   def add_user
-    user_story = UserStory.find(params[:id])
-    user_story.users << User.find(params[:user_id])
-    user_story.save
+    with_user_story_and_user(params) do |user_story, user|
+      user_story.users << user
+    end
     redirect_to current_sprint_path
   end
 
   def remove_user
-    user_story = UserStory.find(params[:id])
-    user_story.users.delete User.find(params[:user_id])
-    user_story.save
+    with_user_story_and_user(params) do |user_story, user|
+      user_story.users.delete user
+    end
     redirect_to current_sprint_path
   end
 
@@ -186,6 +182,14 @@ class UserStoriesController < ApplicationController
     user_story = UserStory.find(params[:id])
     render partial: 'details_page',
         locals: {user_story: user_story, management_allowed: false}
+  end
+  
+  private
+  def with_user_story_and_user(params, &block)
+    user_story = UserStory.find(params[:id])
+    user = User.find(params[:user_id])
+    yield user_story, user
+    user_story.save
   end
 
 end

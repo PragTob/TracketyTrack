@@ -207,7 +207,8 @@ describe UserStory do
 
     it "sets work effort from given days, hours, minutes, seconds" do
       @user_story.save
-      @user_story.combine_work_effort 0, 0, 0, 2
+      duration = Duration.new 2
+      @user_story.combine_work_effort duration
       UserStory.find(@user_story.id).work_effort.should eq 2
     end
 
