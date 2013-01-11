@@ -21,8 +21,8 @@ gem 'googlecharts'
 gem 'gravatar_image_tag'
 
 # JavaScript runtime environment
-gem 'therubyracer'
-
+gem 'libv8', :platforms => :ruby
+gem 'therubyracer', '~> 0.11.1'
 # Twitter bootstrap from anjlab
 gem 'anjlab-bootstrap-rails', '~> 1.4', :require => 'bootstrap-rails'
 
@@ -38,6 +38,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'sqlite3'
 end
 
 group :test do
