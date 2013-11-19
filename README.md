@@ -1,4 +1,4 @@
-## TracketyTrack [![Build Status](https://secure.travis-ci.org/PragTob/TracketyTrack.png)](http://travis-ci.org/PragTob/TracketyTrack) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/PragTob/TracketyTrack)
+## TracketyTrack [![Build Status](https://secure.travis-ci.org/PragTob/TracketyTrack.png)](http://travis-ci.org/PragTob/TracketyTrack) [![Code Climate](https://codeclimate.com/github/PragTob/TracketyTrack.png)](https://codeclimate.com/github/PragTob/TracketyTrack)
 TracketyTrack is a simple tool for keeping track of user stories and their status. It can particularly be used as tracker for small agile projects. One main feature is the support for PairProgramming. The name was inspired by [hacketyhack] (hackety-hack.com).
 
 It is designed with small teams (such as students working on a project) in mind that want to keep track of their progress but can not have a "real" storyboard with sticky notes etc. as students usually don't have an office. We want to allow to user to do as much as possible and not put too many restrictions on what is possible and what is not, since we don't want to build a tool that gets in the way of a user. For instance you may create a user story with just a name, if that is what you wish.
@@ -30,12 +30,16 @@ We would love to hear from you what you think about TracketyTrack and what we co
 ## Who has done this?
 This project started out as a student project at the Blekinge Institute of Technology (Sweden) by 4 exchange students from Germany and now we hope to maintain it as open source software and use it on our next own projects.
 
+## License
+This project is open source, as you can see. It is licensed under the [MIT license](http://www.opensource.org/licenses/MIT), which can also be found in the LICENSE file.
+
 ## Thanks
 Thanks to all the maintainers and contributors of all the software and infrastructure we use. You really made our lives a lot easier! Just to name a few:
 
 * Thanks to Matz & the ruby core team (and all committers) for Ruby. Also to all the maintainers of the alternative implementations.
 * Thanks to dhh for inventing Rails and making web development a lot easier. Of course also to everybody who has ever helped with rails.
 * Thanks to github for hosting our code and a good infrastructure including Issues and everything.
+* Thanks to intelliJ as they make a super cool IDEs and are so awesome that they gave us an open source license for RubyMine for TracketyTrack!
 * Thanks to TravisCI for being the most awesome, easiest continous integration tool out there!
 * Thanks to everybody working on rspec making testing easy and at the same time documenting our code.
 * Thanks to Jonas Nicklas for turnip and capybara helping with itnegration testing.
